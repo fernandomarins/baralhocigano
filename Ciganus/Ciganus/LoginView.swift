@@ -44,7 +44,7 @@ struct LoginView: View {
                     
                     if let error = viewModel.errorMessage {
                         Text(error)
-                            .foregroundColor(.red)
+                            .foregroundColor(.white)
                             .font(.caption)
                     }
                     
@@ -75,12 +75,11 @@ struct LoginView: View {
                     .foregroundColor(.white)
                     .padding(.top)
                     
-                    NavigationLink(destination: MainView(), isActive: $viewModel.didLogin) {
-                        EmptyView()
+                    .navigationDestination(isPresented: $viewModel.didLogin) {
+                        MainView()
                     }
-                    
-                    NavigationLink(destination: RegisterView(), isActive: $showRegister) {
-                        EmptyView()
+                    .navigationDestination(isPresented: $showRegister) {
+                        RegisterView()
                     }
                 }
                 .padding()

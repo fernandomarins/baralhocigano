@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import FirebaseAuth
 
 class RegisterViewModel: ObservableObject {
     @Published var email = ""
@@ -21,11 +20,13 @@ class RegisterViewModel: ObservableObject {
             return
         }
 
-        isLoading = true
-        errorMessage = nil
-
+        DispatchQueue.main.async {
+            self.isLoading = true
+            self.errorMessage = nil
+        }
+       
         do {
-            let _ = try await Auth.auth().createUser(withEmail: email, password: password)
+            try await AuthService.shared.register(email: email, password: password)
             DispatchQueue.main.async {
                 self.didRegister = true
             }

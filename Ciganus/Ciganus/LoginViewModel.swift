@@ -17,7 +17,9 @@ class LoginViewModel: ObservableObject {
 
     func login() async {
         guard !email.isEmpty, !password.isEmpty else {
-            errorMessage = "Preencha todos os campos"
+            DispatchQueue.main.async {
+                self.errorMessage = "Preencha todos os campos."
+            }
             return
         }
 
@@ -27,7 +29,7 @@ class LoginViewModel: ObservableObject {
         }
 
         do {
-            let _ = try await Auth.auth().signIn(withEmail: email, password: password)
+            try await AuthService.shared.login(email: email, password: password)
             DispatchQueue.main.async {
                 self.didLogin = true
             }

@@ -43,7 +43,7 @@ struct RegisterView: View {
                     
                     if let error = viewModel.errorMessage {
                         Text(error)
-                            .foregroundColor(.red)
+                            .foregroundColor(.white)
                             .font(.caption)
                     }
                     
@@ -70,9 +70,8 @@ struct RegisterView: View {
                 .padding()
                 .padding(.top, 100)
                 
-                // Navegação automática para MainView
-                NavigationLink(destination: MainView(), isActive: $viewModel.didRegister) {
-                    EmptyView()
+                .navigationDestination(isPresented: $viewModel.didRegister) {
+                    MainView()
                 }
             }
         }
