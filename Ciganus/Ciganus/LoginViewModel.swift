@@ -29,7 +29,7 @@ class LoginViewModel: ObservableObject {
         }
 
         do {
-            try await AuthService.shared.login(email: email, password: password)
+            try await Service.shared.login(email: email, password: password)
             DispatchQueue.main.async {
                 self.didLogin = true
             }
