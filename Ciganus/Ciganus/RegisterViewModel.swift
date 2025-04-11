@@ -26,7 +26,7 @@ class RegisterViewModel: ObservableObject {
         }
        
         do {
-            try await AuthService.shared.register(email: email, password: password)
+            try await Service.shared.register(email: email, password: password)
             DispatchQueue.main.async {
                 self.didRegister = true
             }

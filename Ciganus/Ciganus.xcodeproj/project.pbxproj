@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5531075A2DA878E8000C9430 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 553107592DA878E8000C9430 /* FirebaseAuth */; };
+		553107682DA88A0D000C9430 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 553107672DA88A0D000C9430 /* FirebaseDatabase */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				553107682DA88A0D000C9430 /* FirebaseDatabase in Frameworks */,
 				5531075A2DA878E8000C9430 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +120,7 @@
 			name = Ciganus;
 			packageProductDependencies = (
 				553107592DA878E8000C9430 /* FirebaseAuth */,
+				553107672DA88A0D000C9430 /* FirebaseDatabase */,
 			);
 			productName = Ciganus;
 			productReference = 553107272DA8776E000C9430 /* Ciganus.app */;
@@ -584,6 +587,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 553107542DA87801000C9430 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
+		};
+		553107672DA88A0D000C9430 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 553107542DA87801000C9430 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
