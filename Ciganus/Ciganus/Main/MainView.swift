@@ -98,6 +98,16 @@ struct MainView: View {
                         }
                         .padding(.leading, 20)
                         Spacer()
+                        NavigationLink(destination: DailyReadingView()) {
+                            Image(systemName: "plus.message")
+                                .font(.largeTitle)
+                                .foregroundColor(.black)
+                                .frame(width: 60, height: 60)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                                .shadow(radius: 4)
+                        }
+                        Spacer()
                         NavigationLink(destination: AllCardsView(allCards: viewModel.cards)) {
                             Image(systemName: "menucard.fill")
                                 .font(.largeTitle)
