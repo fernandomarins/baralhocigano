@@ -13,31 +13,42 @@ struct CardView: View {
     let fromAllCard: Bool
 
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                if fromAllCard {
-                    Text(card.name)
-                        .font(.title)
-                        .bold()
-                        .padding(.top)
+        ZStack {
+            LinearGradient(
+                gradient: Gradient(colors: [Color.purple, Color.indigo]),
+                startPoint: .topLeading,
+                endPoint: .bottomTrailing
+            )
+            .ignoresSafeArea()
+
+            ScrollView {
+                VStack(alignment: .leading, spacing: 16) {
+                    if fromAllCard {
+                        Text(card.name)
+                            .font(.title)
+                            .bold()
+                            .padding(.top)
+                            .foregroundColor(.white)
+                    }
+                    SectionView(title: "Palavras-chave", content: card.keywords)
+                    SectionView(title: "Significados gerais", content: card.generalMeanings)
+                    SectionView(title: "Influência Astrológica", content: card.astrologicalInfluence)
+                    SectionView(title: "Figura Arquétipica", content: card.archetypeFigure)
+                    SectionView(title: "Plano Espiritual", content: card.spiritualPlane)
+                    SectionView(title: "Plano Mental", content: card.mentalPlane)
+                    SectionView(title: "Plano Emocional", content: card.emotionalPlane)
+                    SectionView(title: "Plano Material", content: card.materialPlane)
+                    SectionView(title: "Plano Físico (doenças)", content: card.physicalPlane)
+                    SectionView(title: "Pontos Positivos", content: card.positivePoints)
+                    SectionView(title: "Pontos Negativos", content: card.negativePoints)
+                    SectionView(title: "Previsões para o Ano", content: card.yearPrediction)
+                    SectionView(title: "Tempo", content: card.time)
                 }
-                SectionView(title: "Palavras-chave", content: card.keywords)
-                SectionView(title: "Significados gerais", content: card.generalMeanings)
-                SectionView(title: "Influência Astrológica", content: card.astrologicalInfluence)
-                SectionView(title: "Figura Arquétipica", content: card.archetypeFigure)
-                SectionView(title: "Plano Espiritual", content: card.spiritualPlane)
-                SectionView(title: "Plano Mental", content: card.mentalPlane)
-                SectionView(title: "Plano Emocional", content: card.emotionalPlane)
-                SectionView(title: "Plano Material", content: card.materialPlane)
-                SectionView(title: "Plano Físico (doenças)", content: card.physicalPlane)
-                SectionView(title: "Pontos Positivos", content: card.positivePoints)
-                SectionView(title: "Pontos Negativos", content: card.negativePoints)
-                SectionView(title: "Previsões para o Ano", content: card.yearPrediction)
-                SectionView(title: "Tempo", content: card.time)
+                .padding()
             }
-            .padding()
+            .navigationTitle(card.name)
+            .navigationBarTitleDisplayMode(.large)
         }
-        .navigationTitle(card.name)
     }
 }
 
@@ -50,9 +61,10 @@ struct SectionView: View {
             Text(title)
                 .font(.title2)
                 .bold()
+                .foregroundColor(.white) // Garante que o título seja visível
             Text(content)
                 .font(.body)
-                .foregroundColor(.secondary)
+                .foregroundColor(.white.opacity(0.8)) // Texto um pouco transparente para melhor leitura
         }
     }
 }

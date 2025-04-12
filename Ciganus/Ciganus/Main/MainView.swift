@@ -83,14 +83,13 @@ struct MainView: View {
                 }
                 .navigationTitle("Cartas")
 
-                // Botão redondo no canto inferior direito (agora dentro do ZStack)
                 VStack {
                     Spacer()
                     HStack {
                         NavigationLink(destination: CombinedCardsView()) {
                             Image(systemName: "2.circle")
                                 .font(.largeTitle)
-                                .foregroundColor(.black)
+                                .foregroundColor(.purple)
                                 .frame(width: 60, height: 60)
                                 .background(Color.white)
                                 .clipShape(Circle())
@@ -101,7 +100,7 @@ struct MainView: View {
                         NavigationLink(destination: DailyReadingView()) {
                             Image(systemName: "plus.message")
                                 .font(.largeTitle)
-                                .foregroundColor(.black)
+                                .foregroundColor(.purple)
                                 .frame(width: 60, height: 60)
                                 .background(Color.white)
                                 .clipShape(Circle())
@@ -111,7 +110,7 @@ struct MainView: View {
                         NavigationLink(destination: AllCardsView(allCards: viewModel.cards)) {
                             Image(systemName: "menucard.fill")
                                 .font(.largeTitle)
-                                .foregroundColor(.black)
+                                .foregroundColor(.purple)
                                 .frame(width: 60, height: 60)
                                 .background(Color.white)
                                 .clipShape(Circle())
