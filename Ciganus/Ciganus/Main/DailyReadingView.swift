@@ -50,8 +50,11 @@ struct DailyReadingView: View {
                     } label: {
                         Image(systemName: "plus.circle.fill")
                             .font(.largeTitle)
-                            .foregroundColor(.white)
+                            .foregroundColor(.purple)
                             .frame(width: 60, height: 60)
+                            .background(Color.white)
+                            .clipShape(Circle())
+                            .shadow(radius: 4)
                     }
                     .padding(.bottom)
                 }
