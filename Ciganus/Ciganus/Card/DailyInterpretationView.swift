@@ -12,6 +12,19 @@ struct DailyInterpretationView: View {
     let readingType: ReadingType
     @State private var combinedCards: [CombinedCardModel] = []
     @State private var interpretations: [String] = Array(repeating: "", count: 3)
+    @State private var isExporting = false
+
+    var exportableText: String {
+        var text = "Interpretação da Leitura \(readingType.rawValue)\n\n"
+        for i in 0..<cards.chunked(by: 2).count {
+            if let group = cards.chunked(by: 2)[safe: i] {
+                let cardNames = group.map { "\($0.number) - \($0.name)" }.joined(separator: " e ")
+                text += "Cartas \(i * 2 + 1) e \(i * 2 + 2): \(cardNames)\n"
+                text += "\(interpretations[safe: i] ?? "Carregando interpretação...")\n\n"
+            }
+        }
+        return text
+    }
 
     var body: some View {
         NavigationView {
@@ -52,10 +65,32 @@ struct DailyInterpretationView: View {
                     Spacer()
                 }
                 .padding()
+
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Button {
+                            isExporting = true
+                        } label: {
+                            Image(systemName: "square.and.arrow.up.circle.fill")
+                                .font(.largeTitle)
+                                .foregroundColor(.purple)
+                                .frame(width: 60, height: 60)
+                                .background(Color.white)
+                                .clipShape(Circle())
+                                .shadow(radius: 4)
+                        }
+                        .padding()
+                    }
+                }
             }
-        }
-        .onAppear {
-            getCombinedCards()
+            .onAppear {
+                getCombinedCards()
+            }
+            .sheet(isPresented: $isExporting) {
+                ShareSheet(items: [exportableText])
+            }
         }
     }
 
@@ -95,6 +130,19 @@ struct DailyInterpretationView: View {
 extension Collection {
     subscript(safe index: Index) -> Element? {
         return indices.contains(index) ? self[index] : nil
+    }
+}
+
+struct ShareSheet: UIViewControllerRepresentable {
+    let items: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {
+        // No need to update
     }
 }
 
