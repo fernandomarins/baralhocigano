@@ -108,7 +108,7 @@ struct AddReadingView: View {
     @State private var isDaily = true
     @State private var isWeekly = false
     @State private var isMonthly = false
-    @State private var cardNumbers: [String] = Array(repeating: "", count: 6)
+    @State private var cardPairs: [[String]] = [["", ""], ["", ""], ["", ""]]
     @State private var showingCardNumberAlert = false
     @State private var alertMessage = ""
 
@@ -148,11 +148,34 @@ struct AddReadingView: View {
                 }
 
                 Section(header: Text("Número das Cartas")) {
-                    ForEach(0..<6) { index in
+                    ForEach(cardPairs.indices, id: \.self) { index in
                         HStack {
-                            Text("Carta \(index + 1):")
-                            TextField("Número", text: $cardNumbers[index])
+                            Text("Combinação \(index + 1):")
+                                .font(.footnote)
+                                .foregroundColor(.gray)
+                            TextField("Carta 1", text: $cardPairs[index][0])
                                 .keyboardType(.numberPad)
+                                .multilineTextAlignment(.center)
+                            TextField("Carta 2", text: $cardPairs[index][1])
+                                .keyboardType(.numberPad)
+                                .multilineTextAlignment(.center)
+                            if cardPairs.count > 1 {
+                                Button {
+                                    removeCardPair(at: index)
+                                } label: {
+                                    Image(systemName: "minus.circle.fill")
+                                        .foregroundColor(.red)
+                                }
+                            }
+                        }
+                    }
+                    Button {
+                        cardPairs.append(["", ""])
+                    } label: {
+                        HStack {
+                            Image(systemName: "plus.circle.fill")
+                                .foregroundColor(.green)
+                            Text("Adicionar Mais Cartas")
                         }
                     }
                 }
@@ -177,19 +200,24 @@ struct AddReadingView: View {
                             var validCards: [CardInfo] = []
                             var allValid = true
 
-                            for number in cardNumbers {
-                                if let name = Source.shared.nomesDasCartas[number] {
-                                    validCards.append(CardInfo(number: number, name: name))
-                                } else {
-                                    alertMessage = "Número de carta inválido: \(number). Por favor, verifique os números."
-                                    showingCardNumberAlert = true
-                                    allValid = false
+                            for pair in cardPairs {
+                                for number in pair {
+                                    if let name = Source.shared.nomesDasCartas[number] {
+                                        validCards.append(CardInfo(number: number, name: name))
+                                    } else if !number.isEmpty {
+                                        alertMessage = "Número de carta inválido: \(number). Por favor, verifique os números."
+                                        showingCardNumberAlert = true
+                                        allValid = false
+                                        break
+                                    }
+                                }
+                                if !allValid {
                                     break
                                 }
                             }
 
                             if allValid {
-                                let newReading = Reading(type: readingType, cards: validCards, date: Date())
+                                let newReading = Reading(type: readingType, cards: validCards.filter { !$0.number.isEmpty }, date: Date())
                                 onReadingAdded(newReading)
                                 dismiss()
                             }
@@ -207,12 +235,20 @@ struct AddReadingView: View {
     }
 
     func areCardNumbersValid() -> Bool {
-        for number in cardNumbers {
-            if number.isEmpty {
-                return false
+        for pair in cardPairs {
+            for number in pair {
+                if !number.isEmpty, Source.shared.nomesDasCartas[number] == nil {
+                    return false
+                }
             }
         }
         return true
+    }
+
+    func removeCardPair(at index: Int) {
+        if cardPairs.count > 1 {
+            cardPairs.remove(at: index)
+        }
     }
 }
 
@@ -237,6 +273,7 @@ struct CardInfo: Hashable {
 
 enum ReadingType: String, CaseIterable, Identifiable {
     var id: Self { self }
+    case client = "Cliente"
     case daily = "Diária"
     case weekly = "Semanal"
     case monthly = "Mensal"

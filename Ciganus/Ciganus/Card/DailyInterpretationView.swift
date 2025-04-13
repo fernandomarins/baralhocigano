@@ -61,7 +61,7 @@ struct DailyInterpretationView: View {
 
     func getCombinedCards() {
         do {
-            combinedCards = try CombinedCardsModel().getCombinedCards()
+            combinedCards = try CombinedCards().getCombinedCards()
             loadInterpretations()
         } catch {
             print("Erro ao carregar as cartas combinadas: \(error)")
