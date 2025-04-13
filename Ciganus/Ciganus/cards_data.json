@@ -28,7 +28,7 @@
     "description": "Perdas de origem kármica estão impedindo a concretização de algo. Também pode indicar alguma perda que está por vir. Necessidade de transmutar os padrões kármicos envolvidos na situação para remover as perdas do caminho."
   },
   {
-    "number": "Cavaleiro, Buquê",
+    "number": "Cavaleiro, Flores",
     "description": "Recompensas kármicas próximas a se materializarem. Merecimento trazendo recompensas kármicas e mudanças positivas na vida do atendido."
   },
   {
@@ -177,11 +177,11 @@
   },
   {
     "number": "Trevo, Chicote",
-    "description": "Bloqueios kármicos na área sexual ou da sexualidade. Impotência. Energia presa. Nada flui. Ciúme. Discórdia. Magia. Fraqueza física e mental."
+    "description": "Bloqueios kármicos na área sexual ou da sexualidade. Impotência. Energia presa. Nada flui. Ciúme. Discórdia. Magia. Fraqueza física e mental."
   },
   {
     "number": "Trevo, Pássaros",
-    "description": "Bloqueios de origem kármica. Rivalidades. Insegurança. Falta de análise. Conjecturas apressadas."
+    "description": "Bloqueios de origem kármica. Rivalidades. Insegurança. Falta de análise. Conjecturas apressadas."
   },
   {
     "number": "Trevo, Criança",
@@ -189,7 +189,7 @@
   },
   {
     "number": "Trevo, Raposa",
-    "description": "Atrasos de origem kármica gerando enganos, deslealdade, falsas promessas. Inércia, morosidade, apatia. Perda de tempo. Situações inesperadas provocadas por rivais e inimigas."
+    "description": "Atrasos de origem kármica gerando enganos, deslealdade, falsas promessas. Inércia, morosidade, apatia. Perda de tempo. Situações inesperadas provocadas por rivais e inimigas."
   },
   {
     "number": "Trevo, Urso",
@@ -1401,39 +1401,39 @@
   },
   {
     "number": "Chicote, Cavaleiro",
-    "description": "Materialização da cura/frequência/interferência."
+    "description": "Materialização da cura/frequência/interferência."
   },
   {
     "number": "Chicote, Trevo",
-    "description": "Necessita fazer uso da cura para afastar/transmutar padrões kármicos relativos a outras vidas."
+    "description": "Necessita fazer uso da cura para afastar/transmutar padrões kármicos relativos a outras vidas."
   },
   {
     "number": "Chicote, Navio",
-    "description": "Mudanças. Avanço para o desconhecido. Fertilidade. Poder de cura trazendo mudanças. Fluidez, movimento."
+    "description": "Mudanças. Avanço para o desconhecido. Fertilidade. Poder de cura trazendo mudanças. Fluidez, movimento."
   },
   {
     "number": "Chicote, Casa",
-    "description": "Necessita fazer uso da cura para casa familiar (familiares) ou profissional. Grande poder de cura. Magia poderosa que atua para proteger espaços."
+    "description": "Necessita fazer uso da cura para casa familiar (familiares) ou profissional. Grande poder de cura. Magia poderosa que atua para proteger espaços."
   },
   {
     "number": "Chicote, Árvore",
-    "description": "Necessita fazer uso da cura para atrair relacionamentos e curar padrões kármicos repetitivos."
+    "description": "Necessita fazer uso da cura para atrair relacionamentos e curar padrões kármicos repetitivos."
   },
   {
     "number": "Chicote, Nuvens",
-    "description": "Necessita fazer uso da cura para afastar interferências e turbulências relativas a esta vida e a vidas paralelas. Necessidade de curar padrões kármicos relativos a outras vidas para não sofrer interferências paralelas."
+    "description": "Necessita fazer uso da cura para afastar interferências e turbulências relativas a esta vida e a vidas paralelas. Necessidade de curar padrões kármicos relativos a outras vidas para não sofrer interferências paralelas."
   },
   {
     "number": "Chicote, Cobra",
-    "description": "Necessita fazer uso da cura para afastar rivais e inveja de origem kármica."
+    "description": "Necessita fazer uso da cura para afastar rivais e inveja de origem kármica."
   },
   {
     "number": "Chicote, Caixão",
-    "description": "Necessita fazer uso da cura para a área de estudos e para resgatar a sabedoria interior. Necessidade de curar padrões kármicos negativos para receber os merecimentos."
+    "description": "Necessita fazer uso da cura para a área de estudos e para resgatar a sabedoria interior. Necessidade de curar padrões kármicos negativos para receber os merecimentos."
   },
   {
     "number": "Chicote, Flores",
-    "description": "Energia positiva gerando grandes transformações. Também pode indicar o fim de algo ruim. Algo foi cortado."
+    "description": "Energia positiva gerando grandes transformações. Também pode indicar o fim de algo ruim. Algo foi cortado."
   },
   {
     "number": "Chicote, Foice",
@@ -1541,11 +1541,11 @@
   },
   {
     "number": "Pássaros, Cavaleiro",
-    "description": "Romances que se materializam trazendo satisfação. Projetos que se concretizam."
+    "description": "Romances que se materializam trazendo satisfação. Projetos que se concretizam."
   },
   {
     "number": "Pássaros, Trevo",
-    "description": "Interferências kármicas na afetividade. Rivalidade. Projetos que não se desenvolvem."
+    "description": "Interferências kármicas na afetividade. Rivalidade. Projetos que não se desenvolvem."
   },
   {
     "number": "Pássaros, Navio",
@@ -1553,7 +1553,7 @@
   },
   {
     "number": "Pássaros, Casa",
-    "description": "Romance ou projetos estáveis. Também pode indicar desejo de libertar-se do lar."
+    "description": "Romance ou projetos estáveis. Também pode indicar desejo de libertar-se do lar."
   },
   {
     "number": "Pássaros, Árvore",
@@ -1561,15 +1561,15 @@
   },
   {
     "number": "Pássaros, Nuvens",
-    "description": "Romance instável sujeito a turbulências, fofocas, interferências familiares. Romance passageiro. Falsas promessas. Projetos instáveis, sem alicerce."
+    "description": "Romance instável sujeito a turbulências, fofocas, interferências familiares. Romance passageiro. Falsas promessas. Projetos instáveis, sem alicerce."
   },
   {
     "number": "Pássaros, Cobra",
-    "description": "Possibilidade de falsidade e traição na área sentimental. Disputa."
+    "description": "Possibilidade de falsidade e traição na área sentimental. Disputa."
   },
   {
     "number": "Pássaros, Caixão",
-    "description": "Decepção amorosa. Pesar, coração ferido. Projetos trazendo grandes perdas."
+    "description": "Decepção amorosa. Pesar, coração ferido. Projetos trazendo grandes perdas."
   },
   {
     "number": "Pássaros, Flores",
@@ -2204,7 +2204,7 @@
     "description": "Carma de incompreensão e falsidade com relação a um homem."
   },
   {
-    "number": "Estrela, Mulher,
+    "number": "Estrela, Mulher",
     "description": "Carma de opressão, de infortúnio ou morte com uma mulher. Algo a resgatar com uma mulher."
   },
   {
@@ -2797,43 +2797,43 @@
   },
   {
     "number": "Montanha, Cavaleiro",
-    "description": "Uma realização pessoal que se materializa. Êxito. Culminação de algum projeto e abertura de novas possibilidades."
+    "description": "Uma realização pessoal que se materializa. Êxito. Culminação de algum projeto e abertura de novas possibilidades."
   },
   {
     "number": "Montanha, Trevo",
-    "description": "Bloqueios kámicos. Desafios a serem vencidos. Bloqueios em processo judicial, atrasos."
+    "description": "Bloqueios kámicos. Desafios a serem vencidos. Bloqueios em processo judicial, atrasos."
   },
   {
     "number": "Montanha, Navio",
-    "description": "Abertura de um novo começo. Expansão. Recompensa e realização longe do lugar onde mora. Possível mudança de instância judicial. Mudança de estado ou país."
+    "description": "Abertura de um novo começo. Expansão. Recompensa e realização longe do lugar onde mora. Possível mudança de instância judicial. Mudança de estado ou país."
   },
   {
     "number": "Montanha, Casa",
-    "description": "Concretização dos objetivos. Realização. Soluções de ordem material. Também pode indicar um desafio na área familiar."
+    "description": "Concretização dos objetivos. Realização. Soluções de ordem material. Também pode indicar um desafio na área familiar."
   },
   {
     "number": "Montanha, Árvore",
-    "description": "Desafios kármicos a área de relacionamentos. Adversidades trazendo turbulências, instabilidade. Aborrecimentos."
+    "description": "Desafios kármicos a área de relacionamentos. Adversidades trazendo turbulências, instabilidade. Aborrecimentos."
   },
   {
     "number": "Montanha, Nuvens",
-    "description": "Fortes inimigos ou rivais kármicos trazendo confusão, aborrecimentos. Também pode indicar problemas com a justiça."
+    "description": "Fortes inimigos ou rivais kármicos trazendo confusão, aborrecimentos. Também pode indicar problemas com a justiça."
   },
   {
     "number": "Montanha, Cobra",
-    "description": "Fortes inimigos ou rivais causando grandes perdas. Discórdias. Estancamento. Agressões sem sentido, gratuitas. Injustiças. Desafio kármico com relação a uma mulher."
+    "description": "Fortes inimigos ou rivais causando grandes perdas. Discórdias. Estancamento. Agressões sem sentido, gratuitas. Injustiças. Desafio kármico com relação a uma mulher."
   },
   {
     "number": "Montanha, Caixão",
-    "description": "Confronto com inimigos trazendo grandes perdas. Brigas sem sentido. Violência física. Perdas na justiça."
+    "description": "Confronto com inimigos trazendo grandes perdas. Brigas sem sentido. Violência física. Perdas na justiça."
   },
   {
     "number": "Montanha, Flores",
-    "description": "Profundidade de análise, sabedoria. Inteligência. Recompensas e metas realizadas. Contendas vencidas na área da justiça."
+    "description": "Profundidade de análise, sabedoria. Inteligência. Recompensas e metas realizadas. Contendas vencidas na área da justiça."
   },
   {
     "number": "Montanha, Foice",
-    "description": "Metamorfose. Fim de um ciclo e início de outro mais elevado. Fim de processo judicial."
+    "description": "Metamorfose. Fim de um ciclo e início de outro mais elevado. Fim de processo judicial."
   },
   {
     "number": "Montanha, Chicote",
@@ -2937,39 +2937,39 @@
   },
   {
     "number": "Caminho, Cavaleiro",
-    "description": "Uma nova fase se materializa. Metas realizadas. Objetivos alcançados."
+    "description": "Uma nova fase se materializa. Metas realizadas. Objetivos alcançados."
   },
   {
     "number": "Caminho, Trevo",
-    "description": "Bloqueios kármicos trazendo atrasos e demoras. Adiamentos."
+    "description": "Bloqueios kármicos trazendo atrasos e demoras. Adiamentos."
   },
   {
     "number": "Caminho, Navio",
-    "description": "Caminhos abertos trazendo mudanças, expansão, novos empreendimentos. Progresso real para a vida do atendido, tanto profissional quanto social. Realização pessoal."
+    "description": "Caminhos abertos trazendo mudanças, expansão, novos empreendimentos. Progresso real para a vida do atendido, tanto profissional quanto social. Realização pessoal."
   },
   {
     "number": "Caminho, Casa",
-    "description": "Nos caminhos uma decisão com relação à família, ou a casa profissional. Também pode indicar desocupação ou desapropriação de propriedade ou local de moradia."
+    "description": "Nos caminhos uma decisão com relação à família, ou a casa profissional. Também pode indicar desocupação ou desapropriação de propriedade ou local de moradia."
   },
   {
     "number": "Caminho, Árvore",
-    "description": "Prosperidade ao longo do caminho. Esforços recompensados. Muitos contatos, relacionamentos duradouros, novas experiências."
+    "description": "Prosperidade ao longo do caminho. Esforços recompensados. Muitos contatos, relacionamentos duradouros, novas experiências."
   },
   {
     "number": "Caminho, Nuvens",
-    "description": "Interferências de realidades paralelas advindas no caminho. Possibilidade de viver momentos de instabilidade emocional, infidelidade sentimental, dúvidas e incertezas. Insatisfação."
+    "description": "Interferências de realidades paralelas advindas no caminho. Possibilidade de viver momentos de instabilidade emocional, infidelidade sentimental, dúvidas e incertezas. Insatisfação."
   },
   {
     "number": "Caminho, Cobra",
-    "description": "No caminho a presença de uma rival causando ciúmes e inconstância. Possibilidade de traição e infidelidade. Também pode indicar uma mulher no caminho cujo motivo vai depender das cartas vizinhas."
+    "description": "No caminho a presença de uma rival causando ciúmes e inconstância. Possibilidade de traição e infidelidade. Também pode indicar uma mulher no caminho cujo motivo vai depender das cartas vizinhas."
   },
   {
     "number": "Caminho, Caixão",
-    "description": "No futuro próximo possibilidade de grandes perdas que poderá se evidenciar em alguma área ( física, emocional, familiar, financeira/profissional."
+    "description": "No futuro próximo possibilidade de grandes perdas que poderá se evidenciar em alguma área ( física, emocional, familiar, financeira/profissional."
   },
   {
     "number": "Caminho, Flores",
-    "description": "Grande aprendizado e conhecimento ao longo do caminho. Tomada de consciência de si mesmo e das outras pessoas. Recompensa kármica trazendo a felicidade."
+    "description": "Grande aprendizado e conhecimento ao longo do caminho. Tomada de consciência de si mesmo e das outras pessoas. Recompensa kármica trazendo a felicidade."
   },
   {
     "number": "Caminho, Foice",
@@ -3077,27 +3077,27 @@
   },
   {
     "number": "Rato, Cavaleiro",
-    "description": "Ataques e vampirismo de inimigos e rivais causando roubos de energia que interferem nas realizações.Momento tenso e desgastante. Deve ter cuidado com decisões precipitadas e excessos alimentares e de bebidas alcoólicas. Possibilidade de uma decepção amorosa ou familiar."
+    "description": "Ataques e vampirismo de inimigos e rivais causando roubos de energia que interferem nas realizações.Momento tenso e desgastante. Deve ter cuidado com decisões precipitadas e excessos alimentares e de bebidas alcoólicas. Possibilidade de uma decepção amorosa ou familiar."
   },
   {
     "number": "Rato, Trevo",
-    "description": "Roubos de energia, rivais causando bloqueios, entraves, dívidas, demoras. Ataques energéticos de origem kármica."
+    "description": "Roubos de energia, rivais causando bloqueios, entraves, dívidas, demoras. Ataques energéticos de origem kármica."
   },
   {
     "number": "Rato, Navio",
-    "description": "Desgastes, roubos de energia que interferem nas mudanças e/ou viagens.Desgastes na saúde causando desânimo, cansaço.Ataques energéticos causando aflição, desgosto, perigo de vida."
+    "description": "Desgastes, roubos de energia que interferem nas mudanças e/ou viagens.Desgastes na saúde causando desânimo, cansaço.Ataques energéticos causando aflição, desgosto, perigo de vida."
   },
   {
     "number": "Rato, Casa",
-    "description": "Desgastes, roubos de energia no lar, ou local de trabalho, causando instabilidade emocional, explosões de humor.Decepções na área familiar. Rivalidades."
+    "description": "Desgastes, roubos de energia no lar, ou local de trabalho, causando instabilidade emocional, explosões de humor.Decepções na área familiar. Rivalidades."
   },
   {
     "number": "Rato, Árvore",
-    "description": "Rivalidades na área de relacionamentos. Decepções."
+    "description": "Rivalidades na área de relacionamentos. Decepções."
   },
   {
     "number": "Rato, Nuvens",
-    "description": "Decepções no âmbito conjugal.Ataques de rivais trazendo intrigas e aborrecimentos. Ataques gerando abertura de vidas paralelas ou advindos das mesmas."
+    "description": "Decepções no âmbito conjugal.Ataques de rivais trazendo intrigas e aborrecimentos. Ataques gerando abertura de vidas paralelas ou advindos das mesmas."
   },
   {
     "number": "Rato, Cobra",
@@ -4197,39 +4197,39 @@
   },
   {
     "number": "Sol, Cavaleiro",
-    "description": "Êxito e sucesso que se materializam.Realização."
+    "description": "Êxito e sucesso que se materializam.Realização."
   },
   {
     "number": "Sol, Trevo",
-    "description": "Obstáculos de origem kármica, atrasos prejudicando a expansão, o progresso.Realização em longo prazo."
+    "description": "Obstáculos de origem kármica, atrasos prejudicando a expansão, o progresso.Realização em longo prazo."
   },
   {
     "number": "Sol, Navio",
-    "description": "Expansão. Desenvolvimento. Período de Fertilidade. Sucesso, expansão em outro lugar. Vitalidade na área da saúde."
+    "description": "Expansão. Desenvolvimento. Período de Fertilidade. Sucesso, expansão em outro lugar. Vitalidade na área da saúde."
   },
   {
     "number": "Sol, Casa",
-    "description": "Estabilidade e realização material.Também pode indicar a necessidade de expansão e crescimento no lar."
+    "description": "Estabilidade e realização material.Também pode indicar a necessidade de expansão e crescimento no lar."
   },
   {
     "number": "Sol, Árvore",
-    "description": "Progresso constante e seguro. Realização em longo prazo. Abertura e crescimento na área de relacionamentos."
+    "description": "Progresso constante e seguro. Realização em longo prazo. Abertura e crescimento na área de relacionamentos."
   },
   {
     "number": "Sol, Nuvens",
-    "description": "Interferências de origem karmica nas realizações. Discórdias familiares prejudicando o crescimento.Insatisfação. Dispersão. Tentações perigosas."
+    "description": "Interferências de origem karmica nas realizações. Discórdias familiares prejudicando o crescimento.Insatisfação. Dispersão. Tentações perigosas."
   },
   {
     "number": "Sol, Cobra",
-    "description": "Conquista trazendo ciúmes e rivalidades. Orgulho descontrole podendo levar ao fracasso."
+    "description": "Conquista trazendo ciúmes e rivalidades. Orgulho descontrole podendo levar ao fracasso."
   },
   {
     "number": "Sol, Caixão",
-    "description": "Várias atuando em padrões kármicos repetitivos. Estagnação. Retrocesso. Perda de crescimento, de expansão.Prejuízo. Punição. Separação."
+    "description": "Várias atuando em padrões kármicos repetitivos. Estagnação. Retrocesso. Perda de crescimento, de expansão.Prejuízo. Punição. Separação."
   },
   {
     "number": "Sol, Flores",
-    "description": "Crescimento e expansão através de estudos e pesquisas. Abertura e crescimento interior. Expansão trazendo merecimentos."
+    "description": "Crescimento e expansão através de estudos e pesquisas. Abertura e crescimento interior. Expansão trazendo merecimentos."
   },
   {
     "number": "Sol, Foice",
@@ -4337,15 +4337,15 @@
   },
   {
     "number": "Lua, Cavaleiro",
-    "description": "Depressão, ansiedade, apatia, influências maléficas. Afastamento. Materialização da espiritualidade inferior."
+    "description": "Depressão, ansiedade, apatia, influências maléficas. Afastamento. Materialização da espiritualidade inferior."
   },
   {
     "number": "Lua, Trevo",
-    "description": "A espiritualidade inferior mantendo padrões kármicos repetitivos de várias vidas. Presença de influencia da espiritualidade inferior trazendo afastamento e obstruções."
+    "description": "A espiritualidade inferior mantendo padrões kármicos repetitivos de várias vidas. Presença de influencia da espiritualidade inferior trazendo afastamento e obstruções."
   },
   {
     "number": "Lua, Navio",
-    "description": "Ataques físicos na área da saúde causados pela influencia da espiritualidade inferior. Também pode indicar afastamento para outro lugar causado por influência negativa. Despedida pesarosa."
+    "description": "Ataques físicos na área da saúde causados pela influencia da espiritualidade inferior. Também pode indicar afastamento para outro lugar causado por influência negativa. Despedida pesarosa."
   },
   {
     "number": "Lua, Casa",
@@ -4353,23 +4353,23 @@
   },
   {
     "number": "Lua, Árvore",
-    "description": "Afastamento de um relacionamento causado pela espiritualidade inferior. Falta de interesse em resolver a situação. A espiritualidade inferior trazendo afastamento de relacionamentos."
+    "description": "Afastamento de um relacionamento causado pela espiritualidade inferior. Falta de interesse em resolver a situação. A espiritualidade inferior trazendo afastamento de relacionamentos."
   },
   {
     "number": "Lua, Nuvens",
-    "description": "Interferências ocultas causando brigas e possibilidade de separação. Infidelidade. Indecisão sobre reconciliação."
+    "description": "Interferências ocultas causando brigas e possibilidade de separação. Infidelidade. Indecisão sobre reconciliação."
   },
   {
     "number": "Lua, Cobra",
-    "description": "Influências ocultas gerando discussões motivadas por ciúmes e rivalidades. Tempestades emocionais geradas por ciúmes e por influencia da espiritualidade inferior. Uma mulher ligada a espiritualidade inferior."
+    "description": "Influências ocultas gerando discussões motivadas por ciúmes e rivalidades. Tempestades emocionais geradas por ciúmes e por influencia da espiritualidade inferior. Uma mulher ligada a espiritualidade inferior."
   },
   {
     "number": "Lua, Caixão",
-    "description": "Influencia da espiritualidade inferior causando grandes perdas. Separação, rompimento. Partida. Saída de emprego."
+    "description": "Influencia da espiritualidade inferior causando grandes perdas. Separação, rompimento. Partida. Saída de emprego."
   },
   {
     "number": "Lua, Flores",
-    "description": "Amargura. Desmotivação. Depressão. Tristeza. Isolamento. Influencia da espiritualidade inferior roubando os merecimentos e recompensas."
+    "description": "Amargura. Desmotivação. Depressão. Tristeza. Isolamento. Influencia da espiritualidade inferior roubando os merecimentos e recompensas."
   },
   {
     "number": "Lua, Foice",
@@ -4477,27 +4477,27 @@
   },
   {
     "number": "Chave, Cavaleiro",
-    "description": "Solução que está preste a se materializar. Realização das aspirações."
+    "description": "Solução que está preste a se materializar. Realização das aspirações."
   },
   {
     "number": "Chave, Trevo",
-    "description": "Indica a necessidade de transmutar padrões kármicos negativos obstrutivos. Falta de empenho e ausência de ambição. Desmotivação."
+    "description": "Indica a necessidade de transmutar padrões kármicos negativos obstrutivos. Falta de empenho e ausência de ambição. Desmotivação."
   },
   {
     "number": "Chave, Navio",
-    "description": "Indica a necessidade de achar soluções, tomar decisões, para operar mudanças e fazer viagens. Também pode indicar uma decisão a tomar com relação a uma mudança ou viagem. Ou algo a resolver com relação á saúde."
+    "description": "Indica a necessidade de achar soluções, tomar decisões, para operar mudanças e fazer viagens. Também pode indicar uma decisão a tomar com relação a uma mudança ou viagem. Ou algo a resolver com relação á saúde."
   },
   {
     "number": "Chave, Casa",
-    "description": "Indica a necessidade de resolver algo com relação à casa familiar ou profissional."
+    "description": "Indica a necessidade de resolver algo com relação à casa familiar ou profissional."
   },
   {
     "number": "Chave, Árvore",
-    "description": "Necessita tomar decisões com relação a relacionamentos. Promessas muito envolventes e quase impossíveis de se cumprir. Excesso de fantasia."
+    "description": "Necessita tomar decisões com relação a relacionamentos. Promessas muito envolventes e quase impossíveis de se cumprir. Excesso de fantasia."
   },
   {
     "number": "Chave, Nuvens",
-    "description": "Necessita encontrar soluções, tomar decisões, para resolver as turbulências e interferências. Uma escolha a ser feita."
+    "description": "Necessita encontrar soluções, tomar decisões, para resolver as turbulências e interferências. Uma escolha a ser feita."
   },
   {
     "number": "Chave, Cobra",

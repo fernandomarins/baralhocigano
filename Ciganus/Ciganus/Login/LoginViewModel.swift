@@ -63,10 +63,8 @@ class LoginViewModel: ObservableObject {
             do {
                 let success = try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
                 if success {
-                    // Autenticação bem-sucedida
                     return true
                 } else {
-                    // Falha na autenticação (usuário cancelou, falhou muitas vezes, etc.)
                     return false
                 }
             } catch {
@@ -74,7 +72,6 @@ class LoginViewModel: ObservableObject {
                 return false
             }
         } else {
-            // Autenticação biométrica não disponível no dispositivo
             print("Autenticação biométrica não disponível.")
             return false
         }
