@@ -8,10 +8,10 @@
 import SwiftUI
 import FirebaseDatabase
 
-class MainViewModel: ObservableObject {
-    @Published var cards: [Card] = []
-    @Published var isLoading: Bool = false
-    @Published var errorMessage: String?
+@Observable class MainViewModel: ObservableObject {
+    var cards: [Card] = []
+    var isLoading: Bool = false
+    var errorMessage: String?
 
     func carregarCartas() {
         isLoading = true
