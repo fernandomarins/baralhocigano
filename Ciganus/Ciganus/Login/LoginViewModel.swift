@@ -9,12 +9,12 @@ import Foundation
 import FirebaseAuth
 import LocalAuthentication
 
-class LoginViewModel: ObservableObject {
-    @Published var email = ""
-    @Published var password = ""
-    @Published var isLoading = false
-    @Published var errorMessage: String?
-    @Published var didLogin = false
+@Observable class LoginViewModel: ObservableObject {
+    var email = ""
+    var password = ""
+    var isLoading = false
+    var errorMessage: String?
+    var didLogin = false
 
     func login() async {
         guard !email.isEmpty, !password.isEmpty else {

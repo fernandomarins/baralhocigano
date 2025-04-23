@@ -7,12 +7,12 @@
 
 import Foundation
 
-class RegisterViewModel: ObservableObject {
-    @Published var email = ""
-    @Published var password = ""
-    @Published var errorMessage: String?
-    @Published var isLoading = false
-    @Published var didRegister = false
+@Observable class RegisterViewModel: ObservableObject {
+    var email = ""
+    var password = ""
+    var errorMessage: String?
+    var isLoading = false
+    var didRegister = false
 
     func register() async {
         guard !email.isEmpty, !password.isEmpty else {

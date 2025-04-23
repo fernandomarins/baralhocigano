@@ -108,7 +108,8 @@ struct AddReadingView: View {
     @State private var isDaily = true
     @State private var isWeekly = false
     @State private var isMonthly = false
-    @State private var cardPairs: [[String]] = [["", ""], ["", ""], ["", ""]]
+    @State private var isClient = false
+    @State private var cardPairs: [[String]] = [["", ""]]
     @State private var showingCardNumberAlert = false
     @State private var alertMessage = ""
 
@@ -123,7 +124,8 @@ struct AddReadingView: View {
                             if newValue {
                                 isWeekly = false
                                 isMonthly = false
-                            } else if !isWeekly && !isMonthly {
+                                isClient = false
+                            } else if !isWeekly && !isMonthly && !isClient {
                                 isDaily = true
                             }
                         }
@@ -132,7 +134,8 @@ struct AddReadingView: View {
                             if newValue {
                                 isDaily = false
                                 isMonthly = false
-                            } else if !isDaily && !isMonthly {
+                                isClient = false
+                            } else if !isDaily && !isMonthly && !isClient {
                                 isWeekly = true
                             }
                         }
@@ -141,8 +144,19 @@ struct AddReadingView: View {
                             if newValue {
                                 isDaily = false
                                 isWeekly = false
-                            } else if !isDaily && !isWeekly {
+                                isClient = false
+                            } else if !isDaily && !isWeekly && !isClient {
                                 isMonthly = true
+                            }
+                        }
+                    Toggle("Cliente", isOn: $isClient)
+                        .onChange(of: isClient) { _, newValue in
+                            if newValue {
+                                isDaily = false
+                                isWeekly = false
+                                isMonthly = false
+                            } else if !isDaily && !isWeekly && !isMonthly {
+                                isClient = true
                             }
                         }
                 }
