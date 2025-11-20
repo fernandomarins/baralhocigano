@@ -20,18 +20,22 @@ class SyncService {
     private init() {}
     
     func checkAndSync(modelContext: ModelContext) async throws {
+        let repository = SwiftDataRepository<Card>(context: modelContext)
+        
         let remoteVersion = try await fetchRemoteVersion()
         let localVersion = defaults.integer(forKey: versionKey)
         
-        let descriptor = FetchDescriptor<Card>()
-        let localCount = try modelContext.fetchCount(descriptor)
+        let localCount = try repository.count()
         
         print("Versão Local: \(localVersion), Versão Remota: \(remoteVersion), Cartas Locais: \(localCount)")
         
         if remoteVersion > localVersion || localVersion == 0 || localCount == 0 {
             print("Iniciando sincronização...")
             let cards = try await fetchAllCards()
-            try await updateLocalDatabase(cards: cards, context: modelContext)
+            
+            try repository.deleteAll()
+            try repository.save(cards)
+            
             defaults.set(remoteVersion, forKey: versionKey)
             print("Sincronização concluída. Total de cartas: \(cards.count)")
         } else {
@@ -85,20 +89,5 @@ class SyncService {
         }
     }
     
-    private func updateLocalDatabase(cards: [Card], context: ModelContext) async throws {
-        // Limpar dados antigos
-        // Limpar dados antigos (Manual delete to avoid NSFetchRequest error with batch delete)
-        let descriptor = FetchDescriptor<Card>()
-        let existingCards = try context.fetch(descriptor)
-        for card in existingCards {
-            context.delete(card)
-        }
-        
-        // Salvar novos
-        for card in cards {
-            context.insert(card)
-        }
-        
-        try context.save()
-    }
+    // updateLocalDatabase removed as it is replaced by Repository usage
 }

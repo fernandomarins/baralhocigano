@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import SwiftData
 @testable import Ciganus
 
 @MainActor
@@ -13,11 +14,20 @@ final class MainViewModelTests: XCTestCase {
     
     var sut: MainViewModel!
     var mockService: MockCardService!
+    var container: ModelContainer!
     
     override func setUp() {
         super.setUp()
         mockService = MockCardService()
         sut = MainViewModel(service: mockService)
+        
+        do {
+            let config = ModelConfiguration(isStoredInMemoryOnly: true)
+            container = try ModelContainer(for: Card.self, configurations: config)
+            sut.setContext(container.mainContext)
+        } catch {
+            XCTFail("Failed to create in-memory container")
+        }
     }
     
     override func tearDown() {
@@ -26,35 +36,38 @@ final class MainViewModelTests: XCTestCase {
         super.tearDown()
     }
     
-    func testCarregarCartas_Success() async {
+    func testLoadData_Success_Local() {
         // Given
-        let mockCards = [
-            Card(number: "1", name: "Carta 1", keywords: "", generalMeanings: "", astrologicalInfluence: "", archetypeFigure: "", spiritualPlane: "", mentalPlane: "", emotionalPlane: "", materialPlane: "", physicalPlane: "", positivePoints: "", negativePoints: "", yearPrediction: "", time: ""),
-            Card(number: "2", name: "Carta 2", keywords: "", generalMeanings: "", astrologicalInfluence: "", archetypeFigure: "", spiritualPlane: "", mentalPlane: "", emotionalPlane: "", materialPlane: "", physicalPlane: "", positivePoints: "", negativePoints: "", yearPrediction: "", time: "")
-        ]
-        mockService.cardsToReturn = mockCards
-        mockService.shouldSucceed = true
+        let card1 = Card(number: "1", name: "Carta 1", keywords: "", generalMeanings: "", astrologicalInfluence: "", archetypeFigure: "", spiritualPlane: "", mentalPlane: "", emotionalPlane: "", materialPlane: "", physicalPlane: "", positivePoints: "", negativePoints: "", yearPrediction: "", time: "")
+        let card2 = Card(number: "2", name: "Carta 2", keywords: "", generalMeanings: "", astrologicalInfluence: "", archetypeFigure: "", spiritualPlane: "", mentalPlane: "", emotionalPlane: "", materialPlane: "", physicalPlane: "", positivePoints: "", negativePoints: "", yearPrediction: "", time: "")
+        
+        let context = container.mainContext
+        context.insert(card1)
+        context.insert(card2)
         
         // When
-        await sut.carregarCartas()
+        sut.loadData()
         
         // Then
-        XCTAssertEqual(sut.cards.count, 2)
-        XCTAssertNil(sut.errorMessage)
-        XCTAssertFalse(sut.isLoading)
+        if case .success(let cards) = sut.state {
+            XCTAssertEqual(cards.count, 2)
+        } else {
+            XCTFail("State should be success")
+        }
     }
     
-    func testCarregarCartas_Failure() async {
+    func testLoadData_Empty_Loading() {
         // Given
-        mockService.shouldSucceed = false
-        mockService.errorToThrow = AppError.custom("Erro de conexão")
+        // No data in context
         
         // When
-        await sut.carregarCartas()
+        sut.loadData()
         
         // Then
-        XCTAssertTrue(sut.cards.isEmpty)
-        XCTAssertEqual(sut.errorMessage, "Erro ao carregar cartas: Erro de conexão")
-        XCTAssertFalse(sut.isLoading)
+        if case .loading = sut.state {
+            XCTAssertTrue(true)
+        } else {
+            XCTFail("State should be loading when DB is empty")
+        }
     }
 }
