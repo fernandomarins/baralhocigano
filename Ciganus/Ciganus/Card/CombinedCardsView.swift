@@ -43,7 +43,7 @@ struct CombinedCardsView: View {
                 HStack(spacing: 16) {
                     VStack {
                         TextField("Número 1", text: $cardNumber1)
-                            .keyboardType(.numberPad)
+//                            .keyboardType(.numberPad)
                             .padding()
                             .background(Color.white.opacity(0.2))
                             .cornerRadius(10)
@@ -58,7 +58,7 @@ struct CombinedCardsView: View {
                     }
                     VStack {
                         TextField("Número 2", text: $cardNumber2)
-                            .keyboardType(.numberPad)
+//                            .keyboardType(.numberPad)
                             .padding()
                             .background(Color.white.opacity(0.2))
                             .cornerRadius(10)

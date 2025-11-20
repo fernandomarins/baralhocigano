@@ -16,8 +16,7 @@ struct DailyReadingView: View {
     @State private var showingInterpretationView = false
 
     var body: some View {
-        NavigationView {
-            ZStack {
+        ZStack {
                 LinearGradient(
                     gradient: Gradient(colors: [Color.purple, Color.indigo]),
                     startPoint: .topLeading,
@@ -66,7 +65,6 @@ struct DailyReadingView: View {
                     })
                 }
             }
-        }
     }
 
     func deleteReading(at offsets: IndexSet) {
