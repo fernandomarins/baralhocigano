@@ -12,17 +12,17 @@ import XCTest
 final class RegisterViewModelTests: XCTestCase {
     
     var sut: RegisterViewModel!
-    var mockService: MockAuthService!
+    var mockUseCase: MockRegisterUseCase!
     
     override func setUp() {
         super.setUp()
-        mockService = MockAuthService()
-        sut = RegisterViewModel(service: mockService)
+        mockUseCase = MockRegisterUseCase()
+        sut = RegisterViewModel(registerUseCase: mockUseCase)
     }
     
     override func tearDown() {
         sut = nil
-        mockService = nil
+        mockUseCase = nil
         super.tearDown()
     }
     
@@ -30,7 +30,7 @@ final class RegisterViewModelTests: XCTestCase {
         // Given
         sut.email = "new@example.com"
         sut.password = "password123"
-        mockService.shouldSucceed = true
+        mockUseCase.shouldSucceed = true
         
         // When
         await sut.register()
@@ -45,8 +45,8 @@ final class RegisterViewModelTests: XCTestCase {
         // Given
         sut.email = "new@example.com"
         sut.password = "password123"
-        mockService.shouldSucceed = false
-        mockService.errorToThrow = AppError.custom("Erro ao registrar")
+        mockUseCase.shouldSucceed = false
+        mockUseCase.errorToThrow = AppError.custom("Erro ao registrar")
         
         // When
         await sut.register()

@@ -15,15 +15,11 @@ struct DailyInterpretationView: View {
     @State private var isExporting = false
 
     var exportableText: String {
-        var text = "Interpretação da Leitura \(readingType.rawValue)\n\n"
-        for i in 0..<cards.chunked(by: 2).count {
-            if let group = cards.chunked(by: 2)[safe: i] {
-                let cardNames = group.map { "\($0.number) - \($0.name)" }.joined(separator: " e ")
-                text += "Cartas \(i * 2 + 1) e \(i * 2 + 2): \(cardNames)\n"
-                text += "\(interpretations[safe: i] ?? "Carregando interpretação...")\n\n"
-            }
-        }
-        return text
+        "Interpretação da Leitura \(readingType.rawValue)\n\n" +
+        cards.chunked(by: 2).enumerated().map { i, group in
+            let names = group.map { "\($0.number) - \($0.name)" }.joined(separator: " e ")
+            return "Cartas \(i * 2 + 1) e \(i * 2 + 2): \(names)\n\(interpretations[safe: i] ?? "Carregando interpretação...")\n\n"
+        }.joined()
     }
 
     var body: some View {
@@ -105,25 +101,19 @@ struct DailyInterpretationView: View {
     }
 
     func loadInterpretations() {
-        for i in 0..<3 {
-            if let group = cards.chunked(by: 2)[safe: i] {
-                let cardNames = group.map { $0.name }.joined(separator: ", ")
-
-                if let foundCard = combinedCards.first(where: {
-                    return $0.number.lowercased() == cardNames.lowercased()
-                }) {
-                    DispatchQueue.main.async {
-                        interpretations[i] = foundCard.description
-                        print("Descrição para \(cardNames): \(foundCard.description)")
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        interpretations[i] = "Combinação não encontrada para: \(cardNames)"
-                        print("Combinação não encontrada para: \(cardNames)")
-                    }
-                }
+        interpretations = cards
+            .chunked(by: 2)
+            .prefix(3)
+            .enumerated()
+            .map { index, group in
+                let cardNames = group.map(\.name).joined(separator: ", ")
+                let interpretation = combinedCards
+                    .first { $0.number.lowercased() == cardNames.lowercased() }?
+                    .description ?? "Combinação não encontrada para: \(cardNames)"
+                
+                print("[\(index)] \(cardNames): \(interpretation)")
+                return interpretation
             }
-        }
     }
 }
 
