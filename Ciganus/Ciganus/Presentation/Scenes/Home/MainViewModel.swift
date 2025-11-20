@@ -12,13 +12,13 @@ import SwiftData
 
 @MainActor
 class MainViewModel: ObservableObject {
-    private let service: CardServicing
+    private let fetchCardsUseCase: FetchCardsUseCaseProtocol
     private var modelContext: ModelContext?
     
     @Published var state: ViewState<[Card]> = .idle
 
-    init(service: CardServicing = CardService.shared) {
-        self.service = service
+    init(fetchCardsUseCase: FetchCardsUseCaseProtocol = DependencyContainer.shared.fetchCardsUseCase) {
+        self.fetchCardsUseCase = fetchCardsUseCase
     }
     
     func setContext(_ context: ModelContext) {
@@ -56,9 +56,8 @@ class MainViewModel: ObservableObject {
         guard let context = modelContext else { return }
         
         do {
-            try await service.sync(modelContext: context)
-            // Recarregar após sync
-            let newCards = try repository.fetchAll().sorted(by: { $0.number < $1.number })
+            // UseCase handles sync and fetch
+            let newCards = try await fetchCardsUseCase.execute(context: context)
             self.state = .success(newCards)
         } catch {
             print("Erro na sincronização: \(error)")

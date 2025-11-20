@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 @Observable class RegisterViewModel: ObservableObject {
-    private let service: AuthServicing
+    private let registerUseCase: RegisterUseCaseProtocol
     
     var email = ""
     var password = ""
@@ -17,8 +17,8 @@ import Foundation
     var isLoading = false
     var didRegister = false
 
-    init(service: AuthServicing = AuthService.shared) {
-        self.service = service
+    init(registerUseCase: RegisterUseCaseProtocol = DependencyContainer.shared.registerUseCase) {
+        self.registerUseCase = registerUseCase
     }
 
     func register() async {
@@ -38,7 +38,7 @@ import Foundation
         defer { isLoading = false }
        
         do {
-            try await service.register(email: email, password: password)
+            try await registerUseCase.execute(email: email, password: password)
             didRegister = true
         } catch {
             errorMessage = error.localizedDescription
