@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import SwiftData
 @testable import Ciganus
 
 class MockAuthService: AuthServicing {
@@ -42,10 +43,16 @@ class MockCardService: CardServicing {
     var errorToThrow: Error?
     var cardsToReturn: [Card] = []
     
-    func fetchCartasTyped() async throws -> [Card] {
+    func fetchCartas() async throws -> [Card] {
         if !shouldSucceed {
             throw errorToThrow ?? AppError.unknown(NSError(domain: "Mock", code: -1))
         }
         return cardsToReturn
+    }
+    
+    func sync(modelContext: ModelContext) async throws {
+        if !shouldSucceed {
+            throw errorToThrow ?? AppError.unknown(NSError(domain: "Mock", code: -1))
+        }
     }
 }

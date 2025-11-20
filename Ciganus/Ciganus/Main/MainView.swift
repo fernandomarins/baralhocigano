@@ -24,30 +24,29 @@ struct MainView: View {
             AppBackground()
 
                 Group {
-                    if viewModel.isLoading {
+                    switch viewModel.state {
+                    case .loading:
                         VStack {
                             Spacer()
                             ProgressView("Carregando cartas...")
                                 .progressViewStyle(CircularProgressViewStyle())
                             Spacer()
                         }
-                    } else if let error = viewModel.errorMessage {
+                    case .error(let message):
                         VStack(spacing: 16) {
-                            Text(error)
+                            Text(message)
                                 .foregroundColor(.red)
                                 .multilineTextAlignment(.center)
                             Button("Tentar novamente") {
-                                Task {
-                                    await viewModel.carregarCartas()
-                                }
+                                viewModel.loadData()
                             }
                         }
                         .padding()
-                    } else {
+                    case .success(let cards):
                         ScrollView {
                             LazyVGrid(columns: columns, spacing: 16) {
-                                ForEach(viewModel.cards.indices, id: \.self) { index in
-                                    let card = viewModel.cards[index]
+                                ForEach(cards.indices, id: \.self) { index in
+                                    let card = cards[index]
 
                                     Button(action: {
                                         coordinator.push(.cardDetails(card, false))
@@ -73,6 +72,8 @@ struct MainView: View {
                             }
                             .padding()
                         }
+                    case .idle:
+                        EmptyView()
                     }
                 }
                 .navigationTitle("Cartas")
@@ -106,7 +107,9 @@ struct MainView: View {
                         }
                         Spacer()
                         Button(action: {
-                            coordinator.push(.allCards(viewModel.cards))
+                            if let cards = viewModel.state.value {
+                                coordinator.push(.allCards(cards))
+                            }
                         }) {
                             Image(systemName: "menucard.fill")
                                 .font(.largeTitle)
