@@ -14,12 +14,7 @@ struct CardView: View {
 
     var body: some View {
         ZStack {
-            LinearGradient(
-                gradient: Gradient(colors: [Color.purple, Color.indigo]),
-                startPoint: .topLeading,
-                endPoint: .bottomTrailing
-            )
-            .ignoresSafeArea()
+            AppBackground()
 
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {

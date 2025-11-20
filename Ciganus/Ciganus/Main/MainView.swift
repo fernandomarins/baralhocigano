@@ -9,29 +9,19 @@ import SwiftUI
 
 struct MainView: View {
     @StateObject private var viewModel = MainViewModel()
+    @EnvironmentObject var coordinator: AppCoordinator
+    @Environment(\.modelContext) private var modelContext
 
     private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
 
-    private let mysticPastelColors: [Color] = [
-        Color(red: 0.80, green: 0.60, blue: 0.80), // Roxo pastel
-        Color(red: 0.68, green: 0.85, blue: 0.90), // Azul pastel suave
-        Color(red: 0.86, green: 0.82, blue: 0.95), // Lilás pastel
-        Color(red: 0.78, green: 0.71, blue: 0.92), // Lavanda suave
-        Color(red: 0.64, green: 0.64, blue: 0.86)  // Azul arroxeado pastel
-    ]
+    private let mysticPastelColors = AppColors.mysticPastels
 
     var body: some View {
-        NavigationView {
-            ZStack {
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.purple, Color.indigo]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+        ZStack {
+            AppBackground()
 
                 Group {
                     if viewModel.isLoading {
@@ -47,7 +37,9 @@ struct MainView: View {
                                 .foregroundColor(.red)
                                 .multilineTextAlignment(.center)
                             Button("Tentar novamente") {
-                                viewModel.carregarCartas()
+                                Task {
+                                    await viewModel.carregarCartas()
+                                }
                             }
                         }
                         .padding()
@@ -57,7 +49,9 @@ struct MainView: View {
                                 ForEach(viewModel.cards.indices, id: \.self) { index in
                                     let card = viewModel.cards[index]
 
-                                    NavigationLink(destination: CardView(card: card, fromAllCard: false)) {
+                                    Button(action: {
+                                        coordinator.push(.cardDetails(card, false))
+                                    }) {
                                         VStack(alignment: .leading, spacing: 8) {
                                             Text("#\(index + 1)")
                                                 .font(.caption)
@@ -86,7 +80,9 @@ struct MainView: View {
                 VStack {
                     Spacer()
                     HStack {
-                        NavigationLink(destination: CombinedCardsView()) {
+                        Button(action: {
+                            coordinator.push(.combinedCards)
+                        }) {
                             Image(systemName: "2.circle")
                                 .font(.largeTitle)
                                 .foregroundColor(.purple)
@@ -97,7 +93,9 @@ struct MainView: View {
                         }
                         .padding(.leading, 20)
                         Spacer()
-                        NavigationLink(destination: DailyReadingView()) {
+                        Button(action: {
+                            coordinator.push(.dailyReading)
+                        }) {
                             Image(systemName: "plus.message")
                                 .font(.largeTitle)
                                 .foregroundColor(.purple)
@@ -107,7 +105,9 @@ struct MainView: View {
                                 .shadow(radius: 4)
                         }
                         Spacer()
-                        NavigationLink(destination: AllCardsView(allCards: viewModel.cards)) {
+                        Button(action: {
+                            coordinator.push(.allCards(viewModel.cards))
+                        }) {
                             Image(systemName: "menucard.fill")
                                 .font(.largeTitle)
                                 .foregroundColor(.purple)
@@ -119,11 +119,11 @@ struct MainView: View {
                         .padding(.trailing, 20)
                     }
                     .padding(.bottom, 20)
-                }
-            }
+                    }
         }
         .onAppear {
-            viewModel.carregarCartas()
+            viewModel.setContext(modelContext)
+            viewModel.loadData()
         }
     }
 }

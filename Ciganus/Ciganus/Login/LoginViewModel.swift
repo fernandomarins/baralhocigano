@@ -9,47 +9,47 @@ import Foundation
 import FirebaseAuth
 import LocalAuthentication
 
+@MainActor
 @Observable class LoginViewModel: ObservableObject {
+    private let service: AuthServicing
+    
     var email = ""
     var password = ""
     var isLoading = false
     var errorMessage: String?
     var didLogin = false
 
+    init(service: AuthServicing = AuthService.shared) {
+        self.service = service
+    }
+
     func login() async {
-        guard !email.isEmpty, !password.isEmpty else {
-            DispatchQueue.main.async {
-                self.errorMessage = "Preencha todos os campos."
-            }
+        guard Validator.isValidEmail(email) else {
+            self.errorMessage = "Email inválido."
+            return
+        }
+        
+        guard !password.isEmpty else {
+            self.errorMessage = "Preencha a senha."
             return
         }
 
-        DispatchQueue.main.async {
-            self.isLoading = true
-            self.errorMessage = nil
-        }
+        isLoading = true
+        errorMessage = nil
+        
+        defer { isLoading = false }
 
         do {
-            try await Service.shared.login(email: email, password: password)
-            DispatchQueue.main.async {
-                self.didLogin = true
-            }
+            try await service.login(email: email, password: password)
+            didLogin = true
         } catch {
-            DispatchQueue.main.async {
-                self.errorMessage = error.localizedDescription
-            }
-        }
-
-        DispatchQueue.main.async {
-            self.isLoading = false
+            errorMessage = error.localizedDescription
         }
     }
     
     func checkLoginStatus() async {
-        if Service.shared.getCurrentUser() != nil {
-            DispatchQueue.main.async {
-                self.didLogin = true
-            }
+        if service.getCurrentUser() != nil {
+            didLogin = true
         }
     }
     
