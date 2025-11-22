@@ -23,15 +23,29 @@ jobs:
     - name: Exibir versão do Xcode
       run: xcodebuild -version
       
+    - name: Listar simuladores disponíveis
+      run: xcrun simctl list devices available
+
     - name: Executar testes unitários
       run: |
         cd Ciganus
         xcodebuild test \
           -project Ciganus.xcodeproj \
           -scheme Ciganus \
-          -destination 'platform=iOS Simulator,name=iPhone 16' \
+          -destination 'platform=iOS Simulator,name=iPhone 15' \
           -enableCodeCoverage YES
       continue-on-error: false
+      
+    - name: Executar testes de UI
+      run: |
+        cd Ciganus
+        xcodebuild test \
+          -project Ciganus.xcodeproj \
+          -scheme Ciganus \
+          -destination 'platform=iOS Simulator,name=iPhone 15' \
+          -only-testing:CiganusUITests \
+          | xcpretty --test --color
+      continue-on-error: true
       
     - name: Gerar relatório de cobertura
       if: success()
