@@ -12,17 +12,20 @@ import XCTest
 final class LoginViewModelTests: XCTestCase {
     
     var sut: LoginViewModel!
-    var mockService: MockAuthService!
+    var mockUseCase: MockLoginUseCase!
+    var mockRepo: MockAuthRepository!
     
     override func setUp() {
         super.setUp()
-        mockService = MockAuthService()
-        sut = LoginViewModel(service: mockService)
+        mockUseCase = MockLoginUseCase()
+        mockRepo = MockAuthRepository()
+        sut = LoginViewModel(loginUseCase: mockUseCase, authRepository: mockRepo)
     }
     
     override func tearDown() {
         sut = nil
-        mockService = nil
+        mockUseCase = nil
+        mockRepo = nil
         super.tearDown()
     }
     
@@ -30,7 +33,7 @@ final class LoginViewModelTests: XCTestCase {
         // Given
         sut.email = "test@example.com"
         sut.password = "password123"
-        mockService.shouldSucceed = true
+        mockUseCase.shouldSucceed = true
         
         // When
         await sut.login()
@@ -45,8 +48,8 @@ final class LoginViewModelTests: XCTestCase {
         // Given
         sut.email = "test@example.com"
         sut.password = "password123"
-        mockService.shouldSucceed = false
-        mockService.errorToThrow = AppError.invalidCredentials
+        mockUseCase.shouldSucceed = false
+        mockUseCase.errorToThrow = AppError.invalidCredentials
         
         // When
         await sut.login()

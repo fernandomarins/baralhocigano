@@ -13,13 +13,13 @@ import SwiftData
 final class MainViewModelTests: XCTestCase {
     
     var sut: MainViewModel!
-    var mockService: MockCardService!
+    var mockUseCase: MockFetchCardsUseCase!
     var container: ModelContainer!
     
     override func setUp() {
         super.setUp()
-        mockService = MockCardService()
-        sut = MainViewModel(service: mockService)
+        mockUseCase = MockFetchCardsUseCase()
+        sut = MainViewModel(fetchCardsUseCase: mockUseCase)
         
         do {
             let config = ModelConfiguration(isStoredInMemoryOnly: true)
@@ -32,7 +32,7 @@ final class MainViewModelTests: XCTestCase {
     
     override func tearDown() {
         sut = nil
-        mockService = nil
+        mockUseCase = nil
         super.tearDown()
     }
     

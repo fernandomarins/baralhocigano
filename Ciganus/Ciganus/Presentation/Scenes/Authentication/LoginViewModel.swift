@@ -11,7 +11,8 @@ import LocalAuthentication
 
 @MainActor
 @Observable class LoginViewModel: ObservableObject {
-    private let service: AuthServicing
+    private let loginUseCase: LoginUseCaseProtocol
+    private let authRepository: AuthRepositoryProtocol // For checkLoginStatus/FaceID which might need direct repo access or separate UseCase
     
     var email = ""
     var password = ""
@@ -19,8 +20,10 @@ import LocalAuthentication
     var errorMessage: String?
     var didLogin = false
 
-    init(service: AuthServicing = AuthService.shared) {
-        self.service = service
+    init(loginUseCase: LoginUseCaseProtocol = DependencyContainer.shared.loginUseCase,
+         authRepository: AuthRepositoryProtocol = DependencyContainer.shared.authRepository) {
+        self.loginUseCase = loginUseCase
+        self.authRepository = authRepository
     }
 
     func login() async {
@@ -40,7 +43,7 @@ import LocalAuthentication
         defer { isLoading = false }
 
         do {
-            try await service.login(email: email, password: password)
+            try await loginUseCase.execute(email: email, password: password)
             didLogin = true
         } catch {
             errorMessage = error.localizedDescription
@@ -48,7 +51,7 @@ import LocalAuthentication
     }
     
     func checkLoginStatus() async {
-        if service.getCurrentUser() != nil {
+        if authRepository.getCurrentUser() != nil {
             didLogin = true
         }
     }

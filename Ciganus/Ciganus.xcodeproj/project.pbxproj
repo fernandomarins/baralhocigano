@@ -43,13 +43,6 @@
 			remoteGlobalIDString = 553107262DA8776E000C9430;
 			remoteInfo = Ciganus;
 		};
-		553107422DA8776F000C9430 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5531071F2DA8776E000C9430 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 553107262DA8776E000C9430;
-			remoteInfo = Ciganus;
-		};
 		5571DCFD2DB8892000700193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5531071F2DA8776E000C9430 /* Project object */;
@@ -86,7 +79,6 @@
 		5510C3732DADD8A600C1242E /* CiganusWatch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CiganusWatch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		553107272DA8776E000C9430 /* Ciganus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ciganus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		553107372DA8776F000C9430 /* CiganusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CiganusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		553107412DA8776F000C9430 /* CiganusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CiganusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5571DCEC2DB8891F00700193 /* CiganusAppBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CiganusAppBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5571DCFC2DB8892000700193 /* CiganusAppBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CiganusAppBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5571DD062DB8892000700193 /* CiganusAppBarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CiganusAppBarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,14 +97,11 @@
 		5571DD182DB88B3E00700193 /* Exceptions for "Ciganus" folder in "CiganusAppBar" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Card/CombinedCardsView.swift,
 				cards_data.json,
 				"GoogleService-Info.plist",
-				Login/LoginViewModel.swift,
 				Main/Source.swift,
 				Model/Card.swift,
 				Model/CombinedCardModel.swift,
-				Register/RegisterViewModel.swift,
 			);
 			target = 5571DCEB2DB8891F00700193 /* CiganusAppBar */;
 		};
@@ -193,13 +182,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5531073E2DA8776F000C9430 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5571DCE92DB8891F00700193 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -244,7 +226,6 @@
 			children = (
 				553107272DA8776E000C9430 /* Ciganus.app */,
 				553107372DA8776F000C9430 /* CiganusTests.xctest */,
-				553107412DA8776F000C9430 /* CiganusUITests.xctest */,
 				5510C35A2DADD8A500C1242E /* CiganusWatch Watch App.app */,
 				5510C3692DADD8A600C1242E /* CiganusWatch Watch AppTests.xctest */,
 				5510C3732DADD8A600C1242E /* CiganusWatch Watch AppUITests.xctest */,
@@ -375,29 +356,6 @@
 			productReference = 553107372DA8776F000C9430 /* CiganusTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		553107402DA8776F000C9430 /* CiganusUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 553107512DA8776F000C9430 /* Build configuration list for PBXNativeTarget "CiganusUITests" */;
-			buildPhases = (
-				5531073D2DA8776F000C9430 /* Sources */,
-				5531073E2DA8776F000C9430 /* Frameworks */,
-				5531073F2DA8776F000C9430 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				553107432DA8776F000C9430 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				553107442DA8776F000C9430 /* CiganusUITests */,
-			);
-			name = CiganusUITests;
-			packageProductDependencies = (
-			);
-			productName = CiganusUITests;
-			productReference = 553107412DA8776F000C9430 /* CiganusUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		5571DCEB2DB8891F00700193 /* CiganusAppBar */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5571DD142DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBar" */;
@@ -487,10 +445,6 @@
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 553107262DA8776E000C9430;
 					};
-					553107402DA8776F000C9430 = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 553107262DA8776E000C9430;
-					};
 					5571DCEB2DB8891F00700193 = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -523,7 +477,6 @@
 			targets = (
 				553107262DA8776E000C9430 /* Ciganus */,
 				553107362DA8776F000C9430 /* CiganusTests */,
-				553107402DA8776F000C9430 /* CiganusUITests */,
 				5510C3592DADD8A500C1242E /* CiganusWatch Watch App */,
 				5510C3682DADD8A600C1242E /* CiganusWatch Watch AppTests */,
 				5510C3722DADD8A600C1242E /* CiganusWatch Watch AppUITests */,
@@ -564,13 +517,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		553107352DA8776F000C9430 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5531073F2DA8776F000C9430 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -636,13 +582,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5531073D2DA8776F000C9430 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		5571DCE82DB8891F00700193 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -686,11 +625,6 @@
 			isa = PBXTargetDependency;
 			target = 553107262DA8776E000C9430 /* Ciganus */;
 			targetProxy = 553107382DA8776F000C9430 /* PBXContainerItemProxy */;
-		};
-		553107432DA8776F000C9430 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 553107262DA8776E000C9430 /* Ciganus */;
-			targetProxy = 553107422DA8776F000C9430 /* PBXContainerItemProxy */;
 		};
 		5571DCFE2DB8892000700193 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1060,40 +994,6 @@
 			};
 			name = Release;
 		};
-		553107522DA8776F000C9430 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Ciganus;
-			};
-			name = Debug;
-		};
-		553107532DA8776F000C9430 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Ciganus;
-			};
-			name = Release;
-		};
 		5571DD0E2DB8892000700193 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1279,15 +1179,6 @@
 			buildConfigurations = (
 				5531074F2DA8776F000C9430 /* Debug */,
 				553107502DA8776F000C9430 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		553107512DA8776F000C9430 /* Build configuration list for PBXNativeTarget "CiganusUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				553107522DA8776F000C9430 /* Debug */,
-				553107532DA8776F000C9430 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
