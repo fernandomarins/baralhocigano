@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Executar Testes
-    runs-on: macos-15
+    runs-on: macos-latest
     
     steps:
     - name: Checkout do código
@@ -18,27 +18,21 @@ jobs:
     - name: Set up Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '16.0'
+        xcode-version: '15.4'
       
     - name: Exibir versão do Xcode
       run: xcodebuild -version
       
-    - name: Listar simuladores e runtimes
-      run: |
-        xcrun simctl list devices available
-        xcrun simctl list runtimes
+    - name: Listar simuladores disponíveis
+      run: xcrun simctl list devices available
 
-    - name: Criar Simulador de Teste
-      run: |
-        xcrun simctl create "TestiPhone" "iPhone 15"
-        
     - name: Executar testes unitários
       run: |
         cd Ciganus
         xcodebuild test \
           -project Ciganus.xcodeproj \
           -scheme Ciganus \
-          -destination 'platform=iOS Simulator,name=TestiPhone' \
+          -destination 'platform=iOS Simulator,name=iPhone 15' \
           -enableCodeCoverage YES
       continue-on-error: false
       
