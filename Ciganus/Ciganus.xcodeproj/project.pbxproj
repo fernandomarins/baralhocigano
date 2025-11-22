@@ -10,6 +10,8 @@
 		5510C37D2DADD8A600C1242E /* CiganusWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5510C35A2DADD8A500C1242E /* CiganusWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5531075A2DA878E8000C9430 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 553107592DA878E8000C9430 /* FirebaseAuth */; };
 		553107682DA88A0D000C9430 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 553107672DA88A0D000C9430 /* FirebaseDatabase */; };
+		5571DD1F2DB88EB900700193 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5571DD1E2DB88EB900700193 /* FirebaseAuth */; };
+		5571DD222DB88F3900700193 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5571DD212DB88F3900700193 /* FirebaseDatabase */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,12 +43,19 @@
 			remoteGlobalIDString = 553107262DA8776E000C9430;
 			remoteInfo = Ciganus;
 		};
-		553107422DA8776F000C9430 /* PBXContainerItemProxy */ = {
+		5571DCFD2DB8892000700193 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5531071F2DA8776E000C9430 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 553107262DA8776E000C9430;
-			remoteInfo = Ciganus;
+			remoteGlobalIDString = 5571DCEB2DB8891F00700193;
+			remoteInfo = CiganusAppBar;
+		};
+		5571DD072DB8892000700193 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5531071F2DA8776E000C9430 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5571DCEB2DB8891F00700193;
+			remoteInfo = CiganusAppBar;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -70,7 +79,9 @@
 		5510C3732DADD8A600C1242E /* CiganusWatch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CiganusWatch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		553107272DA8776E000C9430 /* Ciganus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ciganus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		553107372DA8776F000C9430 /* CiganusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CiganusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		553107412DA8776F000C9430 /* CiganusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CiganusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5571DCEC2DB8891F00700193 /* CiganusAppBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CiganusAppBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		5571DCFC2DB8892000700193 /* CiganusAppBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CiganusAppBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5571DD062DB8892000700193 /* CiganusAppBarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CiganusAppBarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -82,6 +93,17 @@
 				Model/CombinedCardModel.swift,
 			);
 			target = 5510C3592DADD8A500C1242E /* CiganusWatch Watch App */;
+		};
+		5571DD182DB88B3E00700193 /* Exceptions for "Ciganus" folder in "CiganusAppBar" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				cards_data.json,
+				"GoogleService-Info.plist",
+				Main/Source.swift,
+				Model/Card.swift,
+				Model/CombinedCardModel.swift,
+			);
+			target = 5571DCEB2DB8891F00700193 /* CiganusAppBar */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -105,6 +127,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				5510C3892DADDA4C00C1242E /* Exceptions for "Ciganus" folder in "CiganusWatch Watch App" target */,
+				5571DD182DB88B3E00700193 /* Exceptions for "Ciganus" folder in "CiganusAppBar" target */,
 			);
 			path = Ciganus;
 			sourceTree = "<group>";
@@ -159,7 +182,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5531073E2DA8776F000C9430 /* Frameworks */ = {
+		5571DCE92DB8891F00700193 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5571DD222DB88F3900700193 /* FirebaseDatabase in Frameworks */,
+				5571DD1F2DB88EB900700193 /* FirebaseAuth in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5571DCF92DB8892000700193 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5571DD032DB8892000700193 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -187,10 +226,12 @@
 			children = (
 				553107272DA8776E000C9430 /* Ciganus.app */,
 				553107372DA8776F000C9430 /* CiganusTests.xctest */,
-				553107412DA8776F000C9430 /* CiganusUITests.xctest */,
 				5510C35A2DADD8A500C1242E /* CiganusWatch Watch App.app */,
 				5510C3692DADD8A600C1242E /* CiganusWatch Watch AppTests.xctest */,
 				5510C3732DADD8A600C1242E /* CiganusWatch Watch AppUITests.xctest */,
+				5571DCEC2DB8891F00700193 /* CiganusAppBar.app */,
+				5571DCFC2DB8892000700193 /* CiganusAppBarTests.xctest */,
+				5571DD062DB8892000700193 /* CiganusAppBarUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -315,27 +356,65 @@
 			productReference = 553107372DA8776F000C9430 /* CiganusTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		553107402DA8776F000C9430 /* CiganusUITests */ = {
+		5571DCEB2DB8891F00700193 /* CiganusAppBar */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 553107512DA8776F000C9430 /* Build configuration list for PBXNativeTarget "CiganusUITests" */;
+			buildConfigurationList = 5571DD142DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBar" */;
 			buildPhases = (
-				5531073D2DA8776F000C9430 /* Sources */,
-				5531073E2DA8776F000C9430 /* Frameworks */,
-				5531073F2DA8776F000C9430 /* Resources */,
+				5571DCE82DB8891F00700193 /* Sources */,
+				5571DCE92DB8891F00700193 /* Frameworks */,
+				5571DCEA2DB8891F00700193 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				553107432DA8776F000C9430 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				553107442DA8776F000C9430 /* CiganusUITests */,
+			name = CiganusAppBar;
+			packageProductDependencies = (
+				5571DD1E2DB88EB900700193 /* FirebaseAuth */,
+				5571DD212DB88F3900700193 /* FirebaseDatabase */,
 			);
-			name = CiganusUITests;
+			productName = CiganusAppBar;
+			productReference = 5571DCEC2DB8891F00700193 /* CiganusAppBar.app */;
+			productType = "com.apple.product-type.application";
+		};
+		5571DCFB2DB8892000700193 /* CiganusAppBarTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5571DD152DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBarTests" */;
+			buildPhases = (
+				5571DCF82DB8892000700193 /* Sources */,
+				5571DCF92DB8892000700193 /* Frameworks */,
+				5571DCFA2DB8892000700193 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5571DCFE2DB8892000700193 /* PBXTargetDependency */,
+			);
+			name = CiganusAppBarTests;
 			packageProductDependencies = (
 			);
-			productName = CiganusUITests;
-			productReference = 553107412DA8776F000C9430 /* CiganusUITests.xctest */;
+			productName = CiganusAppBarTests;
+			productReference = 5571DCFC2DB8892000700193 /* CiganusAppBarTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		5571DD052DB8892000700193 /* CiganusAppBarUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5571DD162DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBarUITests" */;
+			buildPhases = (
+				5571DD022DB8892000700193 /* Sources */,
+				5571DD032DB8892000700193 /* Frameworks */,
+				5571DD042DB8892000700193 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5571DD082DB8892000700193 /* PBXTargetDependency */,
+			);
+			name = CiganusAppBarUITests;
+			packageProductDependencies = (
+			);
+			productName = CiganusAppBarUITests;
+			productReference = 5571DD062DB8892000700193 /* CiganusAppBarUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -366,9 +445,16 @@
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 553107262DA8776E000C9430;
 					};
-					553107402DA8776F000C9430 = {
+					5571DCEB2DB8891F00700193 = {
 						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 553107262DA8776E000C9430;
+					};
+					5571DCFB2DB8892000700193 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 5571DCEB2DB8891F00700193;
+					};
+					5571DD052DB8892000700193 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = 5571DCEB2DB8891F00700193;
 					};
 				};
 			};
@@ -391,10 +477,12 @@
 			targets = (
 				553107262DA8776E000C9430 /* Ciganus */,
 				553107362DA8776F000C9430 /* CiganusTests */,
-				553107402DA8776F000C9430 /* CiganusUITests */,
 				5510C3592DADD8A500C1242E /* CiganusWatch Watch App */,
 				5510C3682DADD8A600C1242E /* CiganusWatch Watch AppTests */,
 				5510C3722DADD8A600C1242E /* CiganusWatch Watch AppUITests */,
+				5571DCEB2DB8891F00700193 /* CiganusAppBar */,
+				5571DCFB2DB8892000700193 /* CiganusAppBarTests */,
+				5571DD052DB8892000700193 /* CiganusAppBarUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -435,7 +523,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5531073F2DA8776F000C9430 /* Resources */ = {
+		5571DCEA2DB8891F00700193 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5571DCFA2DB8892000700193 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5571DD042DB8892000700193 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -480,7 +582,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5531073D2DA8776F000C9430 /* Sources */ = {
+		5571DCE82DB8891F00700193 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5571DCF82DB8892000700193 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5571DD022DB8892000700193 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -510,10 +626,15 @@
 			target = 553107262DA8776E000C9430 /* Ciganus */;
 			targetProxy = 553107382DA8776F000C9430 /* PBXContainerItemProxy */;
 		};
-		553107432DA8776F000C9430 /* PBXTargetDependency */ = {
+		5571DCFE2DB8892000700193 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 553107262DA8776E000C9430 /* Ciganus */;
-			targetProxy = 553107422DA8776F000C9430 /* PBXContainerItemProxy */;
+			target = 5571DCEB2DB8891F00700193 /* CiganusAppBar */;
+			targetProxy = 5571DCFD2DB8892000700193 /* PBXContainerItemProxy */;
+		};
+		5571DD082DB8892000700193 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5571DCEB2DB8891F00700193 /* CiganusAppBar */;
+			targetProxy = 5571DD072DB8892000700193 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -873,37 +994,135 @@
 			};
 			name = Release;
 		};
-		553107522DA8776F000C9430 /* Debug */ = {
+		5571DD0E2DB8892000700193 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CiganusAppBar/CiganusAppBar.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CiganusAppBar/Preview Content\"";
 				DEVELOPMENT_TEAM = C8ULV38G2Z;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusAppBar;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Ciganus;
 			};
 			name = Debug;
 		};
-		553107532DA8776F000C9430 /* Release */ = {
+		5571DD0F2DB8892000700193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CiganusAppBar/CiganusAppBar.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"CiganusAppBar/Preview Content\"";
+				DEVELOPMENT_TEAM = C8ULV38G2Z;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusAppBar;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		5571DD102DB8892000700193 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C8ULV38G2Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusAppBarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CiganusAppBar.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CiganusAppBar";
+			};
+			name = Debug;
+		};
+		5571DD112DB8892000700193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C8ULV38G2Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusAppBarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CiganusAppBar.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CiganusAppBar";
+			};
+			name = Release;
+		};
+		5571DD122DB8892000700193 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C8ULV38G2Z;
 				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusAppBarUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Ciganus;
+				TEST_TARGET_NAME = CiganusAppBar;
+			};
+			name = Debug;
+		};
+		5571DD132DB8892000700193 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = C8ULV38G2Z;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusAppBarUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = CiganusAppBar;
 			};
 			name = Release;
 		};
@@ -964,11 +1183,29 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		553107512DA8776F000C9430 /* Build configuration list for PBXNativeTarget "CiganusUITests" */ = {
+		5571DD142DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				553107522DA8776F000C9430 /* Debug */,
-				553107532DA8776F000C9430 /* Release */,
+				5571DD0E2DB8892000700193 /* Debug */,
+				5571DD0F2DB8892000700193 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5571DD152DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBarTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5571DD102DB8892000700193 /* Debug */,
+				5571DD112DB8892000700193 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5571DD162DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBarUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5571DD122DB8892000700193 /* Debug */,
+				5571DD132DB8892000700193 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -993,6 +1230,16 @@
 			productName = FirebaseAuth;
 		};
 		553107672DA88A0D000C9430 /* FirebaseDatabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 553107542DA87801000C9430 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseDatabase;
+		};
+		5571DD1E2DB88EB900700193 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 553107542DA87801000C9430 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		5571DD212DB88F3900700193 /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 553107542DA87801000C9430 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabase;
