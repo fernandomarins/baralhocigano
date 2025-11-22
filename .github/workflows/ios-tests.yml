@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Executar Testes
-    runs-on: macos-latest
+    runs-on: macos-15
     
     steps:
     - name: Checkout do código
@@ -23,8 +23,10 @@ jobs:
     - name: Exibir versão do Xcode
       run: xcodebuild -version
       
-    - name: Listar simuladores disponíveis
-      run: xcrun simctl list devices available
+    - name: Listar simuladores e runtimes
+      run: |
+        xcrun simctl list devices available
+        xcrun simctl list runtimes
 
     - name: Criar Simulador de Teste
       run: |
