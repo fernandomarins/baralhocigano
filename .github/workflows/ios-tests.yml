@@ -30,20 +30,8 @@ jobs:
           -project Ciganus.xcodeproj \
           -scheme Ciganus \
           -destination 'platform=iOS Simulator,name=iPhone 16' \
-          -enableCodeCoverage YES \
-          | xcpretty --test --color
+          -enableCodeCoverage YES
       continue-on-error: false
-      
-    - name: Executar testes de UI
-      run: |
-        cd Ciganus
-        xcodebuild test \
-          -project Ciganus.xcodeproj \
-          -scheme Ciganus \
-          -destination 'platform=iOS Simulator,name=iPhone 16' \
-          -only-testing:CiganusUITests \
-          | xcpretty --test --color
-      continue-on-error: true
       
     - name: Gerar relatório de cobertura
       if: success()
