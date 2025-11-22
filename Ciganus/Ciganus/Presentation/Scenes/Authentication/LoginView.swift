@@ -23,7 +23,6 @@ struct LoginView: View {
                     .foregroundColor(.white)
 
                 // Email field
-                // Email field
                 CustomTextField(
                     placeholder: "Email",
                     text: $viewModel.email,
@@ -44,7 +43,6 @@ struct LoginView: View {
                         .multilineTextAlignment(.center)
                 }
 
-                // Login button
                 // Login button
                 PrimaryButton(
                     title: "Entrar",
