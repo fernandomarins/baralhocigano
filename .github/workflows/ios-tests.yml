@@ -20,22 +20,6 @@ jobs:
       with:
         xcode-version: latest-stable
       
-    - name: Informações do Sistema
-      run: |
-        echo "macOS Version:"
-        sw_vers
-        echo "Xcode Version:"
-        xcodebuild -version
-        echo "Available SDKs:"
-        xcodebuild -showsdks
-      
-    - name: Listar TUDO (Simuladores e Runtimes)
-      run: |
-        echo "=== Runtimes ==="
-        xcrun simctl list runtimes
-        echo "=== Devices ==="
-        xcrun simctl list devices
-        
     - name: Executar testes unitários
       run: |
         cd Ciganus
