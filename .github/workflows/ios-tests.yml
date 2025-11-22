@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     name: Executar Testes
-    runs-on: macos-14
+    runs-on: macos-15
     
     steps:
     - name: Checkout do código
@@ -18,7 +18,7 @@ jobs:
     - name: Set up Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '15.4'
+        xcode-version: '16.0'
       
     - name: Informações do Sistema
       run: |
@@ -42,7 +42,7 @@ jobs:
         xcodebuild test \
           -project Ciganus.xcodeproj \
           -scheme Ciganus \
-          -destination 'platform=iOS Simulator,name=iPhone 15' \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=18.0' \
           -enableCodeCoverage YES
       continue-on-error: false
       
