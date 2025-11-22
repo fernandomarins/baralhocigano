@@ -23,21 +23,27 @@ jobs:
     - name: Exibir versão do Xcode
       run: xcodebuild -version
       
-    - name: Limpar build anterior
-      run: |
-        cd Ciganus
-        xcodebuild clean -project Ciganus.xcodeproj -scheme Ciganus
-    
     - name: Executar testes unitários
       run: |
         cd Ciganus
         xcodebuild test \
           -project Ciganus.xcodeproj \
           -scheme Ciganus \
-          -destination 'platform=iOS Simulator,name=iPhone 15,OS=17.2' \
+          -destination 'platform=iOS Simulator,name=iPhone 16' \
           -enableCodeCoverage YES \
           | xcpretty --test --color
       continue-on-error: false
+      
+    - name: Executar testes de UI
+      run: |
+        cd Ciganus
+        xcodebuild test \
+          -project Ciganus.xcodeproj \
+          -scheme Ciganus \
+          -destination 'platform=iOS Simulator,name=iPhone 16' \
+          -only-testing:CiganusUITests \
+          | xcpretty --test --color
+      continue-on-error: true
       
     - name: Gerar relatório de cobertura
       if: success()
