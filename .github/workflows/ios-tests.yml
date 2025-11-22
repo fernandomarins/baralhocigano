@@ -18,13 +18,25 @@ jobs:
     - name: Set up Xcode
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '15.4'
+        xcode-version: '26.1'
       
-    - name: Exibir versão do Xcode
-      run: xcodebuild -version
+    - name: Informações do Sistema
+      run: |
+        echo "macOS Version:"
+        sw_vers
+        echo "Xcode Version:"
+        xcodebuild -version
+        echo "Available SDKs:"
+        xcodebuild -showsdks
       
-    - name: Listar simuladores disponíveis
-      run: xcrun simctl list devices available
+    - name: Listar TUDO (Simuladores e Runtimes)
+      run: |
+        echo "=== Runtimes ==="
+        xcrun simctl list runtimes
+        echo "=== Devices ==="
+        xcrun simctl list devices
+        echo "=== Device Types ==="
+        xcrun simctl list devicetypes
 
     - name: Executar testes unitários
       run: |
