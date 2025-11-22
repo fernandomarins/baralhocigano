@@ -9,13 +9,12 @@ import SwiftUI
 
 struct AllCardsView: View {
     let allCards: [Card]
-    let columns: [GridItem] = Array(repeating: .init(.flexible()), count: 6)
+    
     @State private var cardNumbers: [Int: String] = [:]
     @State private var highlightedDuplicates: Set<Int> = []
-    @FocusState private var focusedFieldIndex: Int?
     @State private var isReadingViewPresented = false
 
-    let sectionTitles = [
+    private let sectionTitles = [
         "Influências passadas/paralelas",
         "Influências presentes",
         "Influências exteriores",
@@ -23,6 +22,8 @@ struct AllCardsView: View {
         "Possibilidades para o futuro",
         "Resultados e conseqüências futuras"
     ]
+    
+    private let columns = Array(repeating: GridItem(.flexible(), spacing: 8), count: 6)
 
     var body: some View {
         NavigationView {
@@ -35,94 +36,89 @@ struct AllCardsView: View {
                 .ignoresSafeArea()
 
                 ScrollView {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 20) {
                         ForEach(0..<sectionTitles.count, id: \.self) { sectionIndex in
-                            Text(sectionTitles[sectionIndex])
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding(.top)
-                                .padding(.leading)
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(sectionTitles[sectionIndex])
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal)
 
-                            LazyVGrid(columns: columns, spacing: 8) {
-                                ForEach(0..<6, id: \.self) { cardIndexInSection in
-                                    let globalIndex = sectionIndex * 6 + cardIndexInSection
-                                    CardNumberInputView(
-                                        cardNumber: Binding(
+                                LazyVGrid(columns: columns, spacing: 8) {
+                                    ForEach(0..<6, id: \.self) { cardIndex in
+                                        let globalIndex = sectionIndex * 6 + cardIndex
+                                        
+                                        TextField("", text: Binding(
                                             get: { cardNumbers[globalIndex] ?? "" },
                                             set: { newValue in
-                                                if newValue.isEmpty || (Int(newValue) != nil && (1...36).contains(Int(newValue)!)) {
-                                                    cardNumbers[globalIndex] = newValue
+                                                let filtered = newValue.filter { "0123456789".contains($0) }
+                                                let limited = String(filtered.prefix(2))
+                                                
+                                                if limited.isEmpty || (Int(limited) != nil && (1...36).contains(Int(limited)!)) {
+                                                    cardNumbers[globalIndex] = limited
                                                     validateDuplicates()
                                                 }
                                             }
-                                        ),
-                                        isDuplicate: highlightedDuplicates.contains(globalIndex),
-                                        isFocused: focusedFieldIndex == globalIndex,
-                                        onFocusChange: { isFocused in
-                                            focusedFieldIndex = isFocused ? globalIndex : nil
-                                        }
-                                    )
-                                    .frame(height: 60)
+                                        ))
+                                        .keyboardType(.numberPad)
+                                        .multilineTextAlignment(.center)
+                                        .font(.title3.weight(.bold))
+                                        .foregroundColor(.white)
+                                        .padding(8)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .strokeBorder(
+                                                    highlightedDuplicates.contains(globalIndex) ? Color.red : Color.white,
+                                                    lineWidth: highlightedDuplicates.contains(globalIndex) ? 2 : 1
+                                                )
+                                                .background(Color.white.opacity(0.2).cornerRadius(8))
+                                        )
+                                        .frame(height: 50)
+                                    }
                                 }
+                                .padding(.horizontal)
                             }
-                            .padding(.horizontal)
                         }
                     }
-                    .padding(.bottom)
+                    .padding(.vertical)
                 }
                 .navigationTitle("Mesa Real Kármica")
                 .toolbar {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
+                        Button("Leitura") {
                             isReadingViewPresented = true
-                        } label: {
-                            Text("Leitura")
-                                .foregroundColor(.white)
                         }
-                    }
-                    ToolbarItemGroup(placement: .keyboard) {
-                        Spacer()
-                        Button("Concluir") {
-                            dismissKeyboard()
-                        }
+                        .foregroundColor(.white)
                     }
                 }
                 .sheet(isPresented: $isReadingViewPresented) {
-                    AllCardsReadingView(selectedCardNumbers: cardNumbers, allCards: allCards, sectionTitles: sectionTitles)
+                    AllCardsReadingView(
+                        selectedCardNumbers: cardNumbers,
+                        allCards: allCards,
+                        sectionTitles: sectionTitles
+                    )
                 }
             }
         }
     }
 
-    func validateDuplicates() {
+    private func validateDuplicates() {
         var seenNumbers: [String: [Int]] = [:]
         var newDuplicates: Set<Int> = []
 
-        for (index, number) in cardNumbers {
-            if !number.isEmpty {
-                if var indices = seenNumbers[number] {
-                    indices.append(index)
-                    seenNumbers[number] = indices
-                    newDuplicates.insert(index)
-                    for seenIndex in indices {
-                        newDuplicates.insert(seenIndex)
-                    }
-                } else {
-                    seenNumbers[number] = [index]
-                }
+        for (index, number) in cardNumbers where !number.isEmpty {
+            if var indices = seenNumbers[number] {
+                indices.append(index)
+                seenNumbers[number] = indices
+                indices.forEach { newDuplicates.insert($0) }
+            } else {
+                seenNumbers[number] = [index]
             }
         }
+        
         highlightedDuplicates = newDuplicates
     }
 }
-
-#if canImport(UIKit)
-extension View {
-    func dismissKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-    }
-}
-#endif
 
 #Preview {
     AllCardsView(allCards: [])
