@@ -44,7 +44,7 @@ jobs:
         xcodebuild test \
           -project Ciganus.xcodeproj \
           -scheme Ciganus \
-          -destination 'platform=iOS Simulator,name=iPhone 15' \
+          -destination 'platform=iOS Simulator,name=iPhone 16,OS=26.1' \
           -enableCodeCoverage YES
       continue-on-error: false
       
