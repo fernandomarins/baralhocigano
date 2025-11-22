@@ -8,105 +8,172 @@
 import SwiftUI
 
 struct AllCardsReadingView: View {
+    // MARK: - Properties
     let selectedCardNumbers: [Int: String]
     let allCards: [Card]
     let sectionTitles: [String]
+    
     @State private var combinedCards: [CombinedCardModel] = []
     @Environment(\.dismiss) var dismiss
-
-    func getCard(at globalIndex: Int) -> Card? {
-        if let cardNumberString = selectedCardNumbers[globalIndex], let cardNumber = Int(cardNumberString) {
-            return allCards.first { Int($0.number) == cardNumber }
-        }
-        return nil
-    }
-
-    func getGlobalIndex(for section: Int, row: Int) -> Int {
-        return section * 6 + row
-    }
-
+    
+    // MARK: - Body
     var body: some View {
         NavigationView {
             ZStack {
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.indigo, Color.blue]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
-
+                backgroundGradient
+                
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
-                        Text("Leitura da Mesa Real Kármica")
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
-                            .padding(.bottom)
-                            .padding(.top, 16)
-
+                        headerView
+                        
                         ForEach(0..<sectionTitles.count, id: \.self) { sectionIndex in
-                            Text(sectionTitles[sectionIndex])
-                                .font(.headline)
-                                .foregroundColor(.white)
-                                .padding(.bottom, 5)
-
-                            ForEach(0..<5, id: \.self) { pairIndex in
-                                let firstGlobalIndex = getGlobalIndex(for: sectionIndex, row: pairIndex)
-                                let secondGlobalIndex = getGlobalIndex(for: sectionIndex, row: pairIndex + 1)
-
-                                if let firstCard = getCard(at: firstGlobalIndex),
-                                   let secondCard = getCard(at: secondGlobalIndex),
-                                   let firstNumber = selectedCardNumbers[firstGlobalIndex],
-                                   let secondNumber = selectedCardNumbers[secondGlobalIndex] {
-
-                                    VStack(alignment: .leading) {
-                                        Text("Combinação \(firstNumber) + \(secondNumber): \(firstCard.name) + \(secondCard.name)")
-                                            .font(.subheadline)
-                                            .foregroundColor(.white)
-                                            .bold()
-                                            .padding(.bottom, 8)
-
-                                        Text("Combinação:")
-                                            .font(.caption)
-                                            .foregroundColor(.white.opacity(0.8))
-
-                                        Text(buscarDescricaoCombinada(nome1: firstCard.name, nome2: secondCard.name))
-                                            .foregroundColor(.white.opacity(0.9))
-                                            .font(.body)
-                                    }
-                                    .padding()
-                                    .background(Color.black.opacity(0.2))
-                                    .cornerRadius(8)
-                                } else {
-                                    Text("Combinação \(pairIndex + 1): Cartas não selecionadas")
-                                        .foregroundColor(.white.opacity(0.5))
-                                }
+                            ReadingSectionView(
+                                title: sectionTitles[sectionIndex],
+                                sectionIndex: sectionIndex,
+                                selectedCardNumbers: selectedCardNumbers,
+                                allCards: allCards,
+                                combinedCards: combinedCards
+                            )
+                            
+                            if sectionIndex < sectionTitles.count - 1 {
+                                Divider().background(Color.white.opacity(0.5))
                             }
-                            Divider().background(Color.white.opacity(0.5))
                         }
                     }
                     .padding()
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Fechar") {
+                        dismiss()
+                    }
+                    .foregroundColor(.white)
+                }
+            }
         }
         .onAppear {
-            getCards()
+            loadCombinedCards()
         }
     }
     
-    func getCards() {
+    // MARK: - Subviews
+    
+    private var backgroundGradient: some View {
+        LinearGradient(
+            gradient: Gradient(colors: [Color.indigo, Color.blue]),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+        .ignoresSafeArea()
+    }
+    
+    private var headerView: some View {
+        Text("Leitura da Mesa Real Kármica")
+            .font(.largeTitle)
+            .foregroundColor(.white)
+            .padding(.vertical)
+    }
+    
+    // MARK: - Logic
+    
+    private func loadCombinedCards() {
         do {
             combinedCards = try CombinedCards().getCombinedCards()
         } catch {
             print("Erro ao carregar as cartas combinadas: \(error)")
         }
     }
+}
+
+// MARK: - Helper Views
+
+private struct ReadingSectionView: View {
+    let title: String
+    let sectionIndex: Int
+    let selectedCardNumbers: [Int: String]
+    let allCards: [Card]
+    let combinedCards: [CombinedCardModel]
     
-    func buscarDescricaoCombinada(nome1: String, nome2: String) -> String {
-        let nomeCombinado = "\(nome1), \(nome2)"
-        if let cartaCombinada = combinedCards.first(where: { $0.number.lowercased() == nomeCombinado.lowercased() }) {
-            return cartaCombinada.description
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text(title)
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding(.bottom, 4)
+            
+            ForEach(0..<5, id: \.self) { pairIndex in
+                CombinationRow(
+                    sectionIndex: sectionIndex,
+                    pairIndex: pairIndex,
+                    selectedCardNumbers: selectedCardNumbers,
+                    allCards: allCards,
+                    combinedCards: combinedCards
+                )
+            }
+        }
+    }
+}
+
+private struct CombinationRow: View {
+    let sectionIndex: Int
+    let pairIndex: Int
+    let selectedCardNumbers: [Int: String]
+    let allCards: [Card]
+    let combinedCards: [CombinedCardModel]
+    
+    var body: some View {
+        let firstIndex = sectionIndex * 6 + pairIndex
+        let secondIndex = sectionIndex * 6 + pairIndex + 1
+        
+        if let card1 = getCard(at: firstIndex),
+           let card2 = getCard(at: secondIndex),
+           let num1 = selectedCardNumbers[firstIndex],
+           let num2 = selectedCardNumbers[secondIndex] {
+            
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Combinação \(num1) + \(num2): \(card1.name) + \(card2.name)")
+                    .font(.subheadline)
+                    .foregroundColor(.white)
+                    .bold()
+                
+                Text("Significado:")
+                    .font(.caption)
+                    .foregroundColor(.white.opacity(0.8))
+                
+                Text(getCombinationDescription(card1Name: card1.name, card2Name: card2.name))
+                    .foregroundColor(.white.opacity(0.9))
+                    .font(.body)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            .padding()
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(Color.black.opacity(0.2))
+            .cornerRadius(8)
+            
         } else {
-            return "Nenhuma combinação encontrada para \(nomeCombinado)."
+            Text("Par \(pairIndex + 1): Cartas não selecionadas")
+                .font(.caption)
+                .foregroundColor(.white.opacity(0.5))
+                .padding(.vertical, 4)
+        }
+    }
+    
+    private func getCard(at globalIndex: Int) -> Card? {
+        guard let numberString = selectedCardNumbers[globalIndex],
+              let number = Int(numberString) else {
+            return nil
+        }
+        return allCards.first { Int($0.number) == number }
+    }
+    
+    private func getCombinationDescription(card1Name: String, card2Name: String) -> String {
+        let combinationKey = "\(card1Name), \(card2Name)".lowercased()
+        if let combination = combinedCards.first(where: { $0.number.lowercased() == combinationKey }) {
+            return combination.description
+        } else {
+            return "Nenhuma combinação encontrada para \(card1Name) e \(card2Name)."
         }
     }
 }

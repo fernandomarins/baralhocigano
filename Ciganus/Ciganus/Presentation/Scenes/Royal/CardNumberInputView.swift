@@ -12,33 +12,51 @@ struct CardNumberInputView: View {
     let isDuplicate: Bool
     let isFocused: Bool
     let onFocusChange: (Bool) -> Void
+    
     @FocusState private var textFieldFocused: Bool
 
     private var borderColor: Color {
-        isDuplicate ? Color.red : Color.blue
+        isDuplicate ? .red : .white
+    }
+    
+    private var borderWidth: CGFloat {
+        isDuplicate ? 2 : 1
     }
 
     var body: some View {
-        RoundedRectangle(cornerRadius: 8)
-            .strokeBorder(borderColor, lineWidth: isDuplicate ? 2 : 1)
-            .background(Color.clear)
-            .aspectRatio(1, contentMode: .fit)
-            .overlay(
-                TextField("", text: $cardNumber)
-                    .focused($textFieldFocused)
-                    .keyboardType(.numberPad)
-                    .multilineTextAlignment(.center)
-                    .font(.title3)
-                    .foregroundColor(.white)
-                    .fontWeight(.bold)
-                    .padding(8)
-                    .onChange(of: textFieldFocused) { _, newValue in
-                        onFocusChange(newValue)
-                    }
+        TextField("", text: $cardNumber)
+            .focused($textFieldFocused)
+            .keyboardType(.numberPad)
+            .multilineTextAlignment(.center)
+            .font(.title3.weight(.bold))
+            .foregroundColor(.white)
+            .padding(4)
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .strokeBorder(borderColor, lineWidth: borderWidth)
+                    .background(Color.white.opacity(0.2).cornerRadius(8))
             )
+            .onChange(of: textFieldFocused) { _, newValue in
+                onFocusChange(newValue)
+            }
+            .onChange(of: isFocused) { _, newValue in
+                if textFieldFocused != newValue {
+                    textFieldFocused = newValue
+                }
+            }
     }
 }
 
 #Preview {
-    CardNumberInputView(cardNumber: .constant(""), isDuplicate: false, isFocused: false, onFocusChange: { _ in })
+    ZStack {
+        Color.purple
+        CardNumberInputView(
+            cardNumber: .constant("12"),
+            isDuplicate: false,
+            isFocused: false,
+            onFocusChange: { _ in }
+        )
+        .frame(width: 60, height: 60)
+        .padding()
+    }
 }

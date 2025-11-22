@@ -21,7 +21,6 @@ class CardRepository: CardRepositoryProtocol {
         return try localDataSource.fetchAllCards()
     }
     
-    @MainActor
     func sync(modelContext: ModelContext) async throws {
         let localDataSource = LocalDataSource(context: modelContext)
         let remoteVersion = try await firebaseDataSource.fetchRemoteVersion()
