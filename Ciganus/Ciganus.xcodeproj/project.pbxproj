@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 63;
+	objectVersion = 77;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -40,21 +40,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		5510C35B2DADD8A500C1242E /* CiganusWatch Watch App */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "CiganusWatch Watch App";
-			sourceTree = "<group>";
-		};
-		5510C36C2DADD8A600C1242E /* CiganusWatch Watch AppTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "CiganusWatch Watch AppTests";
-			sourceTree = "<group>";
-		};
-		5510C3762DADD8A600C1242E /* CiganusWatch Watch AppUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "CiganusWatch Watch AppUITests";
-			sourceTree = "<group>";
-		};
 		553107292DA8776E000C9430 /* Ciganus */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = Ciganus;
@@ -63,11 +48,6 @@
 		5531073A2DA8776F000C9430 /* CiganusTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = CiganusTests;
-			sourceTree = "<group>";
-		};
-		553107442DA8776F000C9430 /* CiganusUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CiganusUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -97,10 +77,6 @@
 			children = (
 				553107292DA8776E000C9430 /* Ciganus */,
 				5531073A2DA8776F000C9430 /* CiganusTests */,
-				553107442DA8776F000C9430 /* CiganusUITests */,
-				5510C35B2DADD8A500C1242E /* CiganusWatch Watch App */,
-				5510C36C2DADD8A600C1242E /* CiganusWatch Watch AppTests */,
-				5510C3762DADD8A600C1242E /* CiganusWatch Watch AppUITests */,
 				553107282DA8776E000C9430 /* Products */,
 			);
 			sourceTree = "<group>";
