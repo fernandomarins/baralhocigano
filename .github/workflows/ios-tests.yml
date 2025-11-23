@@ -1,0 +1,144 @@
+name: iOS CI - Testes Automatizados
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    name: Executar Testes
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
+      - name: Select Xcode (flexible auto-detect)
+        run: |
+          set -e
+          echo "Looking for Xcode 26 variants in /Applications..."
+          CANDIDATE=$(ls -1 /Applications | grep -Ei 'Xcode.*26' | sort | tail -n 1 || true)
+          if [ -n "$CANDIDATE" ]; then
+            PATH_TO_XCODE="/Applications/$CANDIDATE/Contents/Developer"
+            if [ -d "$PATH_TO_XCODE" ]; then
+              echo "Switching to $CANDIDATE"
+              sudo xcode-select -switch "$PATH_TO_XCODE"
+            else
+              echo "Found $CANDIDATE but $PATH_TO_XCODE does not exist; skipping switch."
+            fi
+          else
+            echo "No Xcode 26 found. Looking for generic Xcode.app..."
+            if [ -d "/Applications/Xcode.app/Contents/Developer" ]; then
+              echo "Switching to /Applications/Xcode.app"
+              sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
+            else
+              echo "No matching Xcode found under /Applications. Current xcode-select path:"
+              sudo xcode-select -print-path || true
+              echo "Continuing with default Xcode on runner."
+            fi
+          fi
+          echo "xcodebuild -version after switch:"
+          xcodebuild -version || true
+
+      - name: Print Xcode version
+        run: xcodebuild -version
+
+      - name: Download iOS Platform
+        run: xcodebuild -downloadPlatform iOS
+
+      - name: Listar simuladores disponíveis
+        run: |
+          echo "=== RUNTIMES DISPONÍVEIS ==="
+          xcrun simctl list runtimes
+          echo " "
+          echo "=== DISPOSITIVOS DISPONÍVEIS ==="
+          xcrun simctl list devices
+
+      - name: Detectar destino de simulador automaticamente
+        id: detect-sim
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Detectando runtime iOS mais recente disponível..."
+          LATEST_RUNTIME_VERSION=$(xcrun simctl list runtimes \
+            | grep -Ei 'iOS [0-9]+' \
+            | grep -iv 'unavailable' \
+            | grep -Eo 'iOS [0-9]+(\.[0-9]+)?' \
+            | sed 's/iOS //' \
+            | sort -V \
+            | tail -n1 || true)
+
+          if [ -z "${LATEST_RUNTIME_VERSION:-}" ]; then
+            echo "Nenhum runtime iOS detectado; aplicando fallback 17.4"
+            LATEST_RUNTIME_VERSION="17.4"
+          fi
+
+          echo "Runtime selecionado: $LATEST_RUNTIME_VERSION"
+
+          echo "Procurando um device iPhone disponível para o runtime $LATEST_RUNTIME_VERSION..."
+          # captura a primeira linha com "iPhone" dentro da seção do runtime, depois limpa UUIDs/status entre parênteses
+          DEVICE_RAW=$(xcrun simctl list devices \
+            | awk -v ver="$LATEST_RUNTIME_VERSION" '
+                $0 ~ "-- iOS " ver " --" {found=1; next}
+                /^--/ {found=0}
+                found && /iPhone/ {print; exit}
+              ' || true)
+
+          # se DEVICE_RAW estiver vazio, pega qualquer iPhone disponível (fallback)
+          if [ -z "${DEVICE_RAW:-}" ]; then
+            DEVICE_RAW=$(xcrun simctl list devices | grep -E 'iPhone' | grep -v 'unavailable' | head -n1 || true)
+          fi
+
+          if [ -z "${DEVICE_RAW:-}" ]; then
+            echo "Nenhum iPhone disponível encontrado; usando fallback 'iPhone 16'"
+            DEVICE="iPhone 16"
+          else
+            # remove tudo entre parênteses (UUID/status) — repete para remover múltiplos pares, e trim final/leading spaces
+            DEVICE=$(echo "$DEVICE_RAW" | sed 's/ ([^)]*)//g' | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')
+          fi
+
+          echo "Device selecionado: $DEVICE"
+
+          # exporta outputs usando a forma recomendada
+          echo "os=$LATEST_RUNTIME_VERSION" >> "$GITHUB_OUTPUT"
+          echo "device=$DEVICE" >> "$GITHUB_OUTPUT"
+
+      - name: Executar testes unitários
+        run: |
+          cd Ciganus
+          mkdir -p TestResults
+          DEST_OS="${{ steps.detect-sim.outputs.os }}"
+          DEST_DEVICE="${{ steps.detect-sim.outputs.device }}"
+          echo "Usando destino: platform=iOS Simulator,name=${DEST_DEVICE},OS=${DEST_OS}"
+          xcodebuild test \
+            -project Ciganus.xcodeproj \
+            -scheme Ciganus \
+            -destination "platform=iOS Simulator,name=${DEST_DEVICE},OS=${DEST_OS}" \
+            -enableCodeCoverage YES \
+            -resultBundlePath ./TestResults/Ciganus.xcresult
+
+      - name: Gerar relatório de cobertura
+        if: success()
+        run: |
+          cd Ciganus
+          RESULT="./TestResults/Ciganus.xcresult"
+          if [ -d "$RESULT" ]; then
+            xcrun xccov view --report --json "$RESULT" > coverage.json || true
+            echo "coverage.json gerado em $(pwd)/coverage.json"
+          else
+            echo "Arquivo .xcresult não encontrado em $RESULT"
+            ls -la ./TestResults || true
+          fi
+
+      - name: Upload dos resultados
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            Ciganus/TestResults/Ciganus.xcresult
+            Ciganus/coverage.json
+          retention-days: 7

@@ -3,59 +3,21 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 63;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5510C37D2DADD8A600C1242E /* CiganusWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 5510C35A2DADD8A500C1242E /* CiganusWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		5531075A2DA878E8000C9430 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 553107592DA878E8000C9430 /* FirebaseAuth */; };
 		553107682DA88A0D000C9430 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 553107672DA88A0D000C9430 /* FirebaseDatabase */; };
-		5571DD1F2DB88EB900700193 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5571DD1E2DB88EB900700193 /* FirebaseAuth */; };
-		5571DD222DB88F3900700193 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5571DD212DB88F3900700193 /* FirebaseDatabase */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		5510C36A2DADD8A600C1242E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5531071F2DA8776E000C9430 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5510C3592DADD8A500C1242E;
-			remoteInfo = "CiganusWatch Watch App";
-		};
-		5510C3742DADD8A600C1242E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5531071F2DA8776E000C9430 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5510C3592DADD8A500C1242E;
-			remoteInfo = "CiganusWatch Watch App";
-		};
-		5510C37B2DADD8A600C1242E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5531071F2DA8776E000C9430 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5510C3592DADD8A500C1242E;
-			remoteInfo = "CiganusWatch Watch App";
-		};
 		553107382DA8776F000C9430 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5531071F2DA8776E000C9430 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 553107262DA8776E000C9430;
 			remoteInfo = Ciganus;
-		};
-		5571DCFD2DB8892000700193 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5531071F2DA8776E000C9430 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5571DCEB2DB8891F00700193;
-			remoteInfo = CiganusAppBar;
-		};
-		5571DD072DB8892000700193 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5531071F2DA8776E000C9430 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5571DCEB2DB8891F00700193;
-			remoteInfo = CiganusAppBar;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -66,7 +28,6 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				5510C37D2DADD8A600C1242E /* CiganusWatch Watch App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -74,38 +35,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5510C35A2DADD8A500C1242E /* CiganusWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CiganusWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5510C3692DADD8A600C1242E /* CiganusWatch Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CiganusWatch Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5510C3732DADD8A600C1242E /* CiganusWatch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CiganusWatch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		553107272DA8776E000C9430 /* Ciganus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ciganus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		553107372DA8776F000C9430 /* CiganusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CiganusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5571DCEC2DB8891F00700193 /* CiganusAppBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CiganusAppBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		5571DCFC2DB8892000700193 /* CiganusAppBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CiganusAppBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5571DD062DB8892000700193 /* CiganusAppBarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CiganusAppBarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		5510C3892DADDA4C00C1242E /* Exceptions for "Ciganus" folder in "CiganusWatch Watch App" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				cards_data.json,
-				Main/Source.swift,
-				Model/CombinedCardModel.swift,
-			);
-			target = 5510C3592DADD8A500C1242E /* CiganusWatch Watch App */;
-		};
-		5571DD182DB88B3E00700193 /* Exceptions for "Ciganus" folder in "CiganusAppBar" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				cards_data.json,
-				"GoogleService-Info.plist",
-				Main/Source.swift,
-				Model/Card.swift,
-				Model/CombinedCardModel.swift,
-			);
-			target = 5571DCEB2DB8891F00700193 /* CiganusAppBar */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		5510C35B2DADD8A500C1242E /* CiganusWatch Watch App */ = {
@@ -125,10 +57,6 @@
 		};
 		553107292DA8776E000C9430 /* Ciganus */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				5510C3892DADDA4C00C1242E /* Exceptions for "Ciganus" folder in "CiganusWatch Watch App" target */,
-				5571DD182DB88B3E00700193 /* Exceptions for "Ciganus" folder in "CiganusAppBar" target */,
-			);
 			path = Ciganus;
 			sourceTree = "<group>";
 		};
@@ -145,27 +73,6 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		5510C3572DADD8A500C1242E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5510C3662DADD8A600C1242E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5510C3702DADD8A600C1242E /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		553107242DA8776E000C9430 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -176,29 +83,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		553107342DA8776F000C9430 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5571DCE92DB8891F00700193 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5571DD222DB88F3900700193 /* FirebaseDatabase in Frameworks */,
-				5571DD1F2DB88EB900700193 /* FirebaseAuth in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5571DCF92DB8892000700193 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5571DD032DB8892000700193 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -226,12 +110,6 @@
 			children = (
 				553107272DA8776E000C9430 /* Ciganus.app */,
 				553107372DA8776F000C9430 /* CiganusTests.xctest */,
-				5510C35A2DADD8A500C1242E /* CiganusWatch Watch App.app */,
-				5510C3692DADD8A600C1242E /* CiganusWatch Watch AppTests.xctest */,
-				5510C3732DADD8A600C1242E /* CiganusWatch Watch AppUITests.xctest */,
-				5571DCEC2DB8891F00700193 /* CiganusAppBar.app */,
-				5571DCFC2DB8892000700193 /* CiganusAppBarTests.xctest */,
-				5571DD062DB8892000700193 /* CiganusAppBarUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -239,74 +117,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		5510C3592DADD8A500C1242E /* CiganusWatch Watch App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5510C3852DADD8A600C1242E /* Build configuration list for PBXNativeTarget "CiganusWatch Watch App" */;
-			buildPhases = (
-				5510C3562DADD8A500C1242E /* Sources */,
-				5510C3572DADD8A500C1242E /* Frameworks */,
-				5510C3582DADD8A500C1242E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				5510C35B2DADD8A500C1242E /* CiganusWatch Watch App */,
-			);
-			name = "CiganusWatch Watch App";
-			packageProductDependencies = (
-			);
-			productName = "CiganusWatch Watch App";
-			productReference = 5510C35A2DADD8A500C1242E /* CiganusWatch Watch App.app */;
-			productType = "com.apple.product-type.application";
-		};
-		5510C3682DADD8A600C1242E /* CiganusWatch Watch AppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5510C3862DADD8A600C1242E /* Build configuration list for PBXNativeTarget "CiganusWatch Watch AppTests" */;
-			buildPhases = (
-				5510C3652DADD8A600C1242E /* Sources */,
-				5510C3662DADD8A600C1242E /* Frameworks */,
-				5510C3672DADD8A600C1242E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5510C36B2DADD8A600C1242E /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				5510C36C2DADD8A600C1242E /* CiganusWatch Watch AppTests */,
-			);
-			name = "CiganusWatch Watch AppTests";
-			packageProductDependencies = (
-			);
-			productName = "CiganusWatch Watch AppTests";
-			productReference = 5510C3692DADD8A600C1242E /* CiganusWatch Watch AppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		5510C3722DADD8A600C1242E /* CiganusWatch Watch AppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5510C3872DADD8A600C1242E /* Build configuration list for PBXNativeTarget "CiganusWatch Watch AppUITests" */;
-			buildPhases = (
-				5510C36F2DADD8A600C1242E /* Sources */,
-				5510C3702DADD8A600C1242E /* Frameworks */,
-				5510C3712DADD8A600C1242E /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5510C3752DADD8A600C1242E /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				5510C3762DADD8A600C1242E /* CiganusWatch Watch AppUITests */,
-			);
-			name = "CiganusWatch Watch AppUITests";
-			packageProductDependencies = (
-			);
-			productName = "CiganusWatch Watch AppUITests";
-			productReference = 5510C3732DADD8A600C1242E /* CiganusWatch Watch AppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		553107262DA8776E000C9430 /* Ciganus */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5531074B2DA8776F000C9430 /* Build configuration list for PBXNativeTarget "Ciganus" */;
@@ -319,7 +129,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				5510C37C2DADD8A600C1242E /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				553107292DA8776E000C9430 /* Ciganus */,
@@ -356,67 +165,6 @@
 			productReference = 553107372DA8776F000C9430 /* CiganusTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		5571DCEB2DB8891F00700193 /* CiganusAppBar */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5571DD142DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBar" */;
-			buildPhases = (
-				5571DCE82DB8891F00700193 /* Sources */,
-				5571DCE92DB8891F00700193 /* Frameworks */,
-				5571DCEA2DB8891F00700193 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = CiganusAppBar;
-			packageProductDependencies = (
-				5571DD1E2DB88EB900700193 /* FirebaseAuth */,
-				5571DD212DB88F3900700193 /* FirebaseDatabase */,
-			);
-			productName = CiganusAppBar;
-			productReference = 5571DCEC2DB8891F00700193 /* CiganusAppBar.app */;
-			productType = "com.apple.product-type.application";
-		};
-		5571DCFB2DB8892000700193 /* CiganusAppBarTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5571DD152DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBarTests" */;
-			buildPhases = (
-				5571DCF82DB8892000700193 /* Sources */,
-				5571DCF92DB8892000700193 /* Frameworks */,
-				5571DCFA2DB8892000700193 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5571DCFE2DB8892000700193 /* PBXTargetDependency */,
-			);
-			name = CiganusAppBarTests;
-			packageProductDependencies = (
-			);
-			productName = CiganusAppBarTests;
-			productReference = 5571DCFC2DB8892000700193 /* CiganusAppBarTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		5571DD052DB8892000700193 /* CiganusAppBarUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5571DD162DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBarUITests" */;
-			buildPhases = (
-				5571DD022DB8892000700193 /* Sources */,
-				5571DD032DB8892000700193 /* Frameworks */,
-				5571DD042DB8892000700193 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5571DD082DB8892000700193 /* PBXTargetDependency */,
-			);
-			name = CiganusAppBarUITests;
-			packageProductDependencies = (
-			);
-			productName = CiganusAppBarUITests;
-			productReference = 5571DD062DB8892000700193 /* CiganusAppBarUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -427,34 +175,12 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					5510C3592DADD8A500C1242E = {
-						CreatedOnToolsVersion = 16.0;
-					};
-					5510C3682DADD8A600C1242E = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 5510C3592DADD8A500C1242E;
-					};
-					5510C3722DADD8A600C1242E = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 5510C3592DADD8A500C1242E;
-					};
 					553107262DA8776E000C9430 = {
 						CreatedOnToolsVersion = 16.0;
 					};
 					553107362DA8776F000C9430 = {
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 553107262DA8776E000C9430;
-					};
-					5571DCEB2DB8891F00700193 = {
-						CreatedOnToolsVersion = 16.0;
-					};
-					5571DCFB2DB8892000700193 = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 5571DCEB2DB8891F00700193;
-					};
-					5571DD052DB8892000700193 = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 5571DCEB2DB8891F00700193;
 					};
 				};
 			};
@@ -477,38 +203,11 @@
 			targets = (
 				553107262DA8776E000C9430 /* Ciganus */,
 				553107362DA8776F000C9430 /* CiganusTests */,
-				5510C3592DADD8A500C1242E /* CiganusWatch Watch App */,
-				5510C3682DADD8A600C1242E /* CiganusWatch Watch AppTests */,
-				5510C3722DADD8A600C1242E /* CiganusWatch Watch AppUITests */,
-				5571DCEB2DB8891F00700193 /* CiganusAppBar */,
-				5571DCFB2DB8892000700193 /* CiganusAppBarTests */,
-				5571DD052DB8892000700193 /* CiganusAppBarUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		5510C3582DADD8A500C1242E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5510C3672DADD8A600C1242E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5510C3712DADD8A600C1242E /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		553107252DA8776E000C9430 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -523,51 +222,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5571DCEA2DB8891F00700193 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5571DCFA2DB8892000700193 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5571DD042DB8892000700193 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		5510C3562DADD8A500C1242E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5510C3652DADD8A600C1242E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5510C36F2DADD8A600C1242E /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		553107232DA8776E000C9430 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -582,201 +239,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5571DCE82DB8891F00700193 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5571DCF82DB8892000700193 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5571DD022DB8892000700193 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		5510C36B2DADD8A600C1242E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5510C3592DADD8A500C1242E /* CiganusWatch Watch App */;
-			targetProxy = 5510C36A2DADD8A600C1242E /* PBXContainerItemProxy */;
-		};
-		5510C3752DADD8A600C1242E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5510C3592DADD8A500C1242E /* CiganusWatch Watch App */;
-			targetProxy = 5510C3742DADD8A600C1242E /* PBXContainerItemProxy */;
-		};
-		5510C37C2DADD8A600C1242E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5510C3592DADD8A500C1242E /* CiganusWatch Watch App */;
-			targetProxy = 5510C37B2DADD8A600C1242E /* PBXContainerItemProxy */;
-		};
 		553107392DA8776F000C9430 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 553107262DA8776E000C9430 /* Ciganus */;
 			targetProxy = 553107382DA8776F000C9430 /* PBXContainerItemProxy */;
 		};
-		5571DCFE2DB8892000700193 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5571DCEB2DB8891F00700193 /* CiganusAppBar */;
-			targetProxy = 5571DCFD2DB8892000700193 /* PBXContainerItemProxy */;
-		};
-		5571DD082DB8892000700193 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5571DCEB2DB8891F00700193 /* CiganusAppBar */;
-			targetProxy = 5571DD072DB8892000700193 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		5510C37F2DADD8A600C1242E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"CiganusWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = CiganusWatch;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.fernando.marins.Ciganus;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.Ciganus.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 11.0;
-			};
-			name = Debug;
-		};
-		5510C3802DADD8A600C1242E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"CiganusWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = CiganusWatch;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.fernando.marins.Ciganus;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.Ciganus.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 11.0;
-			};
-			name = Release;
-		};
-		5510C3812DADD8A600C1242E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.fernando.marins.CiganusWatch-Watch-AppTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CiganusWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CiganusWatch Watch App";
-				WATCHOS_DEPLOYMENT_TARGET = 11.0;
-			};
-			name = Debug;
-		};
-		5510C3822DADD8A600C1242E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.fernando.marins.CiganusWatch-Watch-AppTests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CiganusWatch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CiganusWatch Watch App";
-				WATCHOS_DEPLOYMENT_TARGET = 11.0;
-			};
-			name = Release;
-		};
-		5510C3832DADD8A600C1242E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.fernando.marins.CiganusWatch-Watch-AppUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_TARGET_NAME = "CiganusWatch Watch App";
-				WATCHOS_DEPLOYMENT_TARGET = 11.0;
-			};
-			name = Debug;
-		};
-		5510C3842DADD8A600C1242E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.fernando.marins.CiganusWatch-Watch-AppUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				TEST_TARGET_NAME = "CiganusWatch Watch App";
-				WATCHOS_DEPLOYMENT_TARGET = 11.0;
-			};
-			name = Release;
-		};
 		553107492DA8776F000C9430 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -829,7 +302,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -886,7 +359,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -964,7 +437,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C8ULV38G2Z;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -983,7 +456,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C8ULV38G2Z;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -994,168 +467,9 @@
 			};
 			name = Release;
 		};
-		5571DD0E2DB8892000700193 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = CiganusAppBar/CiganusAppBar.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"CiganusAppBar/Preview Content\"";
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusAppBar;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		5571DD0F2DB8892000700193 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = CiganusAppBar/CiganusAppBar.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"CiganusAppBar/Preview Content\"";
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				ENABLE_HARDENED_RUNTIME = YES;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusAppBar;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
-		5571DD102DB8892000700193 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusAppBarTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CiganusAppBar.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CiganusAppBar";
-			};
-			name = Debug;
-		};
-		5571DD112DB8892000700193 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusAppBarTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CiganusAppBar.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CiganusAppBar";
-			};
-			name = Release;
-		};
-		5571DD122DB8892000700193 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusAppBarUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = CiganusAppBar;
-			};
-			name = Debug;
-		};
-		5571DD132DB8892000700193 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = C8ULV38G2Z;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fernando.marins.CiganusAppBarUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = CiganusAppBar;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		5510C3852DADD8A600C1242E /* Build configuration list for PBXNativeTarget "CiganusWatch Watch App" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5510C37F2DADD8A600C1242E /* Debug */,
-				5510C3802DADD8A600C1242E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5510C3862DADD8A600C1242E /* Build configuration list for PBXNativeTarget "CiganusWatch Watch AppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5510C3812DADD8A600C1242E /* Debug */,
-				5510C3822DADD8A600C1242E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5510C3872DADD8A600C1242E /* Build configuration list for PBXNativeTarget "CiganusWatch Watch AppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5510C3832DADD8A600C1242E /* Debug */,
-				5510C3842DADD8A600C1242E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		553107222DA8776E000C9430 /* Build configuration list for PBXProject "Ciganus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1183,33 +497,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		5571DD142DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBar" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5571DD0E2DB8892000700193 /* Debug */,
-				5571DD0F2DB8892000700193 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5571DD152DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBarTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5571DD102DB8892000700193 /* Debug */,
-				5571DD112DB8892000700193 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5571DD162DB8892000700193 /* Build configuration list for PBXNativeTarget "CiganusAppBarUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5571DD122DB8892000700193 /* Debug */,
-				5571DD132DB8892000700193 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
@@ -1230,16 +517,6 @@
 			productName = FirebaseAuth;
 		};
 		553107672DA88A0D000C9430 /* FirebaseDatabase */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 553107542DA87801000C9430 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseDatabase;
-		};
-		5571DD1E2DB88EB900700193 /* FirebaseAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 553107542DA87801000C9430 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAuth;
-		};
-		5571DD212DB88F3900700193 /* FirebaseDatabase */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 553107542DA87801000C9430 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseDatabase;
