@@ -9,44 +9,53 @@ on:
 jobs:
   test:
     name: Executar Testes
-    runs-on: macos-15
-    
+    runs-on: macos-latest
+
     steps:
-    - name: Checkout do código
-      uses: actions/checkout@v4
-      
-    - name: Select Xcode 16.2
-      run: sudo xcode-select -switch /Applications/Xcode_16.2.app/Contents/Developer
+      - name: Checkout do código
+        uses: actions/checkout@v4
 
-    - name: Print Xcode version
-      run: xcodebuild -version
+      - name: Select Xcode 26
+        run: |
+          sudo xcode-select -switch /Applications/Xcode_26.app/Contents/Developer
 
-    - name: Download iOS Platform
-      run: xcodebuild -downloadPlatform iOS
-      
-    - name: Executar testes unitários
-      run: |
-        cd Ciganus
-        xcodebuild test \
-          -project Ciganus.xcodeproj \
-          -scheme Ciganus \
-          -destination 'platform=iOS Simulator,name=iPhone 16' \
-          -enableCodeCoverage YES
-      continue-on-error: false
-      
-    - name: Gerar relatório de cobertura
-      if: success()
-      run: |
-        cd Ciganus
-        xcrun xccov view --report --json \
-          $(find ~/Library/Developer/Xcode/DerivedData -name '*.xcresult' | head -n 1)/Info.plist \
-          > coverage.json || true
-        
-    - name: Upload dos resultados
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: test-results
-        path: |
-          ~/Library/Developer/Xcode/DerivedData/**/Logs/Test/*.xcresult
-        retention-days: 30
+      - name: Print Xcode version
+        run: xcodebuild -version
+
+      - name: Download iOS Platform
+        run: xcodebuild -downloadPlatform iOS
+
+      - name: Executar testes unitários
+        run: |
+          cd Ciganus
+          # gera um .xcresult previsível em ./TestResults/Ciganus.xcresult
+          mkdir -p TestResults
+          xcodebuild test \
+            -project Ciganus.xcodeproj \
+            -scheme Ciganus \
+            -destination 'platform=iOS Simulator,name=iPhone 17,OS=26.0' \
+            -enableCodeCoverage YES \
+            -resultBundlePath ./TestResults/Ciganus.xcresult
+
+      - name: Gerar relatório de cobertura
+        if: success()
+        run: |
+          cd Ciganus
+          RESULT="./TestResults/Ciganus.xcresult"
+          if [ -d "$RESULT" ]; then
+            xcrun xccov view --report --json "$RESULT" > coverage.json || true
+            echo "coverage.json gerado em $(pwd)/coverage.json"
+          else
+            echo "Arquivo .xcresult não encontrado em $RESULT"
+            ls -la ./TestResults || true
+          fi
+
+      - name: Upload dos resultados
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            Ciganus/TestResults/Ciganus.xcresult
+            Ciganus/coverage.json
+          retention-days: 30
