@@ -15,21 +15,21 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
 
-    - name: Select Xcode (if available)
-      run: |
-        if [ -d "/Applications/Xcode_26.app/Contents/Developer" ]; then
-          echo "Switching to /Applications/Xcode_26.app"
-          sudo xcode-select -switch /Applications/Xcode_26.app/Contents/Developer
-        elif [ -d "/Applications/Xcode_26.1.1.app/Contents/Developer" ]; then
-          echo "Switching to /Applications/Xcode_26.1.1.app"
-          sudo xcode-select -switch /Applications/Xcode_26.1.1.app/Contents/Developer
-        else
-          echo "Desired Xcode not found. Installed Xcodes in /Applications:"
-          ls -la /Applications | grep -i Xcode || true
-          echo "Current xcode-select path:"
-          sudo xcode-select -print-path || true
-          echo "Continuing with default Xcode on runner."
-        fi
+      - name: Select Xcode (if available)
+        run: |
+          if [ -d "/Applications/Xcode_26.app/Contents/Developer" ]; then
+            echo "Switching to /Applications/Xcode_26.app"
+            sudo xcode-select -switch /Applications/Xcode_26.app/Contents/Developer
+          elif [ -d "/Applications/Xcode_26.1.1.app/Contents/Developer" ]; then
+            echo "Switching to /Applications/Xcode_26.1.1.app"
+            sudo xcode-select -switch /Applications/Xcode_26.1.1.app/Contents/Developer
+          else
+            echo "Desired Xcode not found. Installed Xcodes in /Applications:"
+            ls -la /Applications | grep -i Xcode || true
+            echo "Current xcode-select path:"
+            sudo xcode-select -print-path || true
+            echo "Continuing with default Xcode on runner."
+          fi
 
       - name: Print Xcode version
         run: xcodebuild -version
