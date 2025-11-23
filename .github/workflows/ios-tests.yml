@@ -58,64 +58,58 @@ jobs:
 
       - name: Detectar destino de simulador automaticamente
         id: detect-sim
+        shell: bash
         run: |
           set -euo pipefail
+
           echo "Detectando runtime iOS mais recente disponível..."
-          # Extrai versões como "iOS 17.4", "iOS 26.0", pega o número e ordena
-          LATEST_RUNTIME=$(xcrun simctl list runtimes \
+          LATEST_RUNTIME_VERSION=$(xcrun simctl list runtimes \
             | grep -Ei 'iOS [0-9]+' \
-            | grep -iv 'unavailable' || true)
-          if [ -z "$LATEST_RUNTIME" ]; then
-            echo "Nenhum runtime iOS listado. Saindo com fallback."
-            echo "::set-output name=os::17.4"
-            echo "::set-output name=device::iPhone 16"
-            exit 0
-          fi
-          # Pega apenas o número (ex: "17.4" ou "26.0")
-          LATEST_RUNTIME_VERSION=$(echo "$LATEST_RUNTIME" \
+            | grep -iv 'unavailable' \
             | grep -Eo 'iOS [0-9]+(\.[0-9]+)?' \
             | sed 's/iOS //' \
             | sort -V \
-            | tail -n1)
-          if [ -z "$LATEST_RUNTIME_VERSION" ]; then
-            echo "Não consegui determinar versão do runtime; usando fallback 17.4"
+            | tail -n1 || true)
+
+          if [ -z "${LATEST_RUNTIME_VERSION:-}" ]; then
+            echo "Nenhum runtime iOS detectado; aplicando fallback 17.4"
             LATEST_RUNTIME_VERSION="17.4"
           fi
+
           echo "Runtime selecionado: $LATEST_RUNTIME_VERSION"
 
           echo "Procurando um device iPhone disponível para o runtime $LATEST_RUNTIME_VERSION..."
-          # Busca o primeiro iPhone disponível dentro da seção do runtime correspondente
-          DEVICE=$(xcrun simctl list devices | awk -v ver="$LATEST_RUNTIME_VERSION" '
-            $0 ~ "-- iOS " ver " --" {found=1; next}
-            /^--/ { found=0 }
-            found && /iPhone/ {
-              gsub(/^[ \t]+/, "", $0)
-              # remove tudo após o parêntese (UUID/status)
-              sub(/\s+\(.*/, "", $0)
-              print $0
-              exit
-            }')
-          if [ -z "$DEVICE" ]; then
-            echo "Nenhum iPhone encontrado para o runtime $LATEST_RUNTIME_VERSION; tentando qualquer iPhone disponível..."
-            DEVICE=$(xcrun simctl list devices | grep -E 'iPhone' | grep -v 'unavailable' | head -n1 | sed 's/ (.*//')
+          # captura a primeira linha com "iPhone" dentro da seção do runtime, depois limpa UUIDs/status entre parênteses
+          DEVICE_RAW=$(xcrun simctl list devices \
+            | awk -v ver="$LATEST_RUNTIME_VERSION" '
+                $0 ~ "-- iOS " ver " --" {found=1; next}
+                /^--/ {found=0}
+                found && /iPhone/ {print; exit}
+              ' || true)
+
+          # se DEVICE_RAW estiver vazio, pega qualquer iPhone disponível (fallback)
+          if [ -z "${DEVICE_RAW:-}" ]; then
+            DEVICE_RAW=$(xcrun simctl list devices | grep -E 'iPhone' | grep -v 'unavailable' | head -n1 || true)
           fi
-          if [ -z "$DEVICE" ]; then
-            echo "Ainda nada encontrado — aplicando fallback device 'iPhone 16'"
+
+          if [ -z "${DEVICE_RAW:-}" ]; then
+            echo "Nenhum iPhone disponível encontrado; usando fallback 'iPhone 16'"
             DEVICE="iPhone 16"
+          else
+            # remove tudo entre parênteses (UUID/status) — repete para remover múltiplos pares, e trim final/leading spaces
+            DEVICE=$(echo "$DEVICE_RAW" | sed 's/ ([^)]*)//g' | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')
           fi
 
           echo "Device selecionado: $DEVICE"
-          # Exporta outputs para serem usados nos próximos passos
-          # note: ::set-output está deprecado em algumas infra; usamos output via file
-          echo "::set-output name=os::$LATEST_RUNTIME_VERSION"
-          echo "::set-output name=device::$DEVICE"
-        shell: bash
+
+          # exporta outputs usando a forma recomendada
+          echo "os=$LATEST_RUNTIME_VERSION" >> "$GITHUB_OUTPUT"
+          echo "device=$DEVICE" >> "$GITHUB_OUTPUT"
 
       - name: Executar testes unitários
         run: |
           cd Ciganus
           mkdir -p TestResults
-          # pega variáveis geradas pelo passo anterior
           DEST_OS="${{ steps.detect-sim.outputs.os }}"
           DEST_DEVICE="${{ steps.detect-sim.outputs.device }}"
           echo "Usando destino: platform=iOS Simulator,name=${DEST_DEVICE},OS=${DEST_OS}"
