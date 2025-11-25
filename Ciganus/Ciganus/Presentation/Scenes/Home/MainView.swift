@@ -17,7 +17,7 @@ struct MainView: View {
         GridItem(.flexible())
     ]
 
-    private let mysticPastelColors = AppColors.mysticPastels
+    private let mysticPastelColors = AppColors.mysticPastels // Mantendo nome da var, mas usando novas cores
 
     var body: some View {
         ZStack {
@@ -55,18 +55,22 @@ struct MainView: View {
                                             Text("#\(index + 1)")
                                                 .font(.caption)
                                                 .fontWeight(.bold)
-                                                .foregroundColor(.black)
+                                                .foregroundColor(AppColors.antiqueGold)
                                             Text(card.name)
-                                                .font(.headline)
-                                                .foregroundColor(.black)
+                                                .font(AppFonts.cardTitle)
+                                                .foregroundColor(AppColors.textPrimary)
                                                 .lineLimit(2)
                                                 .minimumScaleFactor(0.8)
                                         }
                                         .frame(maxWidth: 160, minHeight: 60, alignment: .leading)
                                         .padding()
-                                        .background(mysticPastelColors[index % mysticPastelColors.count])
+                                        .background(AppColors.cardBackground)
                                         .cornerRadius(12)
-                                        .shadow(color: .gray.opacity(0.2), radius: 4, x: 0, y: 2)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 12)
+                                                .stroke(AppColors.antiqueGold, lineWidth: 1)
+                                        )
+                                        .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 2)
                                     }
                                 }
                             }
@@ -86,11 +90,15 @@ struct MainView: View {
                         }) {
                             Image(systemName: "2.circle")
                                 .font(.largeTitle)
-                                .foregroundColor(.purple)
+                                .foregroundColor(AppColors.antiqueGold)
                                 .frame(width: 60, height: 60)
-                                .background(Color.white)
+                                .background(AppColors.deepSepia)
                                 .clipShape(Circle())
-                                .shadow(radius: 4)
+                                .overlay(
+                                    Circle()
+                                        .stroke(AppColors.antiqueGold, lineWidth: 2)
+                                )
+                                .shadow(color: Color.black.opacity(0.2), radius: 4)
                         }
                         .padding(.leading, 20)
                         Spacer()
@@ -99,11 +107,15 @@ struct MainView: View {
                         }) {
                             Image(systemName: "plus.message")
                                 .font(.largeTitle)
-                                .foregroundColor(.purple)
+                                .foregroundColor(AppColors.antiqueGold)
                                 .frame(width: 60, height: 60)
-                                .background(Color.white)
+                                .background(AppColors.deepSepia)
                                 .clipShape(Circle())
-                                .shadow(radius: 4)
+                                .overlay(
+                                    Circle()
+                                        .stroke(AppColors.antiqueGold, lineWidth: 2)
+                                )
+                                .shadow(color: Color.black.opacity(0.2), radius: 4)
                         }
                         Spacer()
                         Button(action: {
@@ -113,11 +125,15 @@ struct MainView: View {
                         }) {
                             Image(systemName: "menucard.fill")
                                 .font(.largeTitle)
-                                .foregroundColor(.purple)
+                                .foregroundColor(AppColors.antiqueGold)
                                 .frame(width: 60, height: 60)
-                                .background(Color.white)
+                                .background(AppColors.deepSepia)
                                 .clipShape(Circle())
-                                .shadow(radius: 4)
+                                .overlay(
+                                    Circle()
+                                        .stroke(AppColors.antiqueGold, lineWidth: 2)
+                                )
+                                .shadow(color: Color.black.opacity(0.2), radius: 4)
                         }
                         .padding(.trailing, 20)
                     }

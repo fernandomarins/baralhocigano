@@ -22,7 +22,7 @@ class MainViewModel: ObservableObject {
     }
     
     func setContext(_ context: ModelContext) {
-        self.modelContext = context
+        modelContext = context
     }
     
     func loadData() {

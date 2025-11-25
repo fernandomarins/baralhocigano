@@ -9,12 +9,15 @@ import SwiftUI
 
 struct AppBackground: View {
     var body: some View {
-        LinearGradient(
-            gradient: Gradient(colors: [Color.purple, Color.indigo]),
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
-        .ignoresSafeArea()
+        ZStack {
+            AppColors.backgroundGradient
+                .ignoresSafeArea()
+            
+            // Textura sutil de papel (opcional, por enquanto apenas cor sólida/gradiente)
+            Color.white.opacity(0.1)
+                .blendMode(.overlay)
+                .ignoresSafeArea()
+        }
     }
 }
 
