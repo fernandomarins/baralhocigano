@@ -35,7 +35,7 @@ class MainViewModel: ObservableObject {
         
         // 1. Carregar dados locais imediatamente
         do {
-            let cards = try repository.fetchAll().sorted(by: { $0.number < $1.number })
+            let cards = try repository.fetchAll().sorted(by: { (Int($0.number) ?? 0) < (Int($1.number) ?? 0) })
             if !cards.isEmpty {
                 self.state = .success(cards)
             } else {

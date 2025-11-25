@@ -27,6 +27,6 @@ class FetchCardsUseCase: FetchCardsUseCaseProtocol {
         // 2. Fetch updated data from local DB
         let cards = try repository.fetchCards(context: context)
         print("FetchCardsUseCase: Fetched \(cards.count) cards")
-        return cards.sorted(by: { $0.number < $1.number })
+        return cards.sorted(by: { (Int($0.number) ?? 0) < (Int($1.number) ?? 0) })
     }
 }
