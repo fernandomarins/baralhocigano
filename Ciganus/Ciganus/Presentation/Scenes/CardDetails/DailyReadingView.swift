@@ -6,10 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct DailyReadingView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Query(sort: \Reading.date, order: .reverse) private var readings: [Reading]
+    @Query private var allCards: [Card]
+    
     @State private var showingAddCardView = false
-    @State private var readings: [Reading] = []
     @State private var selectedReading: Reading?
     @State private var selectedReadingType: ReadingType?
     @State private var selectedReadingCards: [CardInfo] = []
@@ -38,8 +42,8 @@ struct DailyReadingView: View {
                     .padding()
                 } else {
                     List {
-                        ForEach(readings.sorted(by: { $0.date > $1.date })) { reading in
-                            ReadingRowView(reading: reading, combinedCards: combinedCards)
+                        ForEach(readings) { reading in
+                            ReadingRowView(reading: reading, combinedCards: combinedCards, allCards: allCards)
                                 .listRowBackground(Color.clear)
                                 .listRowSeparator(.hidden)
                                 .padding(.vertical, 4)
@@ -54,7 +58,7 @@ struct DailyReadingView: View {
                     .background(Color.clear)
                     .scrollContentBackground(.hidden)
                     .sheet(item: $selectedReading) { reading in
-                        DailyInterpretationView(cards: reading.cards, readingType: reading.type)
+                        DailyInterpretationView(pairs: reading.pairs, readingType: reading.type)
                     }
                 }
 
@@ -89,7 +93,7 @@ struct DailyReadingView: View {
             .navigationTitle("Leituras")
             .sheet(isPresented: $showingAddCardView) {
                 AddReadingView(onReadingAdded: { newReading in
-                    readings.append(newReading)
+                    modelContext.insert(newReading)
                 })
             }
         }
@@ -100,7 +104,9 @@ struct DailyReadingView: View {
     }
 
     func deleteReading(at offsets: IndexSet) {
-        readings.remove(atOffsets: offsets)
+        for index in offsets {
+            modelContext.delete(readings[index])
+        }
     }
     
     func loadCombinedCards() {
@@ -115,6 +121,7 @@ struct DailyReadingView: View {
 struct ReadingRowView: View {
     let reading: Reading
     let combinedCards: [CombinedCardModel]
+    let allCards: [Card]
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -131,22 +138,21 @@ struct ReadingRowView: View {
             Divider()
                 .background(Color.white.opacity(0.2))
             
-            ForEach(reading.cards.chunked(by: 2), id: \.self) { group in
+            ForEach(reading.pairs) { pair in
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        ForEach(group.indices, id: \.self) { index in
-                            let card = group[index]
-                            Text("\(Int(card.number) ?? 0) - \(card.name)")
-                                .font(.subheadline)
-                                .foregroundColor(.white)
-                                .bold()
-                            if index < group.count - 1 {
-                                Spacer()
-                            }
-                        }
+                        Text("\(Int(pair.card1.number) ?? 0) - \(pair.card1.name)")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                            .bold()
+                        Spacer()
+                        Text("\(Int(pair.card2.number) ?? 0) - \(pair.card2.name)")
+                            .font(.subheadline)
+                            .foregroundColor(.white)
+                            .bold()
                     }
                     
-                    if let description = getCombinationDescription(for: group) {
+                    if let description = getCombinationDescription(for: pair) {
                         Text(description)
                             .font(.caption)
                             .foregroundColor(.white.opacity(0.8))
@@ -155,6 +161,28 @@ struct ReadingRowView: View {
                             .background(Color.white.opacity(0.05))
                             .cornerRadius(8)
                     }
+                    
+                    if let hiddenCard = pair.hiddenCard {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Oculto: \(Int(hiddenCard.number) ?? 0) - \(hiddenCard.name)")
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                                .bold()
+                            
+                            if let description = getSingleCardDescription(for: hiddenCard) {
+                                Text(description)
+                                    .font(.caption)
+                                    .foregroundColor(.white.opacity(0.7))
+                                    .lineLimit(2)
+                            }
+                        }
+                        .padding(.top, 4)
+                    }
+                }
+                .padding(.vertical, 4)
+                
+                if pair.id != reading.pairs.last?.id {
+                    Divider().background(Color.white.opacity(0.1))
                 }
             }
         }
@@ -176,9 +204,13 @@ struct ReadingRowView: View {
         )
     }
     
-    func getCombinationDescription(for cards: [CardInfo]) -> String? {
-        let cardNames = cards.map(\.name).joined(separator: ", ")
+    func getCombinationDescription(for pair: ReadingPair) -> String? {
+        let cardNames = "\(pair.card1.name), \(pair.card2.name)"
         return combinedCards.first { $0.number.lowercased() == cardNames.lowercased() }?.description
+    }
+    
+    func getSingleCardDescription(for card: CardInfo) -> String? {
+        return allCards.first { $0.number == card.number }?.keywords
     }
 }
 
@@ -188,7 +220,15 @@ struct AddReadingView: View {
     @State private var isWeekly = false
     @State private var isMonthly = false
     @State private var isClient = false
-    @State private var cardPairs: [[String]] = [["", ""]]
+    
+    struct InputPair: Identifiable {
+        var id = UUID()
+        var card1: String = ""
+        var card2: String = ""
+        var hidden: String = ""
+    }
+    
+    @State private var inputPairs: [InputPair] = [InputPair()]
     @State private var showingCardNumberAlert = false
     @State private var alertMessage = ""
 
@@ -207,7 +247,7 @@ struct AddReadingView: View {
                                 .font(.headline)
                                 .foregroundColor(.cyan)
                             
-                            VStack(spacing: 10) {
+                            VStack(spacing: 5) {
                                 Toggle(isOn: $isDaily) {
                                     Text("Diária")
                                         .foregroundColor(.white)
@@ -259,16 +299,18 @@ struct AddReadingView: View {
                                 .font(.headline)
                                 .foregroundColor(.cyan)
                             
-                            ForEach(cardPairs.indices, id: \.self) { index in
+                            ForEach($inputPairs) { $pair in
                                 VStack(alignment: .leading, spacing: 8) {
                                     HStack {
-                                        Text("Combinação \(index + 1)")
+                                        Text("Combinação")
                                             .font(.caption)
                                             .foregroundColor(.white.opacity(0.8))
                                         Spacer()
-                                        if cardPairs.count > 1 {
+                                        if inputPairs.count > 1 {
                                             Button {
-                                                removeCardPair(at: index)
+                                                if let index = inputPairs.firstIndex(where: { $0.id == pair.id }) {
+                                                    inputPairs.remove(at: index)
+                                                }
                                             } label: {
                                                 Image(systemName: "trash")
                                                     .foregroundColor(.red.opacity(0.8))
@@ -278,11 +320,11 @@ struct AddReadingView: View {
                                     
                                     HStack(spacing: 12) {
                                         ZStack {
-                                            if cardPairs[index][0].isEmpty {
+                                            if pair.card1.isEmpty {
                                                 Text("Carta 1")
                                                     .foregroundColor(.white.opacity(0.5))
                                             }
-                                            TextField("", text: $cardPairs[index][0])
+                                            TextField("", text: $pair.card1)
                                                 .keyboardType(.numberPad)
                                                 .multilineTextAlignment(.center)
                                                 .foregroundColor(.white)
@@ -293,11 +335,11 @@ struct AddReadingView: View {
                                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.white.opacity(0.2), lineWidth: 1))
                                         
                                         ZStack {
-                                            if cardPairs[index][1].isEmpty {
+                                            if pair.card2.isEmpty {
                                                 Text("Carta 2")
                                                     .foregroundColor(.white.opacity(0.5))
                                             }
-                                            TextField("", text: $cardPairs[index][1])
+                                            TextField("", text: $pair.card2)
                                                 .keyboardType(.numberPad)
                                                 .multilineTextAlignment(.center)
                                                 .foregroundColor(.white)
@@ -307,6 +349,22 @@ struct AddReadingView: View {
                                         .cornerRadius(8)
                                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.white.opacity(0.2), lineWidth: 1))
                                     }
+                                    
+                                    // Hidden Card Input per pair
+                                    ZStack {
+                                        if pair.hidden.isEmpty {
+                                            Text("Oculta (Opcional)")
+                                                .foregroundColor(.white.opacity(0.5))
+                                        }
+                                        TextField("", text: $pair.hidden)
+                                            .keyboardType(.numberPad)
+                                            .multilineTextAlignment(.center)
+                                            .foregroundColor(.white)
+                                    }
+                                    .padding()
+                                    .background(Color.black.opacity(0.3))
+                                    .cornerRadius(8)
+                                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.purple.opacity(0.3), lineWidth: 1))
                                 }
                                 .padding()
                                 .background(Color.black.opacity(0.2))
@@ -314,7 +372,7 @@ struct AddReadingView: View {
                             }
                             
                             Button {
-                                cardPairs.append(["", ""])
+                                inputPairs.append(InputPair())
                             } label: {
                                 HStack {
                                     Image(systemName: "plus.circle.fill")
@@ -371,77 +429,57 @@ struct AddReadingView: View {
             else if isMonthly { readingType = .monthly }
             else if isClient { readingType = .client }
 
-            var validCards: [CardInfo] = []
+            var validPairs: [ReadingPair] = []
             var allValid = true
 
-            for pair in cardPairs {
-                for number in pair {
-                    if let name = Source.shared.name(for: number) {
-                        validCards.append(CardInfo(number: number, name: name))
-                    } else if !number.isEmpty {
-                        alertMessage = "Número de carta inválido: \(number). Por favor, verifique os números."
+            for input in inputPairs {
+                guard let name1 = Source.shared.name(for: input.card1),
+                      let name2 = Source.shared.name(for: input.card2) else {
+                    alertMessage = "Número de carta inválido."
+                    showingCardNumberAlert = true
+                    allValid = false
+                    break
+                }
+                
+                var hiddenCard: CardInfo? = nil
+                if !input.hidden.isEmpty {
+                    if let hiddenName = Source.shared.name(for: input.hidden) {
+                        hiddenCard = CardInfo(number: input.hidden, name: hiddenName)
+                    } else {
+                        alertMessage = "Número da carta oculta inválido: \(input.hidden)."
                         showingCardNumberAlert = true
                         allValid = false
                         break
                     }
                 }
-                if !allValid { break }
+                
+                let pair = ReadingPair(
+                    card1: CardInfo(number: input.card1, name: name1),
+                    card2: CardInfo(number: input.card2, name: name2),
+                    hiddenCard: hiddenCard
+                )
+                validPairs.append(pair)
             }
 
             if allValid {
-                let newReading = Reading(type: readingType, cards: validCards.filter { !$0.number.isEmpty }, date: Date())
+                let newReading = Reading(type: readingType, pairs: validPairs, date: Date())
                 onReadingAdded(newReading)
                 dismiss()
             }
         } else {
-            alertMessage = "Por favor, preencha o número de todas as cartas."
+            alertMessage = "Por favor, preencha o número de todas as cartas principais."
             showingCardNumberAlert = true
         }
     }
 
     func areCardNumbersValid() -> Bool {
-        for pair in cardPairs {
-            for number in pair {
-                if !number.isEmpty, Source.shared.name(for: number) == nil {
-                    return false
-                }
-            }
+        for pair in inputPairs {
+            if pair.card1.isEmpty || pair.card2.isEmpty { return false }
+            if Source.shared.name(for: pair.card1) == nil { return false }
+            if Source.shared.name(for: pair.card2) == nil { return false }
         }
         return true
     }
-
-    func removeCardPair(at index: Int) {
-        if cardPairs.count > 1 {
-            cardPairs.remove(at: index)
-        }
-    }
-}
-
-struct Reading: Identifiable {
-    let id = UUID()
-    let type: ReadingType
-    let cards: [CardInfo]
-    let date: Date
-
-    var formattedDate: String {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .short
-        return formatter.string(from: date)
-    }
-}
-
-struct CardInfo: Hashable {
-    var number: String
-    var name: String
-}
-
-enum ReadingType: String, CaseIterable, Identifiable {
-    var id: Self { self }
-    case client = "Cliente"
-    case daily = "Diária"
-    case weekly = "Semanal"
-    case monthly = "Mensal"
 }
 
 extension Array {
@@ -456,5 +494,6 @@ struct DailyReadingView_Previews: PreviewProvider {
     static var previews: some View {
         DailyReadingView()
             .preferredColorScheme(.dark)
+            .modelContainer(for: Reading.self, inMemory: true)
     }
 }

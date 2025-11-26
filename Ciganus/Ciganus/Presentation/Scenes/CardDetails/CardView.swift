@@ -43,8 +43,14 @@ struct CardView: View {
                         SectionView(title: "Plano Físico (doenças)", content: card.physicalPlane)
                         SectionView(title: "Pontos Positivos", content: card.positivePoints)
                         SectionView(title: "Pontos Negativos", content: card.negativePoints)
-                        SectionView(title: "Previsões para o Ano", content: card.yearPrediction)
-                        SectionView(title: "Tempo", content: card.time)
+                        
+                        if !card.yearPrediction.isEmpty {
+                            SectionView(title: "Previsões para o Ano", content: card.yearPrediction)
+                        }
+                        
+                        if !card.time.isEmpty {
+                            SectionView(title: "Tempo", content: card.time)
+                        }
                     }
                 }
                 .padding()
@@ -53,47 +59,6 @@ struct CardView: View {
         }
         .navigationTitle("")
         .navigationBarTitleDisplayMode(.inline)
-    }
-}
-
-struct SectionView: View {
-    let title: String
-    let content: String
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(title)
-                .font(.system(size: 18, weight: .bold, design: .rounded))
-                .foregroundStyle(
-                    LinearGradient(
-                        colors: [.cyan, .blue],
-                        startPoint: .leading,
-                        endPoint: .trailing
-                    )
-                )
-            
-            Text(content)
-                .font(.system(size: 16, design: .rounded))
-                .foregroundColor(.white.opacity(0.9))
-                .lineSpacing(4)
-        }
-        .padding()
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color.black.opacity(0.3))
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(
-                    LinearGradient(
-                        colors: [.purple.opacity(0.3), .blue.opacity(0.2)],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    ),
-                    lineWidth: 1
-                )
-        )
     }
 }
 
