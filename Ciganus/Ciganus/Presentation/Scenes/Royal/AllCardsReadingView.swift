@@ -29,18 +29,20 @@ struct AllCardsReadingView: View {
                         headerView
                         
                         ForEach(0..<sectionTitles.count, id: \.self) { sectionIndex in
-                            ReadingSectionView(
-                                title: sectionTitles[sectionIndex],
-                                sectionIndex: sectionIndex,
-                                selectedCardNumbers: selectedCardNumbers,
-                                allCards: allCards,
-                                combinedCards: combinedCards,
-                                aiInterpretation: aiInterpretations[sectionIndex],
-                                isLoadingAI: loadingStates[sectionIndex] ?? false
-                            )
-                            
-                            if sectionIndex < sectionTitles.count - 1 {
-                                Divider().background(Color.white.opacity(0.5))
+                            if hasSectionCards(sectionIndex: sectionIndex) {
+                                ReadingSectionView(
+                                    title: sectionTitles[sectionIndex],
+                                    sectionIndex: sectionIndex,
+                                    selectedCardNumbers: selectedCardNumbers,
+                                    allCards: allCards,
+                                    combinedCards: combinedCards,
+                                    aiInterpretation: aiInterpretations[sectionIndex],
+                                    isLoadingAI: loadingStates[sectionIndex] ?? false
+                                )
+                                
+                                if sectionIndex < sectionTitles.count - 1 {
+                                    Divider().background(Color.white.opacity(0.5))
+                                }
                             }
                         }
                     }
@@ -85,7 +87,7 @@ struct AllCardsReadingView: View {
     
     private func generateAIInterpretations() {
         // Check if Apple Intelligence is available
-        if #available(iOS 18.1, *), RoyalReadingInterpreter.isSupported {
+        if #available(iOS 26.0, *) {
             // Generate interpretations for each section
             for sectionIndex in 0..<sectionTitles.count {
                 generateInterpretation(for: sectionIndex)
@@ -117,6 +119,12 @@ struct AllCardsReadingView: View {
                     )
                 )
             }
+        }
+        
+        // Only generate interpretation if there are valid combinations
+        guard !combinations.isEmpty else {
+            loadingStates[sectionIndex] = false
+            return
         }
         
         // Generate interpretation asynchronously
@@ -157,6 +165,18 @@ struct AllCardsReadingView: View {
         } else {
             return "Nenhuma combinação encontrada para \(card1Name) e \(card2Name)."
         }
+    }
+    
+    private func hasSectionCards(sectionIndex: Int) -> Bool {
+        // Check if at least one card is filled in this section
+        // Each section has 6 cards (indices: sectionIndex * 6 to sectionIndex * 6 + 5)
+        for cardIndex in 0..<6 {
+            let globalIndex = sectionIndex * 6 + cardIndex
+            if let cardNumber = selectedCardNumbers[globalIndex], !cardNumber.isEmpty {
+                return true
+            }
+        }
+        return false
     }
 }
 

@@ -110,29 +110,26 @@ actor RoyalReadingInterpreter {
     // MARK: - Private Methods
     
     private func buildPrompt(combinations: [CardCombination], sectionTitle: String) -> String {
-        var prompt = """
-        Você é um especialista em Tarot Cigano. Analise as seguintes 5 combinações de cartas no contexto de "\(sectionTitle)" e crie uma interpretação única e coesa que sintetize o significado geral dessas cartas neste contexto específico.
+        // Collect only non-empty description texts from the combinations
+        let descriptions = combinations
+            .map { $0.description }
+            .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+            .joined(separator: "\n\n")
         
-        Combinações:
+        let prompt = """
+        Contexto: \(sectionTitle)
         
-        """
+        Textos das combinações de cartas:
         
-        for (index, combo) in combinations.enumerated() {
-            prompt += """
-            \(index + 1). \(combo.card1Name) + \(combo.card2Name):
-            \(combo.description)
-            
-            """
-        }
+        \(descriptions)
         
-        prompt += """
+        Com base nesses textos, crie uma interpretação única e coesa que sintetize o significado geral no contexto de "\(sectionTitle)".
         
-        Crie uma interpretação em português que:
-        1. Sintetize o significado dessas 5 combinações
-        2. Considere o contexto específico de "\(sectionTitle)"
-        3. Seja coesa e fluida (não liste as combinações individualmente)
-        4. Tenha entre 3-5 parágrafos
-        5. Use uma linguagem acessível mas profissional
+        A interpretação deve:
+        1. Sintetizar os significados apresentados
+        2. Ser fluida e coesa, mencionando o nome das cartas combinadas
+        3. Ter entre 3-5 parágrafos
+        4. Considerar o contexto específico da seção
         
         Interpretação:
         """
