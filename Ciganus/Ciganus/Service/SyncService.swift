@@ -88,6 +88,4 @@ class SyncService {
             }
         }
     }
-    
-    // updateLocalDatabase removed as it is replaced by Repository usage
 }

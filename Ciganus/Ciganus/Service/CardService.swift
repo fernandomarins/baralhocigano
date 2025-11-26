@@ -57,10 +57,4 @@ class CardService: CardServicing {
     func sync(modelContext: ModelContext) async throws {
         try await SyncService.shared.checkAndSync(modelContext: modelContext)
     }
-    
-    // Mantendo compatibilidade com o protocolo antigo (refatorado)
-    func fetchCartasTyped() async throws -> [Card] {
-         // Deprecated or unused in new flow
-         return []
-    }
 }

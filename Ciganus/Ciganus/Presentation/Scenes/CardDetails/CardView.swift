@@ -11,39 +11,48 @@ import Foundation
 struct CardView: View {
     let card: Card
     let fromAllCard: Bool
-
+    
     var body: some View {
         ZStack {
-            AppBackground()
-
+            CosmicBackground()
+            
             ScrollView {
-                VStack(alignment: .leading, spacing: 16) {
-                    if fromAllCard {
-                        Text(card.name)
-                            .font(.title)
-                            .bold()
-                            .padding(.top)
-                            .foregroundColor(.white)
+                VStack(alignment: .leading, spacing: 20) {
+                    Text(card.name)
+                        .font(.system(size: 42, weight: .black, design: .rounded))
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.white, .cyan],
+                                startPoint: .top,
+                                endPoint: .bottom
+                            )
+                        )
+                        .padding(.top, 20)
+                        .frame(maxWidth: .infinity, alignment: .center)
+                    
+                    Group {
+                        SectionView(title: "Palavras-chave", content: card.keywords)
+                        SectionView(title: "Significados gerais", content: card.generalMeanings)
+                        SectionView(title: "Influência Astrológica", content: card.astrologicalInfluence)
+                        SectionView(title: "Figura Arquétipica", content: card.archetypeFigure)
+                        SectionView(title: "Plano Espiritual", content: card.spiritualPlane)
+                        SectionView(title: "Plano Mental", content: card.mentalPlane)
+                        SectionView(title: "Plano Emocional", content: card.emotionalPlane)
+                        SectionView(title: "Plano Material", content: card.materialPlane)
+                        SectionView(title: "Plano Físico (doenças)", content: card.physicalPlane)
+                        SectionView(title: "Pontos Positivos", content: card.positivePoints)
+                        SectionView(title: "Pontos Negativos", content: card.negativePoints)
+                        SectionView(title: "Previsões para o Ano", content: card.yearPrediction)
+                        SectionView(title: "Tempo", content: card.time)
                     }
-                    SectionView(title: "Palavras-chave", content: card.keywords)
-                    SectionView(title: "Significados gerais", content: card.generalMeanings)
-                    SectionView(title: "Influência Astrológica", content: card.astrologicalInfluence)
-                    SectionView(title: "Figura Arquétipica", content: card.archetypeFigure)
-                    SectionView(title: "Plano Espiritual", content: card.spiritualPlane)
-                    SectionView(title: "Plano Mental", content: card.mentalPlane)
-                    SectionView(title: "Plano Emocional", content: card.emotionalPlane)
-                    SectionView(title: "Plano Material", content: card.materialPlane)
-                    SectionView(title: "Plano Físico (doenças)", content: card.physicalPlane)
-                    SectionView(title: "Pontos Positivos", content: card.positivePoints)
-                    SectionView(title: "Pontos Negativos", content: card.negativePoints)
-                    SectionView(title: "Previsões para o Ano", content: card.yearPrediction)
-                    SectionView(title: "Tempo", content: card.time)
                 }
                 .padding()
+                .padding(.bottom, 40)
             }
-            .navigationTitle(card.name)
-            .navigationBarTitleDisplayMode(.large)
         }
+        .navigationTitle("")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -52,15 +61,39 @@ struct SectionView: View {
     let content: String
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 12) {
             Text(title)
-                .font(.title2)
-                .bold()
-                .foregroundColor(.white) // Garante que o título seja visível
+                .font(.system(size: 18, weight: .bold, design: .rounded))
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [.cyan, .blue],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+            
             Text(content)
-                .font(.body)
-                .foregroundColor(.white.opacity(0.8)) // Texto um pouco transparente para melhor leitura
+                .font(.system(size: 16, design: .rounded))
+                .foregroundColor(.white.opacity(0.9))
+                .lineSpacing(4)
         }
+        .padding()
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 16)
+                .fill(Color.black.opacity(0.3))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(
+                    LinearGradient(
+                        colors: [.purple.opacity(0.3), .blue.opacity(0.2)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        )
     }
 }
 

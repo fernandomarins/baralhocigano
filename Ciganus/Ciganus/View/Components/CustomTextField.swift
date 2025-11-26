@@ -26,13 +26,23 @@ struct CustomTextField: View {
             }
         }
         .padding()
-        .background(AppColors.fieldBackground)
-        .cornerRadius(8)
-        .overlay(
-            RoundedRectangle(cornerRadius: 8)
-                .stroke(AppColors.antiqueGold, lineWidth: 1)
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.black.opacity(0.3))
         )
-        .foregroundColor(AppColors.textPrimary)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(
+                    LinearGradient(
+                        colors: [.purple.opacity(0.6), .blue.opacity(0.4), .cyan.opacity(0.3)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    lineWidth: 1
+                )
+        )
+        .foregroundColor(.white)
+        .cornerRadius(12)
     }
 }
 
