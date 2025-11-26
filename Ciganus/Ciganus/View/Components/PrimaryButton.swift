@@ -27,9 +27,13 @@ struct PrimaryButton: View {
             }
             .frame(maxWidth: .infinity)
             .padding()
-            .background(Color.white.opacity(0.3))
+            .background(AppColors.deepSepia)
             .cornerRadius(10)
-            .foregroundColor(.white)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(AppColors.antiqueGold, lineWidth: 1)
+            )
+            .foregroundColor(AppColors.antiqueGold)
         }
         .opacity(isDisabled || isLoading ? 0.5 : 1)
         .disabled(isDisabled || isLoading)

@@ -17,9 +17,8 @@ struct RegisterView: View {
             
             VStack(spacing: 20) {
                 Text("Criar Conta")
-                    .font(.largeTitle)
-                    .bold()
-                    .foregroundColor(.white)
+                    .font(AppFonts.title)
+                    .foregroundColor(AppColors.textPrimary)
                 
                 CustomTextField(
                     placeholder: "Email",
@@ -35,7 +34,7 @@ struct RegisterView: View {
                 
                 if let error = viewModel.errorMessage {
                     Text(error)
-                        .foregroundColor(.white)
+                        .foregroundColor(.red.opacity(0.8))
                         .font(.caption)
                 }
                 
@@ -44,7 +43,14 @@ struct RegisterView: View {
                     isLoading: viewModel.isLoading,
                     isDisabled: viewModel.email.isEmpty || viewModel.password.isEmpty,
                     action: {
-                        Task { await viewModel.register() }
+                        Task { 
+                            await viewModel.register()
+                            if viewModel.didRegister {
+                                await MainActor.run {
+                                    coordinator.push(.main)
+                                }
+                            }
+                        }
                     }
                 )
                 
