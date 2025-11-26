@@ -25,42 +25,66 @@ struct DailyInterpretationView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.indigo, Color.purple]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+                CosmicBackground()
 
-                VStack {
-                    Text("Interpretação da Leitura \(readingType.rawValue)")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .padding()
+                ScrollView {
+                    VStack(spacing: 24) {
+                        Text("Interpretação da Leitura \(readingType.rawValue)")
+                            .font(.system(size: 28, weight: .bold, design: .rounded))
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .shadow(color: .purple.opacity(0.5), radius: 10)
+                            .padding(.top)
 
-                    ForEach(cards.chunked(by: 2).indices, id: \.self) { index in
-                        if let group = cards.chunked(by: 2)[safe: index] {
-                            HStack {
-                                ForEach(group.indices, id: \.self) { cardIndex in
-                                    if let card = group[safe: cardIndex] {
-                                        Text("\(Int(card.number) ?? 0) - \(card.name)")
-                                            .font(.headline)
-                                            .foregroundColor(.white)
+                        ForEach(cards.chunked(by: 2).indices, id: \.self) { index in
+                            if let group = cards.chunked(by: 2)[safe: index] {
+                                VStack(alignment: .leading, spacing: 12) {
+                                    HStack {
+                                        ForEach(group.indices, id: \.self) { cardIndex in
+                                            if let card = group[safe: cardIndex] {
+                                                Text("\(Int(card.number) ?? 0) - \(card.name)")
+                                                    .font(.headline)
+                                                    .foregroundColor(.cyan)
+                                                if cardIndex < group.count - 1 {
+                                                    Text("&")
+                                                        .foregroundColor(.white.opacity(0.5))
+                                                }
+                                            }
+                                        }
                                     }
+                                    .padding(.bottom, 4)
+                                    
+                                    Divider()
+                                        .background(Color.white.opacity(0.2))
+
+                                    Text(interpretations[safe: index] ?? "Carregando interpretação...")
+                                        .foregroundColor(.white.opacity(0.9))
+                                        .font(.body)
+                                        .lineSpacing(4)
                                 }
+                                .padding()
+                                .background(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .fill(Color.black.opacity(0.4))
+                                )
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16)
+                                        .stroke(
+                                            LinearGradient(
+                                                colors: [.purple.opacity(0.3), .cyan.opacity(0.2)],
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            ),
+                                            lineWidth: 1
+                                        )
+                                )
                             }
-                            .padding(.vertical, 5)
-
-                            Text(interpretations[safe: index] ?? "Carregando interpretação...")
-                                .foregroundColor(.white)
-                                .font(.subheadline)
-                                .padding(.bottom)
                         }
+                        
+                        Spacer(minLength: 80)
                     }
-
-                    Spacer()
+                    .padding()
                 }
-                .padding()
 
                 VStack {
                     Spacer()
@@ -69,13 +93,25 @@ struct DailyInterpretationView: View {
                         Button {
                             isExporting = true
                         } label: {
-                            Image(systemName: "square.and.arrow.up.circle.fill")
-                                .font(.largeTitle)
-                                .foregroundColor(.purple)
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.title2.weight(.bold))
+                                .foregroundColor(.white)
                                 .frame(width: 60, height: 60)
-                                .background(Color.white)
-                                .clipShape(Circle())
-                                .shadow(radius: 4)
+                                .background(
+                                    Circle()
+                                        .fill(
+                                            LinearGradient(
+                                                colors: [.purple, .blue],
+                                                startPoint: .topLeading,
+                                                endPoint: .bottomTrailing
+                                            )
+                                        )
+                                )
+                                .shadow(color: .purple.opacity(0.5), radius: 10, x: 0, y: 0)
+                                .overlay(
+                                    Circle()
+                                        .stroke(Color.white.opacity(0.3), lineWidth: 1)
+                                )
                         }
                         .padding()
                     }
@@ -146,5 +182,6 @@ struct DailyInterpretationView_Previews: PreviewProvider {
             CardInfo(number: "5", name: "Árvore"),
             CardInfo(number: "6", name: "Nuvens")
         ], readingType: .daily)
+        .preferredColorScheme(.dark)
     }
 }

@@ -36,7 +36,7 @@ struct CombinedCardsView: View {
                     .padding(.top)
 
                 HStack(spacing: 16) {
-                    VStack {
+                    VStack(spacing: 12) {
                         TextField("Número 1", text: $viewModel.cardNumber1)
                             .padding()
                             .background(
@@ -64,7 +64,7 @@ struct CombinedCardsView: View {
                                 .bold()
                         }
                     }
-                    VStack {
+                    VStack(spacing: 12) {
                         TextField("Número 2", text: $viewModel.cardNumber2)
                             .padding()
                             .background(

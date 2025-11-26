@@ -31,10 +31,11 @@ class CombinedCardsViewModel: ObservableObject {
     }
     
     func buscarCombinacaoPorNomes() {
-        guard let num1 = Int(cardNumber1), let num2 = Int(cardNumber2) else { return }
-        
-        let nomeCarta1 = Source.shared.nomesDasCartas["\(num1)"] ?? ""
-        let nomeCarta2 = Source.shared.nomesDasCartas["\(num2)"] ?? ""
+        guard let num1 = Int(cardNumber1), let num2 = Int(cardNumber2),
+              let nomeCarta1 = Source.shared.name(for: num1),
+              let nomeCarta2 = Source.shared.name(for: num2) else {
+            return
+        }
         
         nameFirstCard = nomeCarta1
         nameSecondCard = nomeCarta2
