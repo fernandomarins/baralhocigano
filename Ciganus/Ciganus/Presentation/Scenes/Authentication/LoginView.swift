@@ -10,7 +10,6 @@ import SwiftUI
 struct LoginView: View {
     @StateObject private var viewModel = LoginViewModel()
     @EnvironmentObject var coordinator: AppCoordinator
-    @State private var showRegister = false
 
     var body: some View {
         ZStack {
@@ -84,11 +83,9 @@ struct LoginView: View {
         .onAppear {
             Task {
                 await viewModel.checkLoginStatus()
-            }
-        }
-        .onChange(of: viewModel.didLogin) { _, newValue in
-            if newValue {
-                coordinator.push(.main)
+                if viewModel.didLogin {
+                    coordinator.push(.main)
+                }
             }
         }
     }
