@@ -10,15 +10,15 @@ import FirebaseAuth
 import LocalAuthentication
 
 @MainActor
-@Observable class LoginViewModel: ObservableObject {
+class LoginViewModel: ObservableObject {
     private let loginUseCase: LoginUseCaseProtocol
     private let authRepository: AuthRepositoryProtocol // For checkLoginStatus/FaceID which might need direct repo access or separate UseCase
     
-    var email = ""
-    var password = ""
-    var isLoading = false
-    var errorMessage: String?
-    var didLogin = false
+    @Published var email = ""
+    @Published var password = ""
+    @Published var isLoading = false
+    @Published var errorMessage: String?
+    @Published var didLogin = false
 
     init(loginUseCase: LoginUseCaseProtocol = DependencyContainer.shared.loginUseCase,
          authRepository: AuthRepositoryProtocol = DependencyContainer.shared.authRepository) {
@@ -39,6 +39,7 @@ import LocalAuthentication
 
         isLoading = true
         errorMessage = nil
+        print("LoginViewModel: Starting login process...")
         
         defer { isLoading = false }
 
@@ -64,12 +65,7 @@ import LocalAuthentication
             let reason = "Autentique-se para entrar no aplicativo."
 
             do {
-                let success = try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
-                if success {
-                    return true
-                } else {
-                    return false
-                }
+                return try await context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
             } catch {
                 print("Erro de autenticação: \(error.localizedDescription)")
                 return false

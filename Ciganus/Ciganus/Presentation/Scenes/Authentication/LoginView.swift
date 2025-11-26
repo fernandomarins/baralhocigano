@@ -18,9 +18,8 @@ struct LoginView: View {
 
             VStack(spacing: 20) {
                 Text("Login")
-                    .font(.largeTitle)
-                    .bold()
-                    .foregroundColor(.white)
+                    .font(AppFonts.title)
+                    .foregroundColor(AppColors.textPrimary)
 
                 // Email field
                 CustomTextField(
@@ -38,7 +37,7 @@ struct LoginView: View {
 
                 if let error = viewModel.errorMessage {
                     Text(error)
-                        .foregroundColor(.white)
+                        .foregroundColor(.red.opacity(0.8))
                         .font(.caption)
                         .multilineTextAlignment(.center)
                 }
@@ -51,6 +50,11 @@ struct LoginView: View {
                     action: {
                         Task {
                             await viewModel.login()
+                            if viewModel.didLogin {
+                                await MainActor.run {
+                                    coordinator.push(.main)
+                                }
+                            }
                         }
                     }
                 )
@@ -65,26 +69,24 @@ struct LoginView: View {
                         }
                     }
                 }
-                .foregroundColor(.white)
+                .foregroundColor(AppColors.textPrimary)
                 .padding(.top)
 
                 // Criar conta
                 Button("Criar conta") {
                     coordinator.push(.register)
                 }
-                .foregroundColor(.white)
+                .foregroundColor(AppColors.antiqueGold)
                 .padding(.top)
             }
             .padding()
         }
-        // onAppear e onChange devem ser aplicados à view retornada dentro do body,
-        // não fora da struct — por isso estão aqui.
         .onAppear {
             Task {
                 await viewModel.checkLoginStatus()
             }
         }
-        .onChange(of: viewModel.didLogin) { oldValue, newValue in
+        .onChange(of: viewModel.didLogin) { _, newValue in
             if newValue {
                 coordinator.push(.main)
             }

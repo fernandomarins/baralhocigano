@@ -8,14 +8,14 @@
 import Foundation
 
 @MainActor
-@Observable class RegisterViewModel: ObservableObject {
+class RegisterViewModel: ObservableObject {
     private let registerUseCase: RegisterUseCaseProtocol
     
-    var email = ""
-    var password = ""
-    var errorMessage: String?
-    var isLoading = false
-    var didRegister = false
+    @Published var email = ""
+    @Published var password = ""
+    @Published var errorMessage: String?
+    @Published var isLoading = false
+    @Published var didRegister = false
 
     init(registerUseCase: RegisterUseCaseProtocol = DependencyContainer.shared.registerUseCase) {
         self.registerUseCase = registerUseCase

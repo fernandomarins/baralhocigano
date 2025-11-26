@@ -26,16 +26,13 @@ struct CustomTextField: View {
             }
         }
         .padding()
-        .background(
-            ZStack {
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .fill(.ultraThinMaterial)
-                RoundedRectangle(cornerRadius: 8, style: .continuous)
-                    .fill(AppColors.fieldBackground)
-            }
+        .background(AppColors.fieldBackground)
+        .cornerRadius(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(AppColors.antiqueGold, lineWidth: 1)
         )
         .foregroundColor(AppColors.textPrimary)
-        .cornerRadius(8)
     }
 }
 
