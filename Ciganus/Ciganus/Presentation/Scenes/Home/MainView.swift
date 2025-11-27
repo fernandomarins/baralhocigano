@@ -12,133 +12,99 @@ struct MainView: View {
     @EnvironmentObject var coordinator: AppCoordinator
     @Environment(\.modelContext) private var modelContext
 
-    private let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
-
-    private let mysticPastelColors = AppColors.mysticPastels // Mantendo nome da var, mas usando novas cores
-
     var body: some View {
         ZStack {
-            AppBackground()
-
-                Group {
-                    switch viewModel.state {
-                    case .loading:
-                        VStack {
-                            Spacer()
-                            ProgressView("Carregando cartas...")
-                                .progressViewStyle(CircularProgressViewStyle())
-                            Spacer()
-                        }
-                    case .error(let message):
-                        VStack(spacing: 16) {
-                            Text(message)
-                                .foregroundColor(.red)
-                                .multilineTextAlignment(.center)
-                            Button("Tentar novamente") {
-                                viewModel.loadData()
-                            }
-                        }
-                        .padding()
-                    case .success(let cards):
-                        ScrollView {
-                            LazyVGrid(columns: columns, spacing: 16) {
-                                ForEach(cards.indices, id: \.self) { index in
-                                    let card = cards[index]
-
-                                    Button(action: {
-                                        coordinator.push(.cardDetails(card, false))
-                                    }) {
-                                        VStack(alignment: .leading, spacing: 8) {
-                                            Text("#\(index + 1)")
-                                                .font(.caption)
-                                                .fontWeight(.bold)
-                                                .foregroundColor(AppColors.antiqueGold)
-                                            Text(card.name)
-                                                .font(AppFonts.cardTitle)
-                                                .foregroundColor(AppColors.textPrimary)
-                                                .lineLimit(2)
-                                                .minimumScaleFactor(0.8)
-                                        }
-                                        .frame(maxWidth: 160, minHeight: 60, alignment: .leading)
-                                        .padding()
-                                        .background(AppColors.cardBackground)
-                                        .cornerRadius(12)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .stroke(AppColors.antiqueGold, lineWidth: 1)
-                                        )
-                                        .shadow(color: Color.black.opacity(0.1), radius: 3, x: 0, y: 2)
-                                    }
+            // Cosmic background
+            CosmicBackground()
+            
+            VStack(spacing: 0) {
+                // Header with cosmic glow
+                VStack(spacing: 8) {
+                    Text("🔮 Baralho Cigano")
+                        .font(.system(size: 32, weight: .bold, design: .rounded))
+                        .foregroundStyle(
+                            LinearGradient(
+                                colors: [.purple.opacity(0.9), .blue.opacity(0.9), .cyan],
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .shadow(color: .purple.opacity(0.5), radius: 10)
+                        .shadow(color: .blue.opacity(0.3), radius: 20)
+                }
+                .padding(.top, 40)
+                .padding(.bottom, 20)
+                
+                // Cards grid
+                if let cards = viewModel.state.value {
+                    ScrollView {
+                        LazyVGrid(columns: [
+                            GridItem(.flexible(), spacing: 16),
+                            GridItem(.flexible(), spacing: 16)
+                        ], spacing: 16) {
+                            ForEach(cards.indices, id: \.self) { index in
+                                let card = cards[index]
+                                CosmicCardView(
+                                    cardNumber: index + 1,
+                                    cardName: card.name,
+                                    index: index
+                                )
+                                .onTapGesture {
+                                    coordinator.push(.cardDetails(card, false))
                                 }
                             }
-                            .padding()
                         }
-                    case .idle:
-                        EmptyView()
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 100)
                     }
+                } else {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .cyan))
+                        .scaleEffect(1.5)
                 }
-                .navigationTitle("Cartas")
-
-                VStack {
-                    Spacer()
-                    HStack {
-                        Button(action: {
-                            coordinator.push(.combinedCards)
-                        }) {
-                            Image(systemName: "2.circle")
-                                .font(.largeTitle)
-                                .foregroundColor(AppColors.antiqueGold)
-                                .frame(width: 60, height: 60)
-                                .background(AppColors.deepSepia)
-                                .clipShape(Circle())
-                                .overlay(
-                                    Circle()
-                                        .stroke(AppColors.antiqueGold, lineWidth: 2)
-                                )
-                                .shadow(color: Color.black.opacity(0.2), radius: 4)
+                
+                Spacer()
+            }
+            
+            // Bottom navigation with cosmic style
+            VStack {
+                Spacer()
+                HStack(spacing: 40) {
+                    CosmicButton(icon: "2.circle", action: {
+                        coordinator.push(.combinedCards)
+                    })
+                    
+                    CosmicButton(icon: "plus.message", action: {
+                        coordinator.push(.dailyReading)
+                    })
+                    
+                    CosmicButton(icon: "menucard.fill", action: {
+                        if let cards = viewModel.state.value {
+                            coordinator.push(.allCards(cards))
                         }
-                        .padding(.leading, 20)
-                        Spacer()
-                        Button(action: {
-                            coordinator.push(.dailyReading)
-                        }) {
-                            Image(systemName: "plus.message")
-                                .font(.largeTitle)
-                                .foregroundColor(AppColors.antiqueGold)
-                                .frame(width: 60, height: 60)
-                                .background(AppColors.deepSepia)
-                                .clipShape(Circle())
-                                .overlay(
-                                    Circle()
-                                        .stroke(AppColors.antiqueGold, lineWidth: 2)
+                    })
+                }
+                .padding(.vertical, 12)
+                .padding(.horizontal, 30)
+                .background(
+                    Capsule()
+                        .fill(.ultraThinMaterial)
+                        .overlay(
+                            Capsule()
+                                .stroke(
+                                    LinearGradient(
+                                        colors: [.purple.opacity(0.5), .blue.opacity(0.5)],
+                                        startPoint: .topLeading,
+                                        endPoint: .bottomTrailing
+                                    ),
+                                    lineWidth: 1
                                 )
-                                .shadow(color: Color.black.opacity(0.2), radius: 4)
-                        }
-                        Spacer()
-                        Button(action: {
-                            if let cards = viewModel.state.value {
-                                coordinator.push(.allCards(cards))
-                            }
-                        }) {
-                            Image(systemName: "menucard.fill")
-                                .font(.largeTitle)
-                                .foregroundColor(AppColors.antiqueGold)
-                                .frame(width: 60, height: 60)
-                                .background(AppColors.deepSepia)
-                                .clipShape(Circle())
-                                .overlay(
-                                    Circle()
-                                        .stroke(AppColors.antiqueGold, lineWidth: 2)
-                                )
-                                .shadow(color: Color.black.opacity(0.2), radius: 4)
-                        }
-                        .padding(.trailing, 20)
-                    }
-                    .padding(.bottom, 20)
-                    }
+                        )
+                        .shadow(color: .purple.opacity(0.3), radius: 20)
+                )
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
+            }
         }
         .onAppear {
             viewModel.setContext(modelContext)
@@ -147,6 +113,131 @@ struct MainView: View {
     }
 }
 
-#Preview {
-    MainView()
+
+
+// MARK: - Cosmic Card View
+struct CosmicCardView: View {
+    let cardNumber: Int
+    let cardName: String
+    let index: Int
+    @State private var appeared = false
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("#\(cardNumber)")
+                .font(.caption)
+                .fontWeight(.bold)
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [.cyan, .blue],
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+            
+            Text(cardName)
+                .font(.system(size: 16, weight: .semibold, design: .rounded))
+                .foregroundColor(.white)
+                .lineLimit(2)
+                .minimumScaleFactor(0.8)
+        }
+        .frame(maxWidth: .infinity, minHeight: 80, alignment: .leading)
+        .padding()
+        .background(
+            ZStack {
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(
+                        LinearGradient(
+                            colors: [
+                                Color(red: 0.15, green: 0.1, blue: 0.25).opacity(0.8),
+                                Color(red: 0.1, green: 0.05, blue: 0.2).opacity(0.9)
+                            ],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                
+                RoundedRectangle(cornerRadius: 16)
+                    .stroke(
+                        LinearGradient(
+                            colors: [.purple.opacity(0.6), .blue.opacity(0.4), .cyan.opacity(0.3)],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: 1
+                    )
+            }
+        )
+        .shadow(color: .purple.opacity(0.3), radius: 8, x: 0, y: 4)
+        .shadow(color: .blue.opacity(0.2), radius: 15)
+        .scaleEffect(appeared ? 1 : 0.8)
+        .opacity(appeared ? 1 : 0)
+        .animation(
+            .spring(response: 0.6, dampingFraction: 0.7)
+            .delay(Double(index) * 0.05),
+            value: appeared
+        )
+        .onAppear {
+            appeared = true
+        }
+    }
+}
+
+// MARK: - Cosmic Button
+struct CosmicButton: View {
+    let icon: String
+    let action: () -> Void
+    @State private var isPressed = false
+    
+    var body: some View {
+        Button(action: {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                isPressed = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.6)) {
+                    isPressed = false
+                }
+            }
+            action()
+        }) {
+            Image(systemName: icon)
+                .font(.system(size: 24, weight: .semibold))
+                .foregroundStyle(
+                    LinearGradient(
+                        colors: [.cyan, .blue, .purple],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .frame(width: 60, height: 60)
+                .background(
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [
+                                    Color(red: 0.2, green: 0.15, blue: 0.3).opacity(0.8),
+                                    Color(red: 0.15, green: 0.1, blue: 0.25).opacity(0.9)
+                                ],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                )
+                .overlay(
+                    Circle()
+                        .stroke(
+                            LinearGradient(
+                                colors: [.purple.opacity(0.6), .blue.opacity(0.4), .cyan.opacity(0.5)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 2
+                        )
+                )
+                .shadow(color: .purple.opacity(0.4), radius: 10)
+                .shadow(color: .cyan.opacity(0.3), radius: 15)
+                .scaleEffect(isPressed ? 0.9 : 1.0)
+        }
+    }
 }

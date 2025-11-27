@@ -8,133 +8,150 @@
 import SwiftUI
 
 struct CombinedCardsView: View {
-    @State private var cardNumber1: String = ""
-    @State private var cardNumber2: String = ""
-    @State private var combinedDescription: String = ""
-    @State private var nameFirstCard: String = ""
-    @State private var nameSecondCard: String = ""
-    @State private var combinedCards: [CombinedCardModel] = []
-
+    @StateObject private var viewModel = CombinedCardsViewModel()
     @FocusState private var focusedField: Field?
 
     enum Field {
         case number1, number2
     }
 
-    var isValidInput: Bool {
-        guard let num1 = Int(cardNumber1), let num2 = Int(cardNumber2) else { return false }
-        return (1...36).contains(num1) && (1...36).contains(num2) && num1 != num2
-    }
-
     var body: some View {
         ZStack {
-            AppBackground()
+            CosmicBackground()
                 .onTapGesture {
                     focusedField = nil
                 }
 
             VStack(spacing: 20) {
                 Text("🔮 Combine as Cartas")
-                    .font(AppFonts.title)
-                    .foregroundColor(AppColors.textPrimary)
+                    .font(.system(size: 32, weight: .bold, design: .rounded))
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [.purple.opacity(0.9), .blue.opacity(0.9), .cyan],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .shadow(color: .purple.opacity(0.5), radius: 10)
                     .padding(.top)
 
                 HStack(spacing: 16) {
-                    VStack {
-                        TextField("Número 1", text: $cardNumber1)
+                    VStack(spacing: 12) {
+                        TextField("Número 1", text: $viewModel.cardNumber1)
                             .padding()
-                            .background(AppColors.fieldBackground)
-                            .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(AppColors.antiqueGold, lineWidth: 1)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color.black.opacity(0.3))
                             )
-                            .foregroundColor(AppColors.textPrimary)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(
+                                        LinearGradient(
+                                            colors: [.purple.opacity(0.6), .blue.opacity(0.4), .cyan.opacity(0.3)],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ),
+                                        lineWidth: 1
+                                    )
+                            )
+                            .foregroundColor(.white)
                             .focused($focusedField, equals: .number1)
                             .keyboardType(.numberPad)
-                        if !nameFirstCard.isEmpty {
-                            Text("\(nameFirstCard.uppercased())")
-                                .font(AppFonts.caption)
-                                .foregroundColor(AppColors.textSecondary)
+                        if !viewModel.nameFirstCard.isEmpty {
+                            Text("\(viewModel.nameFirstCard.uppercased())")
+                                .font(.caption)
+                                .foregroundColor(.cyan)
                                 .bold()
                         }
                     }
-                    VStack {
-                        TextField("Número 2", text: $cardNumber2)
+                    VStack(spacing: 12) {
+                        TextField("Número 2", text: $viewModel.cardNumber2)
                             .padding()
-                            .background(AppColors.fieldBackground)
-                            .cornerRadius(10)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(AppColors.antiqueGold, lineWidth: 1)
+                            .background(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color.black.opacity(0.3))
                             )
-                            .foregroundColor(AppColors.textPrimary)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(
+                                        LinearGradient(
+                                            colors: [.purple.opacity(0.6), .blue.opacity(0.4), .cyan.opacity(0.3)],
+                                            startPoint: .topLeading,
+                                            endPoint: .bottomTrailing
+                                        ),
+                                        lineWidth: 1
+                                    )
+                            )
+                            .foregroundColor(.white)
                             .focused($focusedField, equals: .number2)
                             .keyboardType(.numberPad)
-                        if !nameSecondCard.isEmpty {
-                            Text("\(nameSecondCard.uppercased())")
-                                .font(AppFonts.caption)
-                                .foregroundColor(AppColors.textSecondary)
+                        if !viewModel.nameSecondCard.isEmpty {
+                            Text("\(viewModel.nameSecondCard.uppercased())")
+                                .font(.caption)
+                                .foregroundColor(.cyan)
                                 .bold()
                         }
                     }
                 }
                 .padding(.horizontal)
 
-                Button(action: buscarCombinacaoPorNomes) {
-                    Text("Buscar Combinação")
-                        .font(AppFonts.headline)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(isValidInput ? AppColors.deepSepia : Color.gray.opacity(0.5))
-                        .foregroundColor(isValidInput ? AppColors.antiqueGold : Color.white.opacity(0.5))
-                        .cornerRadius(12)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(isValidInput ? AppColors.antiqueGold : Color.clear, lineWidth: 1)
-                        )
-                }
-                .disabled(!isValidInput)
+                PrimaryButton(
+                    title: "Buscar Combinação",
+                    isDisabled: !viewModel.isValidInput,
+                    action: {
+                        viewModel.buscarCombinacaoPorNomes()
+                        focusedField = nil
+                    }
+                )
                 .padding(.horizontal)
 
                 Text("Resultado da Combinação:")
-                    .font(AppFonts.headline)
-                    .foregroundColor(AppColors.textPrimary)
+                    .font(.headline)
+                    .foregroundColor(.white)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.horizontal)
                     .padding(.top)
 
                 ScrollView {
                     Group {
-                        if !cardNumber1.isEmpty && !cardNumber2.isEmpty {
-                            if let n1 = Int(cardNumber1), let n2 = Int(cardNumber2), n1 == n2 {
+                        if !viewModel.cardNumber1.isEmpty && !viewModel.cardNumber2.isEmpty {
+                            if let n1 = Int(viewModel.cardNumber1), let n2 = Int(viewModel.cardNumber2), n1 == n2 {
                                 Text("As cartas não podem ser iguais.")
-                                    .font(AppFonts.body)
+                                    .font(.body)
                                     .foregroundColor(.red.opacity(0.8))
-                            } else if !isValidInput {
+                            } else if !viewModel.isValidInput {
                                 Text("Por favor, insira números válidos entre 1 e 36.")
-                                    .font(AppFonts.body)
+                                    .font(.body)
                                     .foregroundColor(.red.opacity(0.8))
                             } else {
-                                Text(combinedDescription.isEmpty ? "Aguardando combinação..." : combinedDescription)
-                                    .font(AppFonts.body)
-                                    .foregroundColor(AppColors.textPrimary)
+                                Text(viewModel.combinedDescription.isEmpty ? "Aguardando combinação..." : viewModel.combinedDescription)
+                                    .font(.body)
+                                    .foregroundColor(.white.opacity(0.9))
                             }
                         } else {
-                            Text(combinedDescription.isEmpty ? "Aguardando combinação..." : combinedDescription)
-                                .font(AppFonts.body)
-                                .foregroundColor(AppColors.textPrimary)
+                            Text(viewModel.combinedDescription.isEmpty ? "Aguardando combinação..." : viewModel.combinedDescription)
+                                .font(.body)
+                                .foregroundColor(.white.opacity(0.9))
                         }
                     }
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .frame(height: 200)
-                .background(AppColors.cardBackground)
-                .cornerRadius(12)
+                .background(
+                    RoundedRectangle(cornerRadius: 12)
+                        .fill(Color.black.opacity(0.3))
+                )
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(AppColors.antiqueGold, lineWidth: 1)
+                        .stroke(
+                            LinearGradient(
+                                colors: [.purple.opacity(0.3), .blue.opacity(0.2)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: 1
+                        )
                 )
                 .padding(.horizontal)
 
@@ -143,35 +160,7 @@ struct CombinedCardsView: View {
             .padding(.top, 40)
         }
         .onAppear {
-            getCards()
+            viewModel.loadCards()
         }
-    }
-
-    func getCards() {
-        do {
-            combinedCards = try CombinedCards().getCombinedCards()
-        } catch {
-            print("Erro ao carregar as cartas combinadas: \(error)")
-        }
-    }
-
-    func buscarCombinacaoPorNomes() {
-        guard let num1 = Int(cardNumber1), let num2 = Int(cardNumber2) else { return }
-
-        let nomeCarta1 = Source.shared.nomesDasCartas["\(num1)"] ?? ""
-        let nomeCarta2 = Source.shared.nomesDasCartas["\(num2)"] ?? ""
-
-        nameFirstCard = nomeCarta1
-        nameSecondCard = nomeCarta2
-
-        let combinedName = "\(nomeCarta1), \(nomeCarta2)"
-
-        if let foundCard = combinedCards.first(where: { $0.number.lowercased() == combinedName.lowercased() }) {
-            combinedDescription = foundCard.description
-        } else {
-            combinedDescription = "Nenhuma combinação encontrada para \(combinedName)"
-        }
-
-        focusedField = nil
     }
 }

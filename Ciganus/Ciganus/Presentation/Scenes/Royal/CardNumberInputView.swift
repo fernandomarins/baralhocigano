@@ -28,9 +28,10 @@ struct CardNumberInputView: View {
             .focused($textFieldFocused)
             .keyboardType(.numberPad)
             .multilineTextAlignment(.center)
-            .font(.title3.weight(.bold))
+            .font(.title2.weight(.bold))
             .foregroundColor(.white)
             .padding(4)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
                 RoundedRectangle(cornerRadius: 8)
                     .strokeBorder(borderColor, lineWidth: borderWidth)

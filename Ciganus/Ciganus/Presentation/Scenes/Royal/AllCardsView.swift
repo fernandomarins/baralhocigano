@@ -13,6 +13,8 @@ struct AllCardsView: View {
     @State private var cardNumbers: [Int: String] = [:]
     @State private var highlightedDuplicates: Set<Int> = []
     @State private var isReadingViewPresented = false
+    @State private var isSavedReadingsPresented = false
+    @FocusState private var focusedField: Int?
 
     private let sectionTitles = [
         "Influências passadas/paralelas",
@@ -28,12 +30,7 @@ struct AllCardsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                LinearGradient(
-                    gradient: Gradient(colors: [Color.purple, Color.indigo]),
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-                .ignoresSafeArea()
+                CosmicBackground()
 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
@@ -48,32 +45,37 @@ struct AllCardsView: View {
                                     ForEach(0..<6, id: \.self) { cardIndex in
                                         let globalIndex = sectionIndex * 6 + cardIndex
                                         
-                                        TextField("", text: Binding(
-                                            get: { cardNumbers[globalIndex] ?? "" },
-                                            set: { newValue in
-                                                let filtered = newValue.filter { "0123456789".contains($0) }
-                                                let limited = String(filtered.prefix(2))
-                                                
-                                                if limited.isEmpty || (Int(limited) != nil && (1...36).contains(Int(limited)!)) {
-                                                    cardNumbers[globalIndex] = limited
-                                                    validateDuplicates()
+                                        CardNumberInputView(
+                                            cardNumber: Binding(
+                                                get: { cardNumbers[globalIndex] ?? "" },
+                                                set: { newValue in
+                                                    let filtered = newValue.filter { "0123456789".contains($0) }
+                                                    let limited = String(filtered.prefix(2))
+                                                    
+                                                    if limited.isEmpty || (Int(limited) != nil && (1...36).contains(Int(limited)!)) {
+                                                        cardNumbers[globalIndex] = limited
+                                                        validateDuplicates()
+                                                        
+                                                        // Auto-advance focus if 2 digits are entered
+                                                        if limited.count == 2 {
+                                                            if globalIndex < 35 {
+                                                                focusedField = globalIndex + 1
+                                                            } else {
+                                                                focusedField = nil
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ),
+                                            isDuplicate: highlightedDuplicates.contains(globalIndex),
+                                            isFocused: focusedField == globalIndex,
+                                            onFocusChange: { focused in
+                                                if focused {
+                                                    focusedField = globalIndex
                                                 }
                                             }
-                                        ))
-                                        .keyboardType(.numberPad)
-                                        .multilineTextAlignment(.center)
-                                        .font(.title3.weight(.bold))
-                                        .foregroundColor(.white)
-                                        .padding(8)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .strokeBorder(
-                                                    highlightedDuplicates.contains(globalIndex) ? Color.red : Color.white,
-                                                    lineWidth: highlightedDuplicates.contains(globalIndex) ? 2 : 1
-                                                )
-                                                .background(Color.white.opacity(0.2).cornerRadius(8))
                                         )
-                                        .frame(height: 50)
+                                        .frame(height: 70)
                                     }
                                 }
                                 .padding(.horizontal)
@@ -83,7 +85,17 @@ struct AllCardsView: View {
                     .padding(.vertical)
                 }
                 .navigationTitle("Mesa Real Kármica")
+                .preferredColorScheme(.dark)
                 .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            isSavedReadingsPresented = true
+                        } label: {
+                            Label("Leituras Salvas", systemImage: "book.fill")
+                        }
+                        .foregroundColor(.white)
+                    }
+                    
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("Leitura") {
                             isReadingViewPresented = true
@@ -97,6 +109,9 @@ struct AllCardsView: View {
                         allCards: allCards,
                         sectionTitles: sectionTitles
                     )
+                }
+                .sheet(isPresented: $isSavedReadingsPresented) {
+                    SavedRoyalReadingsView()
                 }
             }
         }

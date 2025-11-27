@@ -14,29 +14,38 @@ struct AllCardsReadingView: View {
     let sectionTitles: [String]
     
     @State private var combinedCards: [CombinedCardModel] = []
+    @State private var aiInterpretations: [Int: String] = [:] // sectionIndex -> interpretation
+    @State private var loadingStates: [Int: Bool] = [:] // sectionIndex -> isLoading
+    @State private var showingSaveAlert = false
+    @State private var saveAlertMessage = ""
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) private var modelContext
     
     // MARK: - Body
     var body: some View {
         NavigationView {
             ZStack {
-                backgroundGradient
+                CosmicBackground()
                 
                 ScrollView {
                     VStack(alignment: .leading, spacing: 20) {
                         headerView
                         
                         ForEach(0..<sectionTitles.count, id: \.self) { sectionIndex in
-                            ReadingSectionView(
-                                title: sectionTitles[sectionIndex],
-                                sectionIndex: sectionIndex,
-                                selectedCardNumbers: selectedCardNumbers,
-                                allCards: allCards,
-                                combinedCards: combinedCards
-                            )
-                            
-                            if sectionIndex < sectionTitles.count - 1 {
-                                Divider().background(Color.white.opacity(0.5))
+                            if hasSectionCards(sectionIndex: sectionIndex) {
+                                ReadingSectionView(
+                                    title: sectionTitles[sectionIndex],
+                                    sectionIndex: sectionIndex,
+                                    selectedCardNumbers: selectedCardNumbers,
+                                    allCards: allCards,
+                                    combinedCards: combinedCards,
+                                    aiInterpretation: aiInterpretations[sectionIndex],
+                                    isLoadingAI: loadingStates[sectionIndex] ?? false
+                                )
+                                
+                                if sectionIndex < sectionTitles.count - 1 {
+                                    Divider().background(Color.white.opacity(0.5))
+                                }
                             }
                         }
                     }
@@ -45,6 +54,16 @@ struct AllCardsReadingView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        saveReading()
+                    } label: {
+                        Label("Salvar", systemImage: "square.and.arrow.down")
+                    }
+                    .foregroundColor(.white)
+                    .disabled(aiInterpretations.isEmpty)
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Fechar") {
                         dismiss()
@@ -52,26 +71,24 @@ struct AllCardsReadingView: View {
                     .foregroundColor(.white)
                 }
             }
+            .alert("Leitura Salva", isPresented: $showingSaveAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(saveAlertMessage)
+            }
         }
         .onAppear {
             loadCombinedCards()
+            generateAIInterpretations()
         }
     }
     
     // MARK: - Subviews
     
-    private var backgroundGradient: some View {
-        LinearGradient(
-            gradient: Gradient(colors: [Color.indigo, Color.blue]),
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
-        .ignoresSafeArea()
-    }
-    
     private var headerView: some View {
         Text("Leitura da Mesa Real Kármica")
             .font(.largeTitle)
+            .bold()
             .foregroundColor(.white)
             .padding(.vertical)
     }
@@ -85,78 +102,69 @@ struct AllCardsReadingView: View {
             print("Erro ao carregar as cartas combinadas: \(error)")
         }
     }
-}
-
-// MARK: - Helper Views
-
-private struct ReadingSectionView: View {
-    let title: String
-    let sectionIndex: Int
-    let selectedCardNumbers: [Int: String]
-    let allCards: [Card]
-    let combinedCards: [CombinedCardModel]
     
-    var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Text(title)
-                .font(.headline)
-                .foregroundColor(.white)
-                .padding(.bottom, 4)
+    private func generateAIInterpretations() {
+        // Check if Apple Intelligence is available
+        if #available(iOS 26.0, *) {
+            // Generate interpretations for each section
+            for sectionIndex in 0..<sectionTitles.count {
+                generateInterpretation(for: sectionIndex)
+            }
+        }
+        // If not available, interpretations will remain nil and fallback will show
+    }
+    
+    @available(iOS 18.1, *)
+    private func generateInterpretation(for sectionIndex: Int) {
+        // Set loading state
+        loadingStates[sectionIndex] = true
+        
+        // Collect the 5 combinations for this section
+        var combinations: [RoyalReadingInterpreter.CardCombination] = []
+        
+        for pairIndex in 0..<5 {
+            let firstIndex = sectionIndex * 6 + pairIndex
+            let secondIndex = sectionIndex * 6 + pairIndex + 1
             
-            ForEach(0..<5, id: \.self) { pairIndex in
-                CombinationRow(
-                    sectionIndex: sectionIndex,
-                    pairIndex: pairIndex,
-                    selectedCardNumbers: selectedCardNumbers,
-                    allCards: allCards,
-                    combinedCards: combinedCards
+            if let card1 = getCard(at: firstIndex),
+               let card2 = getCard(at: secondIndex) {
+                let description = getCombinationDescription(card1Name: card1.name, card2Name: card2.name)
+                combinations.append(
+                    RoyalReadingInterpreter.CardCombination(
+                        card1: card1,
+                        card2: card2,
+                        description: description
+                    )
                 )
             }
         }
-    }
-}
-
-private struct CombinationRow: View {
-    let sectionIndex: Int
-    let pairIndex: Int
-    let selectedCardNumbers: [Int: String]
-    let allCards: [Card]
-    let combinedCards: [CombinedCardModel]
-    
-    var body: some View {
-        let firstIndex = sectionIndex * 6 + pairIndex
-        let secondIndex = sectionIndex * 6 + pairIndex + 1
         
-        if let card1 = getCard(at: firstIndex),
-           let card2 = getCard(at: secondIndex),
-           let num1 = selectedCardNumbers[firstIndex],
-           let num2 = selectedCardNumbers[secondIndex] {
-            
-            VStack(alignment: .leading, spacing: 8) {
-                Text("Combinação \(num1) + \(num2): \(card1.name) + \(card2.name)")
-                    .font(.subheadline)
-                    .foregroundColor(.white)
-                    .bold()
+        // Only generate interpretation if there are valid combinations
+        guard !combinations.isEmpty else {
+            loadingStates[sectionIndex] = false
+            return
+        }
+        
+        // Generate interpretation asynchronously
+        Task {
+            do {
+                let interpreter = RoyalReadingInterpreter()
+                let interpretation = try await interpreter.generateInterpretation(
+                    for: combinations,
+                    in: sectionTitles[sectionIndex]
+                )
                 
-                Text("Significado:")
-                    .font(.caption)
-                    .foregroundColor(.white.opacity(0.8))
-                
-                Text(getCombinationDescription(card1Name: card1.name, card2Name: card2.name))
-                    .foregroundColor(.white.opacity(0.9))
-                    .font(.body)
-                    .fixedSize(horizontal: false, vertical: true)
+                await MainActor.run {
+                    aiInterpretations[sectionIndex] = interpretation
+                    loadingStates[sectionIndex] = false
+                }
+            } catch {
+                print("Erro ao gerar interpretação para seção \(sectionIndex): \(error)")
+                await MainActor.run {
+                    loadingStates[sectionIndex] = false
+                    // Interpretation remains nil, will show fallback
+                }
             }
-            .padding()
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(Color.black.opacity(0.2))
-            .cornerRadius(8)
-            
-        } else {
-            Text("Par \(pairIndex + 1): Cartas não selecionadas")
-                .font(.caption)
-                .foregroundColor(.white.opacity(0.5))
-                .padding(.vertical, 4)
         }
     }
     
@@ -175,6 +183,45 @@ private struct CombinationRow: View {
         } else {
             return "Nenhuma combinação encontrada para \(card1Name) e \(card2Name)."
         }
+    }
+    
+    private func saveReading() {
+        // Convert aiInterpretations from [Int: String] to [String: String]
+        var interpretationsDict: [String: String] = [:]
+        for (sectionIndex, interpretation) in aiInterpretations {
+            if sectionIndex < sectionTitles.count {
+                interpretationsDict[sectionTitles[sectionIndex]] = interpretation
+            }
+        }
+        
+        // Create and save the RoyalReading
+        let royalReading = RoyalReading(
+            cardNumbers: selectedCardNumbers,
+            aiInterpretations: interpretationsDict
+        )
+        
+        modelContext.insert(royalReading)
+        
+        do {
+            try modelContext.save()
+            saveAlertMessage = "Leitura salva com sucesso em \(royalReading.shortDate)"
+            showingSaveAlert = true
+        } catch {
+            saveAlertMessage = "Erro ao salvar: \(error.localizedDescription)"
+            showingSaveAlert = true
+        }
+    }
+    
+    private func hasSectionCards(sectionIndex: Int) -> Bool {
+        // Check if at least one card is filled in this section
+        // Each section has 6 cards (indices: sectionIndex * 6 to sectionIndex * 6 + 5)
+        for cardIndex in 0..<6 {
+            let globalIndex = sectionIndex * 6 + cardIndex
+            if let cardNumber = selectedCardNumbers[globalIndex], !cardNumber.isEmpty {
+                return true
+            }
+        }
+        return false
     }
 }
 

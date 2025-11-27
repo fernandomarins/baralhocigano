@@ -37,13 +37,13 @@ class MainViewModel: ObservableObject {
         do {
             let cards = try repository.fetchAll().sorted(by: { (Int($0.number) ?? 0) < (Int($1.number) ?? 0) })
             if !cards.isEmpty {
-                self.state = .success(cards)
+                state = .success(cards)
             } else {
-                self.state = .loading
+                state = .loading
             }
         } catch {
             print("Erro ao carregar dados locais: \(error)")
-            self.state = .error("Erro ao carregar dados locais.")
+            state = .error("Erro ao carregar dados locais.")
         }
         
         // 2. Sincronizar em background
@@ -58,11 +58,11 @@ class MainViewModel: ObservableObject {
         do {
             // UseCase handles sync and fetch
             let newCards = try await fetchCardsUseCase.execute(context: context)
-            self.state = .success(newCards)
+            state = .success(newCards)
         } catch {
             print("Erro na sincronização: \(error)")
             if case .loading = state {
-                self.state = .error("Não foi possível carregar as cartas. Verifique sua conexão.")
+                state = .error("Não foi possível carregar as cartas. Verifique sua conexão.")
             }
         }
     }

@@ -13,12 +13,19 @@ struct RegisterView: View {
     
     var body: some View {
         ZStack {
-            AppBackground()
+            CosmicBackground()
             
             VStack(spacing: 20) {
                 Text("Criar Conta")
-                    .font(AppFonts.title)
-                    .foregroundColor(AppColors.textPrimary)
+                    .font(.system(size: 32, weight: .bold, design: .rounded))
+                    .foregroundStyle(
+                        LinearGradient(
+                            colors: [.purple.opacity(0.9), .blue.opacity(0.9), .cyan],
+                            startPoint: .leading,
+                            endPoint: .trailing
+                        )
+                    )
+                    .shadow(color: .purple.opacity(0.5), radius: 10)
                 
                 CustomTextField(
                     placeholder: "Email",

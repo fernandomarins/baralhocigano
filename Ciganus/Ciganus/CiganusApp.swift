@@ -47,6 +47,6 @@ struct YourApp: App {
             }
             .environmentObject(coordinator)
         }
-        .modelContainer(for: Card.self)
+        .modelContainer(for: [Card.self, Reading.self, RoyalReading.self])
     }
 }
