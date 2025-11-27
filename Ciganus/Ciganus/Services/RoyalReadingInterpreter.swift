@@ -42,9 +42,10 @@ struct FoundationModelsTextGenerator: TextGenerating {
 
         // 2. Instruções fixas para o modelo (como se fosse o “system prompt”)
         let instructions = """
-        Você é um tarólogo especialista em Baralho Cigano.
-        Responda em português do Brasil, com linguagem acessível,
-        sem listar as cartas individualmente, fazendo uma síntese coesa.
+        Você é um especialista em Baralho Cigano.
+        Responda em português do Brasil, com linguagem acessível.
+        Não use terminologia de Tarot (como Arcanos).
+        Faça uma síntese coesa das combinações apresentadas, sempre usando o viés kármico.
         """
 
         // 3. Cria a sessão
@@ -66,8 +67,8 @@ actor RoyalReadingInterpreter {
     // MARK: - Types
     
     struct CardCombination {
-        let card1Name: String
-        let card2Name: String
+        let card1: Card
+        let card2: Card
         let description: String
     }
     
@@ -110,26 +111,39 @@ actor RoyalReadingInterpreter {
     // MARK: - Private Methods
     
     private func buildPrompt(combinations: [CardCombination], sectionTitle: String) -> String {
-        // Collect only non-empty description texts from the combinations
-        let descriptions = combinations
-            .map { $0.description }
-            .filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
-            .joined(separator: "\n\n")
+        // Build a detailed description for each combination
+        let descriptions = combinations.map { combination in
+            """
+            PAR DE CARTAS:
+            Carta 1: \(combination.card1.name)
+            - Palavras-chave: \(combination.card1.keywords)
+            - Significados: \(combination.card1.generalMeanings)
+            
+            Carta 2: \(combination.card2.name)
+            - Palavras-chave: \(combination.card2.keywords)
+            - Significados: \(combination.card2.generalMeanings)
+            
+            Descrição da Combinação no App:
+            \(combination.description)
+            """
+        }.joined(separator: "\n\n---\n\n")
         
         let prompt = """
         Contexto: \(sectionTitle)
+        Sistema: Baralho Cigano (Lenormand)
         
-        Textos das combinações de cartas:
+        DADOS OFICIAIS DAS CARTAS (USE APENAS ESTES DADOS):
         
         \(descriptions)
         
-        Com base nesses textos, crie uma interpretação única e coesa que sintetize o significado geral no contexto de "\(sectionTitle)".
+        Com base EXCLUSIVAMENTE nos dados fornecidos acima, crie uma interpretação única e coesa que sintetize o significado geral no contexto de "\(sectionTitle)".
         
         A interpretação deve:
-        1. Sintetizar os significados apresentados
-        2. Ser fluida e coesa, mencionando o nome das cartas combinadas
-        3. Ter entre 3-5 parágrafos
-        4. Considerar o contexto específico da seção
+        1. Focar exclusivamente no simbolismo do Baralho Cigano (Lenormand) fornecido.
+        2. NÃO inventar significados ou nomes de cartas que não estejam listados acima.
+        3. Sintetizar os significados apresentados de forma fluida.
+        4. Ter entre 3-5 parágrafos.
+        5. Considerar o contexto específico da seção.
         
         Interpretação:
         """

@@ -131,8 +131,8 @@ struct AllCardsReadingView: View {
                 let description = getCombinationDescription(card1Name: card1.name, card2Name: card2.name)
                 combinations.append(
                     RoyalReadingInterpreter.CardCombination(
-                        card1Name: card1.name,
-                        card2Name: card2.name,
+                        card1: card1,
+                        card2: card2,
                         description: description
                     )
                 )
