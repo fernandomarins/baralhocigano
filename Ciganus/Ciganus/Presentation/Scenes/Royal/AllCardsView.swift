@@ -13,6 +13,7 @@ struct AllCardsView: View {
     @State private var cardNumbers: [Int: String] = [:]
     @State private var highlightedDuplicates: Set<Int> = []
     @State private var isReadingViewPresented = false
+    @State private var isSavedReadingsPresented = false
     @FocusState private var focusedField: Int?
 
     private let sectionTitles = [
@@ -86,6 +87,15 @@ struct AllCardsView: View {
                 .navigationTitle("Mesa Real Kármica")
                 .preferredColorScheme(.dark)
                 .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button {
+                            isSavedReadingsPresented = true
+                        } label: {
+                            Label("Leituras Salvas", systemImage: "book.fill")
+                        }
+                        .foregroundColor(.white)
+                    }
+                    
                     ToolbarItem(placement: .navigationBarTrailing) {
                         Button("Leitura") {
                             isReadingViewPresented = true
@@ -99,6 +109,9 @@ struct AllCardsView: View {
                         allCards: allCards,
                         sectionTitles: sectionTitles
                     )
+                }
+                .sheet(isPresented: $isSavedReadingsPresented) {
+                    SavedRoyalReadingsView()
                 }
             }
         }

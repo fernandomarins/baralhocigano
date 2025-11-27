@@ -16,7 +16,10 @@ struct AllCardsReadingView: View {
     @State private var combinedCards: [CombinedCardModel] = []
     @State private var aiInterpretations: [Int: String] = [:] // sectionIndex -> interpretation
     @State private var loadingStates: [Int: Bool] = [:] // sectionIndex -> isLoading
+    @State private var showingSaveAlert = false
+    @State private var saveAlertMessage = ""
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) private var modelContext
     
     // MARK: - Body
     var body: some View {
@@ -51,12 +54,27 @@ struct AllCardsReadingView: View {
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button {
+                        saveReading()
+                    } label: {
+                        Label("Salvar", systemImage: "square.and.arrow.down")
+                    }
+                    .foregroundColor(.white)
+                    .disabled(aiInterpretations.isEmpty)
+                }
+                
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button("Fechar") {
                         dismiss()
                     }
                     .foregroundColor(.white)
                 }
+            }
+            .alert("Leitura Salva", isPresented: $showingSaveAlert) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(saveAlertMessage)
             }
         }
         .onAppear {
@@ -164,6 +182,33 @@ struct AllCardsReadingView: View {
             return combination.description
         } else {
             return "Nenhuma combinação encontrada para \(card1Name) e \(card2Name)."
+        }
+    }
+    
+    private func saveReading() {
+        // Convert aiInterpretations from [Int: String] to [String: String]
+        var interpretationsDict: [String: String] = [:]
+        for (sectionIndex, interpretation) in aiInterpretations {
+            if sectionIndex < sectionTitles.count {
+                interpretationsDict[sectionTitles[sectionIndex]] = interpretation
+            }
+        }
+        
+        // Create and save the RoyalReading
+        let royalReading = RoyalReading(
+            cardNumbers: selectedCardNumbers,
+            aiInterpretations: interpretationsDict
+        )
+        
+        modelContext.insert(royalReading)
+        
+        do {
+            try modelContext.save()
+            saveAlertMessage = "Leitura salva com sucesso em \(royalReading.shortDate)"
+            showingSaveAlert = true
+        } catch {
+            saveAlertMessage = "Erro ao salvar: \(error.localizedDescription)"
+            showingSaveAlert = true
         }
     }
     
